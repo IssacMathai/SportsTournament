@@ -1,6 +1,5 @@
 /**
  * This class implements an Athlete. Athletes have their own name and stats.
- *
  */
 
 public class Athlete {
@@ -29,7 +28,7 @@ public class Athlete {
      */
     private boolean isInjured;
 
-    public Athlete(String name, int age, int offence, int defence){
+    public Athlete(String name, int age, int offence, int defence) {
         this.name = name;
         this.age = age;
         this.offence = offence;
@@ -44,42 +43,49 @@ public class Athlete {
     public String getName() {
         return name;
     }
+
     /**
      * Returns Age of the Athlete
      */
     public int getAge() {
         return age;
     }
+
     /**
      * Returns injury status of the Athlete
      */
     public boolean isIs_injured() {
         return isInjured;
     }
+
     /**
      * Returns defence stat of the Athlete
      */
     public int getDefence() {
         return defence;
     }
+
     /**
      * Returns offence stat of the Athlete
      */
     public int getOffence() {
         return offence;
     }
+
     /**
      * Returns current stamina stat of the Athlete
      */
     public int getStamina() {
         return stamina;
     }
+
     /**
      * Sets a nickname for the Athlete
      */
     public void setName(String name) {
         this.name = name;
     }
+
     /**
      * Sets the current stamina of the Athlete
      */
