@@ -20,13 +20,13 @@ public class Team {
     }
 
     /**
-     * Adds an athlete to the team provided the following conditions are met:
-     * The team must not already contain the athlete
+     * Adds an athlete to the team provided the following conditions are met:\n
+     * The team must not already contain the athlete\n
      * The size of the team must be no greater than 3
      * @param athlete   pass in an athlete to add
      */
     public void addAthlete(Athlete athlete) {
-        if (!teamMembers.contains(athlete)) {
+        if (!teamMembers.contains(athlete) && teamMembers.size() < 4) {
             teamMembers.add(athlete);
         }
 
