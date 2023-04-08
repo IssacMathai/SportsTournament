@@ -94,10 +94,33 @@ public class Athlete {
     }
 
     /**
+     * Sets the current offence of the Athlete
+     */
+    public void setOffence(int offence) {
+        this.offence = offence;
+    }
+
+    /**
+     * Sets the current defence of the Athlete
+     */
+    public void setDefence(int defence) {
+        this.defence = defence;
+    }
+
+    /**
      * Sets the injury status of the Athlete
      */
     public void setisInjured(boolean is_injured) {
         this.isInjured = is_injured;
+    }
+	
+    /**
+     * Use an item on the Athlete
+     */
+    public void useItem(Item item) {
+		this.setOffence(this.getOffence() + item.getOffence());
+		this.setDefence(this.getDefence() + item.getDefence());
+		this.setStamina(this.getStamina() + item.getStamina());
     }
 
 
