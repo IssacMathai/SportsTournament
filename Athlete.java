@@ -39,6 +39,8 @@ public class Athlete {
 
     /**
      * Returns name of the Athlete
+     *
+     * @return name
      */
     public String getName() {
         return name;
@@ -46,6 +48,8 @@ public class Athlete {
 
     /**
      * Returns Age of the Athlete
+     *
+     * @return age
      */
     public int getAge() {
         return age;
@@ -53,6 +57,8 @@ public class Athlete {
 
     /**
      * Returns injury status of the Athlete
+     *
+     * @return isInjured
      */
     public boolean isIs_injured() {
         return isInjured;
@@ -60,6 +66,8 @@ public class Athlete {
 
     /**
      * Returns defence stat of the Athlete
+     *
+     * @return defence
      */
     public int getDefence() {
         return defence;
@@ -67,6 +75,8 @@ public class Athlete {
 
     /**
      * Returns offence stat of the Athlete
+     *
+     * @return offence
      */
     public int getOffence() {
         return offence;
@@ -74,6 +84,8 @@ public class Athlete {
 
     /**
      * Returns current stamina stat of the Athlete
+     *
+     * @return stamina
      */
     public int getStamina() {
         return stamina;
@@ -81,6 +93,8 @@ public class Athlete {
 
     /**
      * Sets a nickname for the Athlete
+     *
+     * @param name the new name of the team
      */
     public void setName(String name) {
         this.name = name;
@@ -88,13 +102,22 @@ public class Athlete {
 
     /**
      * Sets the current stamina of the Athlete
+     * The stamina of the Athlete can be no less than 0.
+     * If the Athlete's stamina is 0, the setIsInjured method is called to make the Athlete injured.
+     *
+     * @param stamina the new stamina of the athlete
      */
     public void setStamina(int stamina) {
-        this.stamina = stamina;
+        this.stamina = Math.max(stamina, 0);
+        if (this.stamina == 0) {
+            setisInjured(true);
+        }
     }
 
     /**
      * Sets the injury status of the Athlete
+     *
+     * @param is_injured whether the athlete is now injured or not
      */
     public void setisInjured(boolean is_injured) {
         this.isInjured = is_injured;
