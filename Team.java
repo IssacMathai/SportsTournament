@@ -26,10 +26,21 @@ public class Team {
      * @param athlete   pass in an athlete to add
      */
     public void addAthlete(Athlete athlete) {
-        if (!teamMembers.contains(athlete) && teamMembers.size() < 4) {
+        if (!teamMembers.contains(athlete) && teamMembers.size() < 5) {
             teamMembers.add(athlete);
         }
+    }
 
+    /**
+     * Adds an athlete to the team provided the following conditions is met:
+     * The team must not already contain the athlete
+     * The purpose of this temp add method is for swapping athletes between Team and Reserves.
+     * @param athlete   pass in an athlete to add
+     */
+    public void tempAddAthlete(Athlete athlete) {
+        if (!teamMembers.contains(athlete)) {
+            teamMembers.add(athlete);
+        }
     }
 
     /**
@@ -65,6 +76,15 @@ public class Team {
     }
 
     /**
+     * Returns the athlete at the index
+     * @param index     passes in the index of an athlete in the Team
+     * @return Athlete returns the athlete at the index
+     */
+    public Athlete getAthlete(int index) {
+        return teamMembers.get(index);
+    }
+
+    /**
      * Returns the team ArrayList
      * @return teamMembers
      */
@@ -77,10 +97,12 @@ public class Team {
      */
     @Override
     public String toString() {
+        int number = 1;
         String names = "";
         for (Athlete member : teamMembers) {
-            names += member;
+            names += number + ": " + member;
             names += "\n";
+            number += 1;
         }
         int count = names.length();
         if (count > 1) {
