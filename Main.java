@@ -3,17 +3,21 @@ import java.util.Scanner;
 /**
  * This class is the entry point for the entire program.
  */
-
 public class Main {
 	/**
      * Contains a string of all the valid characters that a team name can be made of
      */
-	private static final String legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcedfghijklmnopqrstuvwxyz ";
+	private static final String legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcedfghijklmnopqrstuvwxyz '";
 	
 	/**
      * Number of seasons between 5 and 15
      */
 	private int numWeeks;
+	
+	/**
+     * Player Money
+     */
+	private int money = 0;
 	
 	/**
 	 * Provides corrective feedback
@@ -79,6 +83,22 @@ public class Main {
 	}
 	
 	/**
+     * Sets money
+	 * @param money	sets money
+     */
+	public void setMoney(int money) {
+		this.money = money;
+	}
+	
+	/**
+     * Gets money
+	 * @return money
+     */
+	public int getMoney() {
+		return this.money;
+	}
+	
+	/**
      * Prompts the user to input the number of weeks
 	 * Must be between 5 and 15
      */
@@ -113,28 +133,65 @@ public class Main {
 		Main game = new Main();
 		
 		// Create a team
-		System.out.println("======================");
+		System.out.println("==========================");
         Team team = new Team( game.inputTeamName() );
 		
 		// Choose number of seasons
-		System.out.println("======================");
+		System.out.println("==========================");
 		game.setNumWeeks( game.inputNumWeeks() );
 		
+		// Chose Athletes
+		// TODO
+		
+		// Sort out difficulty
+		// TODO
+		
+		game.setMoney( 100 );
+		
 		// Rest of program
-		System.out.println("======================");
-		System.out.println(team.getName());
-		System.out.println(game.getNumWeeks());
-        Athlete joe = new Athlete("Joe", 20, 20, 20);
-        Athlete james = new Athlete("James", 21, 20, 20);
-        Athlete john = new Athlete("John", 22, 20, 20);
-        Athlete jock = new Athlete("Jock", 22, 20, 20);
-        Athlete jordan = new Athlete("Jordan", 22, 20, 20);
-        team.addAthlete(joe);
-        team.addAthlete(james);
-        team.addAthlete(john);
-        team.addAthlete(jock);
-        team.addAthlete(jordan);
+		
+		System.out.println("==========================");
+		//System.out.println(team.getName());
+		//System.out.println(game.getNumWeeks());
+		
+		
+        team.addAthlete( new Athlete("Joe", 20, 20, 20) );
+        team.addAthlete( new Athlete("James", 21, 20, 20) );
+        team.addAthlete( new Athlete("John", 22, 20, 20) );
+        team.addAthlete( new Athlete("Jock", 22, 20, 20) );
+        team.addAthlete( new Athlete("Jordan", 22, 20, 20) );
+		
+		
+		Inventory inv = new Inventory();
+		
+		inv.addItem( new Item("Water", "good for denfece", 0, 0, 5, 100, 90) );
+		inv.addItem( new Item("Shoes", "good for offence", 5, 0, 0, 100, 90) );
+		inv.addItem( new Item("Gun", "shoot opponent", 10, 0, 0, 100, 90) );
+		inv.addItem( new Item("Heavy Shield", "block opponent", 1, 8, -6, 100, 90) );
+		inv.addItem( new Item("Coke", "tasty", 99, 99, 99, 100, 50) );
+		inv.addItem( new Item("Inifite Money", "buy then sell", 0, 0, 0, 0, 1000) );
+		
+		// BEFORE
+		System.out.println("\nTeam:");
         System.out.println(team);
+		
+		System.out.println("\nInventory:");
+		System.out.println(inv);
+		
+		// USE ITEM
+		System.out.println("\nTesting using an item on John below (try to spot the change...)\n");
+		team.getAthlete(2).setName("JOHN CENA");
+		if (inv.itemExists(5)) {
+			// Use Shoes on John
+			team.getAthlete(2).useItem(inv.useItem(5));
+		}
+		
+		// AFTER
+		System.out.println("\nTeam:");
+        System.out.println(team);
+		
+		System.out.println("\nInventory:");
+		System.out.println(inv);
     }
 }
 
