@@ -20,6 +20,15 @@ public class Match {
      */
     private int enemyScore;
 
+    /**
+     * Whether the player's team won or not
+     */
+    private boolean isFriendlyWin;
+    /**
+     * Whether the match was a tie or not
+     */
+    private boolean isTie;
+
     public Match(Team friendlyTeam, Team enemyTeam) {
         this.friendlyTeam = friendlyTeam;
         this.enemyTeam = enemyTeam;
@@ -42,6 +51,14 @@ public class Match {
         while (playerNumber < 3) {
             Athlete currentFriendlyAthlete = friendlyTeam.getAthlete(playerNumber);
             Athlete currentEnemyAthlete = enemyTeam.getAthlete(playerNumber);
+
+            // If either player is injured, begin the injury playoff.
+            if (currentFriendlyAthlete.getIsInjured() || currentEnemyAthlete.getIsInjured()) {
+                injuryPlayoff(currentFriendlyAthlete, currentEnemyAthlete);
+                playerNumber += 1;
+                continue;
+            }
+
             if (currentFriendlyAthlete.getOffence() > currentEnemyAthlete.getOffence()) {
                 friendlyScore += 1;
                 currentFriendlyAthlete.setStamina(currentFriendlyAthlete.getStamina() - 25);
@@ -69,6 +86,14 @@ public class Match {
         while (playerNumber < 5) {
             Athlete currentFriendlyAthlete = friendlyTeam.getAthlete(playerNumber);
             Athlete currentEnemyAthlete = enemyTeam.getAthlete(playerNumber);
+
+            // If either player is injured, begin the injury playoff.
+            if (currentFriendlyAthlete.getIsInjured() || currentEnemyAthlete.getIsInjured()) {
+                injuryPlayoff(currentFriendlyAthlete, currentEnemyAthlete);
+                playerNumber += 1;
+                continue;
+            }
+
             if (currentFriendlyAthlete.getDefence() > currentEnemyAthlete.getDefence()) {
                 friendlyScore += 1;
                 currentFriendlyAthlete.setStamina(currentFriendlyAthlete.getStamina() - 25);
@@ -85,9 +110,26 @@ public class Match {
         }
     }
 
+
+    /**
+     * The injury playoff. This begins if either of the athletes competing against each other is injured.
+     * If a team's player is injured, the opposing team wins the playoff and gains a point.
+     * If both teams' players are injured, then no points are awarded.
+     * @param currentFriendlyAthlete    The current friendly athlete competing
+     * @param currentEnemyAthlete       The current enemy athlete competing
+     */
+    public void injuryPlayoff(Athlete currentFriendlyAthlete, Athlete currentEnemyAthlete) {
+        if (currentFriendlyAthlete.getIsInjured() && !currentEnemyAthlete.getIsInjured()) {
+            enemyScore += 1;
+        } else if (!currentFriendlyAthlete.getIsInjured() && currentEnemyAthlete.getIsInjured()) {
+            friendlyScore += 1;
+        }
+    }
+
     /**
      * The match summary. Here, the final scores are read and the winning team is announced.
      * The post match status of both teams are displayed.
+     * The boolean properties isFriendlyWin and isTie are also set here.
      */
     public void result() {
         System.out.println("\nThe final score is:");
@@ -95,10 +137,16 @@ public class Match {
         System.out.println(enemyTeam.getName() + ": " + enemyScore);
         if (friendlyScore > enemyScore) {
             System.out.println("\n" + friendlyTeam.getName() + " are the winners!\n");
+            isFriendlyWin = true;
+            isTie = false;
         } else if (friendlyScore < enemyScore) {
             System.out.println("\n" + enemyTeam.getName() + " are the winners!\n");
+            isFriendlyWin = false;
+            isTie = false;
         } else {
             System.out.println("It's a draw!\n");
+            isFriendlyWin = false;
+            isTie = true;
         }
 
         System.out.println(friendlyTeam.getName() + " Status:");
@@ -109,10 +157,26 @@ public class Match {
 
     }
 
+    /**
+     * Returns whether the match was a tie or not
+     * @return tie
+     */
+    public boolean getIsTie() {
+        return isTie;
+    }
+
+    /**
+     * Returns whether the friendly team won or not
+     * @return friendlyWin
+     */
+    public boolean getIsFriendlyWin() {
+        return isFriendlyWin;
+    }
 
     public static void main(String[] args) {
         Team a = new Team("Diamond Dogs");
         Athlete joe = new Athlete("Joe", 20, 80, 80);
+        joe.setStamina(0);
         Athlete james = new Athlete("James", 21, 80, 80);
         Athlete john = new Athlete("John", 22, 80, 80);
         Athlete jock = new Athlete("Jock", 22, 80, 10);
@@ -124,10 +188,12 @@ public class Match {
         a.addAthlete(jordan);
 
         Team b = new Team("Cipher");
-        Athlete peter = new Athlete("Peter", 20, 20, 20);
+        Athlete peter = new Athlete("Peter", 20, 80, 20);
+        peter.setStamina(0);
         Athlete paul = new Athlete("Paul", 20, 20, 20);
         Athlete patrick = new Athlete("Patrick", 20, 20, 20);
         Athlete phoenix = new Athlete("Phoenix", 20, 20, 20);
+        //phoenix.setStamina(0);
         Athlete piper = new Athlete("Piper", 20, 20, 20);
         b.addAthlete(peter);
         b.addAthlete(paul);

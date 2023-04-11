@@ -1,6 +1,5 @@
 import java.util.Collections;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
  * This class implements the Club. The club contains both the Team and the Reserves.
@@ -27,15 +26,18 @@ public class Club {
      * Prompts the user to decide what they want to do in the Club.
      */
     public void userPrompt() {
-        System.out.println("To view the following, please input the corresponding number.");
+        System.out.println("\nTo view the following, please input the corresponding number.");
         System.out.println("1. Team Properties");
         System.out.println("2: Reserves Properties");
         System.out.println("3: Swap Athletes with Reserves");
+        System.out.println("4: Exit the club");
         int input = getUserInput();
         if (input == 1) {
             System.out.println(team);
+            userPrompt();
         } else if (input == 2) {
             System.out.println(reserves);
+            userPrompt();
 
         } else if (input == 3) {
             swapAthletes();
@@ -43,7 +45,9 @@ public class Club {
             System.out.println(team);
             System.out.println("New Reserves:");
             System.out.println(reserves);
-
+            userPrompt();
+        } else if (input == 4) {
+            System.out.println("You are leaving the Club.");
         }
     }
 
@@ -56,7 +60,7 @@ public class Club {
         System.out.println("Current Reserves:");
         System.out.println(reserves);
 
-        System.out.println("Please enter the number of the Athlete you wish to swap out");
+        System.out.println("\nPlease enter the number of the Athlete you wish to swap out");
         int outgoingAthleteIndex = getUserInput() - 1;
         Athlete outgoingAthlete = team.getAthlete(outgoingAthleteIndex);
 
