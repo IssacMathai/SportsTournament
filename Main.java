@@ -17,7 +17,7 @@ public class Main {
 	/**
      * Player Money
      */
-	private int money = 0;
+	private Money money = new Money();
 	
 	/**
 	 * Provides corrective feedback
@@ -87,7 +87,7 @@ public class Main {
 	 * @param money	sets money
      */
 	public void setMoney(int money) {
-		this.money = money;
+		this.money.set(money);
 	}
 	
 	/**
@@ -95,24 +95,23 @@ public class Main {
 	 * @return money
      */
 	public int getMoney() {
-		return this.money;
+		return this.money.get();
 	}
 	
 	/**
-     * Prompts the user to input the number of weeks
-	 * Must be between 5 and 15
+     * Prompts the user to input a number between 2 parameters inclusive
      */
-	public int inputNumWeeks() {
-		System.out.println("How many weeks should the season last for?");
+	public int inputNumber(int lower, int upper, String message) {
+		System.out.println(message);
 		boolean invalid = true;
-		int weeks = -69;
+		int number = -69; // javac wants number to be initialized
 		while (invalid) {
 			try {
-				String response = getUserInput("Enter a number from 5 to 15...");
-				weeks = Integer.parseInt(response);
-				if (weeks < 5 || weeks > 15) {
-					// Weeks is out of bounds
-					this.feedback("Number of weeks must be between 5 and 15");
+				String response = getUserInput("Enter a number from " + lower + " to " + upper + "...");
+				number = Integer.parseInt(response);
+				if (number < lower || number > upper) {
+					// number is out of bounds
+					this.feedback("Number must be between " + lower + " and " + upper);
 				} else {
 					// Valid Answer
 					invalid = false;
@@ -122,8 +121,33 @@ public class Main {
 				this.feedback("That is not an acceptable number");
 			}
 		}
-		return weeks;
+		return number;
 	}
+	
+	/**
+     * Prompts the user to input the number of weeks
+	 * Must be between 5 and 15
+     */
+	public int inputNumWeeks() {
+		return this.inputNumber(5, 15, "How many weeks should the season last for?");
+	}
+	
+	/**
+	 * Attempt to purchase an item
+	 */
+	public boolean attemptItemPurchase(int itemIndex, ItemsMarket market, Inventory inv) {
+		int itemPrice = market.getItemPrice(itemIndex);
+		if (this.getMoney() >= itemPrice) {
+			System.out.println(market.buyItem(itemIndex, inv));
+			this.setMoney(this.getMoney() - itemPrice);
+			System.out.println("Purchase Successful!"); // Optional
+			return true;
+		} else {
+			this.feedback("Not enough money - you have: $" + this.getMoney() + " (you need: $" + itemPrice + ")"); // Provide feedback
+			return false;
+		}
+	}
+	
 	
 	/**
      * Creates an Instance of the game
@@ -192,6 +216,47 @@ public class Main {
 		
 		System.out.println("\nInventory:");
 		System.out.println(inv);
+		
+		
+		
+		// Market
+		Inventory shop = new Inventory();
+		
+		shop.addItem( new Item("Water", "good for stamina", 0, 0, 5, 100, 90) );
+		shop.addItem( new Item("Shoes", "good for offence", 5, 0, 0, 100, 90) );
+		shop.addItem( new Item("Machine Gun", "shoot opponent", 10, 0, 0, 110, 90) );
+		shop.addItem( new Item("Massive Dildo", "whack opponent", 69, 0, 0, 105, 95) );
+		shop.addItem( new Item("Coke", "tasty", 99, 99, 99, 100, 50) );
+		shop.addItem( new Item("Inifite Money", "buy then sell", 0, 0, 0, 0, 1000) );
+		
+		ItemsMarket market = new ItemsMarket( shop );
+		
+		System.out.println("\nMarket Stuffs\n");
+		
+		// Print Money
+		System.out.println("You have $" + game.getMoney());
+		
+		
+		// User chooses an item to buy
+		int itemIndex = game.inputNumber(1, market.length(), "Which item to you want to buy?") - 1;
+		// Game attempts to purchase item
+		game.attemptItemPurchase(itemIndex, market, inv);
+		
+		// Print Money
+		System.out.println("You have $" + game.getMoney());
+		
+		// try to buy items that don't exist in Market
+		System.out.println(market.buyItem(-1, inv));
+		System.out.println(market.buyItem(100, inv));
+		
+		System.out.println("\nInventory After:");
+		System.out.println(inv);
+		System.out.println("\nMarket After:");
+		System.out.println(market);
+		
+		
+		
+		
     }
 }
 
