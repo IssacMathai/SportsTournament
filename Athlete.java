@@ -60,7 +60,7 @@ public class Athlete {
      *
      * @return isInjured
      */
-    public boolean isIs_injured() {
+    public boolean getIsInjured() {
         return isInjured;
     }
 
@@ -110,12 +110,13 @@ public class Athlete {
     public void setStamina(int stamina) {
         this.stamina = Math.max(stamina, 0);
         if (this.stamina == 0) {
-            setisInjured(true);
+            setIsInjured(true);
         }
     }
 
     /**
      * Sets the current offence of the Athlete
+     * @param offence the new offence stat the athlete should have
      */
     public void setOffence(int offence) {
         this.offence = offence;
@@ -123,6 +124,7 @@ public class Athlete {
 
     /**
      * Sets the current defence of the Athlete
+     * @param defence the new defence stat the athlete should have
      */
     public void setDefence(int defence) {
         this.defence = defence;
@@ -133,12 +135,13 @@ public class Athlete {
      *
      * @param is_injured whether the athlete is now injured or not
      */
-    public void setisInjured(boolean is_injured) {
+    public void setIsInjured(boolean is_injured) {
         this.isInjured = is_injured;
     }
 	
     /**
      * Use an item on the Athlete
+     * @param item  the item that the athlete is using
      */
     public void useItem(Item item) {
 		this.setOffence(this.getOffence() + item.getOffence());

@@ -93,6 +93,21 @@ public class Team {
     }
 
     /**
+     * Checks if all Athletes in the team are injured and returns a boolean
+     * @return allInjured   returns whether all team members are injured or not.
+     */
+    public boolean isAllInjured() {
+        boolean allInjured = true;
+        for (Athlete member: teamMembers) {
+            if (!member.getIsInjured()) {
+                allInjured = false;
+                break;
+            }
+        }
+        return allInjured;
+    }
+
+    /**
      * Returns the details of the Athletes in the team in a string
      */
     @Override
@@ -115,15 +130,20 @@ public class Team {
     public static void main(String[] args) {
         Team a = new Team("Diamond Dogs");
         Athlete joe = new Athlete("Joe", 20, 20, 20);
+        joe.setStamina(0);
         Athlete james = new Athlete("James", 21, 20, 20);
+        james.setStamina(0);
         Athlete john = new Athlete("John", 22, 20, 20);
+        john.setStamina(0);
         Athlete jock = new Athlete("Jock", 22, 20, 20);
+        jock.setStamina(0);
         Athlete jordan = new Athlete("Jordan", 22, 20, 20);
+        jordan.setStamina(0);
         a.addAthlete(joe);
         a.addAthlete(james);
         a.addAthlete(john);
         a.addAthlete(jock);
         a.addAthlete(jordan);
-        System.out.println(a);
+        System.out.println(a.isAllInjured());
     }
 }
