@@ -64,7 +64,9 @@ public class Stadium {
         System.out.println("1: " + enemyTeam1.getName());
         System.out.println("2: " + enemyTeam2.getName());
         System.out.println("3: " + enemyTeam3.getName());
-        System.out.println("\nTo leave, input 4.");
+        System.out.println("\nOther Options:");
+        System.out.println("4: View Enemy Team Stats");
+        System.out.println("5: Leave the Stadium");
 
         int input = getUserInput();
         if (input == 1) {
@@ -95,6 +97,17 @@ public class Stadium {
                 userPrompt();
             }
         } else if (input == 4) {
+            System.out.println("\n" + enemyTeam1.getName() + " Stats:");
+            System.out.println(enemyTeam1);
+
+            System.out.println("\n" + enemyTeam2.getName() + " Stats:");
+            System.out.println(enemyTeam2);
+
+            System.out.println("\n" + enemyTeam3.getName() + " Stats:");
+            System.out.println(enemyTeam3);
+
+            userPrompt();
+        } else if (input == 5) {
             System.out.println("You are leaving the stadium.");
         }
     }
