@@ -92,6 +92,14 @@ public class Athlete {
     }
 
     /**
+     * Calculates and returns the value of a given athlete
+     *
+     */
+    public int getPrice() {
+        return this.offence + this.defence;
+    }
+
+    /**
      * Sets a nickname for the Athlete
      *
      * @param name the new name of the team

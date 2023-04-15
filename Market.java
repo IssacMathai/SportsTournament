@@ -15,18 +15,6 @@ public class Market {
 		this.objects = objects;
 	}
 	
-	/**
-	 * View Items in the shop
-	 */
-	@Override
-	public String toString() {
-		String string = "";
-		for (Object object : this.objects) {
-			Item item = (Item) object;
-			string += " $" + item.getPrice() + " - " + item + "\n";
-		}
-		return string;
-	}
 	public ArrayList<Object> getObjects() {
 		return this.objects;
 	}

@@ -33,6 +33,19 @@ public class ItemsMarket extends Market {
 	}
 	
 	/**
+	 * View Items in the shop
+	 */
+	@Override
+	public String toString() {
+		String string = "";
+		for (Object object : this.getObjects()) {
+			Item item = (Item) object;
+			string += " $" + item.getPrice() + " - " + item + "\n";
+		}
+		return string;
+	}
+	
+	/**
 	 * Take an item out of the Market and put it in the inventory
 	 * return true if purcahse was successful,
 	 * false if else

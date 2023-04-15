@@ -253,6 +253,47 @@ public class Main {
 		System.out.println(inv);
 		System.out.println("\nMarket After:");
 		System.out.println(market);
+		
+		
+		// Athlete Market
+		System.out.println("\nAthlete Market\n");
+		
+		Team shop2 = new Team(8);
+		
+		shop2.addAthlete( new Athlete("Brandon", 20, 20, 20) );
+        shop2.addAthlete( new Athlete("Jeff", 22, 20, 20) );
+        shop2.addAthlete( new Athlete("Michael", 100, 20, 20) );
+        shop2.addAthlete( new Athlete("Dave", 6, 20, 20) );
+		shop2.addAthlete( new Athlete("Joline", 5, 20, 20) );
+        shop2.addAthlete( new Athlete("Mitsuha", 25, 20, 20) );
+        shop2.addAthlete( new Athlete("Grian", 25, 25, 20) );
+        shop2.addAthlete( new Athlete("John Cena", 69, 200, 200) );
+		
+		AthleteMarket market2 = new AthleteMarket( shop2 );
+		
+		System.out.println("\nMarket2 Stuffs\n");
+		
+		// Print Money
+		System.out.println("You have $" + game.getMoney());
+		
+		
+		// User chooses an item to buy
+		itemIndex = game.inputNumber(1, market2.length(), "Which item to you want to buy?") - 1;
+		// Game attempts to purchase item
+		game.attemptAthletePurchase(itemIndex, market2, team);
+		
+		// Print Money
+		System.out.println("You have $" + game.getMoney());
+		
+		// try to buy items that don't exist in Market
+		//System.out.println(market.buyItem(-1, inv));
+		//System.out.println(market.buyItem(100, inv));
+		
+		System.out.println("\nTeam After:");
+		System.out.println(team);
+		System.out.println("\nMarket After:");
+		System.out.println(market2);
+		
     }
 }
 

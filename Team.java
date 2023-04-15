@@ -15,8 +15,19 @@ public class Team {
      */
     private String name;
 
+    /**
+     * Size of the team
+     */
+    private int size;
+
     public Team(String name) {
         this.name = name;
+		this.size = 5; // default size
+    }
+	
+    public Team(int size) {
+        this.name = "Team"; // default team name
+		this.size = size;
     }
 
     /**
@@ -26,7 +37,7 @@ public class Team {
      * @param athlete   pass in an athlete to add
      */
     public void addAthlete(Athlete athlete) {
-        if (!teamMembers.contains(athlete) && teamMembers.size() < 5) {
+        if (!teamMembers.contains(athlete) && teamMembers.size() < this.size) {
             teamMembers.add(athlete);
         }
     }
