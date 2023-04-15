@@ -17,7 +17,7 @@ public class Main {
 	/**
      * Player Money
      */
-	private int money = 0;
+	private Money money = new Money();
 	
 	/**
 	 * Provides corrective feedback
@@ -87,7 +87,7 @@ public class Main {
 	 * @param money	sets money
      */
 	public void setMoney(int money) {
-		this.money = money;
+		this.money.set(money);
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public class Main {
 	 * @return money
      */
 	public int getMoney() {
-		return this.money;
+		return this.money.get();
 	}
 	
 	/**
@@ -148,6 +148,21 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Attempt to purchase an athlete
+	 */
+	public boolean attemptAthletePurchase(int itemIndex, AthleteMarket market, Team team) {
+		int itemPrice = market.getItemPrice(itemIndex);
+		if (this.getMoney() >= itemPrice) {
+			System.out.println(market.buyItem(itemIndex, team));
+			this.setMoney(this.getMoney() - itemPrice);
+			System.out.println("Purchase Successful!"); // Optional
+			return true;
+		} else {
+			this.feedback("Not enough money - you have: $" + this.getMoney() + " (you need: $" + itemPrice + ")"); // Provide feedback
+			return false;
+		}
+	}
 	
 	/**
      * Creates an Instance of the game
@@ -183,7 +198,7 @@ public class Main {
         team.addAthlete( new Athlete("James", 21, 20, 20) );
         team.addAthlete( new Athlete("John", 22, 20, 20) );
         team.addAthlete( new Athlete("Jock", 22, 20, 20) );
-        team.addAthlete( new Athlete("Jordan", 22, 20, 20) );
+        //team.addAthlete( new Athlete("Jordan", 22, 20, 20) );
 		
 		
 		Inventory inv = new Inventory();
@@ -219,7 +234,7 @@ public class Main {
 		
 		
 		
-		// Market
+		// Items Market
 		Inventory shop = new Inventory();
 		
 		shop.addItem( new Item("Water", "good for stamina", 0, 0, 5, 100, 90) );
@@ -231,7 +246,7 @@ public class Main {
 		
 		ItemsMarket market = new ItemsMarket( shop );
 		
-		System.out.println("\nMarket Stuffs\n");
+		System.out.println("\nItems Market\n");
 		
 		// Print Money
 		System.out.println("You have $" + game.getMoney());
