@@ -46,22 +46,40 @@ public class Game {
 			// item objects has a function which takes athlete as a parameter then applies effects to athlete.
 			
 			// (2) go to the statium
-			Options staduimOptions = new Options( matches )
-			game.output("Matches left you can play");
-			int choice2 = game.options( staduimOptions ).join( "Go back..." );
 			
+			while (true) {
+				Options staduimOptions = new Options( matches )
+				game.output("Matches left you can play");
+				int choice2 = game.options( staduimOptions ).join( "Go back..." );
+				if (choice2 == staduimOptions.last()) {
+					// leave the staduim page...
+					break;
+				}
+				if (matches.status(choice2) == PLAYED) {
+					// looks like you've already played this team... choose again!
+					continue;
+				}
+				if (choice2) {
+					match = matches.getMatch(choice);
+					match.play(); // updates all stats on both teams including money
+					game.output( match.results() );
+				}
+			}
 			
 			// (3) visit the shop/market
-			game.output("Which Item do you want to buy");
-			int choice3 = game.options(new Options( shop.getItems() ).join( "Leave shop" )); // see later what types of parameter .join() takes
-			if (shop.canBuy( choice3 )) {
-				Item bought = shop.buy( choice3 );
-				// add bought to inventory
-				player.addItem( bought );
-				game.output("Purchase Successful!");
-			} else {
-				String reason = "you need $" + shop.price( choice3 ) + " for item " + shop.item( choice3 ) + ", you have $" + player.getMoney() + "."; // Item item also has a .getPrice() method
-				game.output("Purchase Unsuccessful... " + reason);
+			while (true) {
+				Options shopOptions = new Options( shop.getItems() ).join( "Leave shop" ); // see later what types of parameter .join() takes
+				game.output("Which Item do you want to buy (Enter " + shopOptions.last() + " to leave)");
+				int choice3 = game.options( shopOptions );
+				if (shop.canBuy( choice3 )) {
+					Item bought = shop.buy( choice3 );
+					// add bought to inventory
+					player.addItem( bought );
+					game.output("Purchase Successful!");
+				} else {
+					String reason = "you need $" + shop.price( choice3 ) + " for item " + shop.item( choice3 ) + ", you have $" + player.getMoney() + "."; // Item item also has a .getPrice() method
+					game.output("Purchase Unsuccessful... " + reason);
+				}
 			}
 			
 			// (4) move to the next week
