@@ -7,6 +7,7 @@ public class Game {
 	public void feedback(String string) {
 		this.output("[!] " + string);
 	}
+	// Return String
 	public String ui(String message, Validator v) {
 		Scanner scan = new Scanner(System.in);
 		this.output(message);
@@ -23,15 +24,54 @@ public class Game {
 		}
 		return input;
 	}
+	// Return Int
+	public int ui(String message, Validator v, ReturnType type) {
+		Scanner scan = new Scanner(System.in);
+		this.output(message);
+		String input = scan.nextLine();
+		boolean valid = false;
+		while (!valid) {
+			try {
+				valid = v.validate(input);
+			} catch (Exception e) {
+				// provides feedback and tries again
+				this.feedback(e.getMessage());
+				input = scan.nextLine();
+			}
+		}
+		// Safe to ParseInt
+		int number = Integer.parseInt(input);
+		return number;
+	}
 	public static void main(String[] args) {
 		Game game = new Game();
 		
 		Validator nameValidator = new NameValidator(3, 15);
 		
-		game.output("You typed " + game.ui("Type something", nameValidator));
+		game.output("You typed " + game.ui("Enter a team name below...", nameValidator));
 		
-		//Validator weeksValidator = new NameValidator(3, 15);
+		Validator weeksValidator = new WeeksValidator(5, 15);
 		
-		//game.output("You typed " + game.ui("Type something", weeksValidator));
+		game.output("You typed " + game.ui("How many weeks should the season last for?", weeksValidator, ReturnType.INT));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
