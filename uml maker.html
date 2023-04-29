@@ -287,6 +287,9 @@
 			if (objects[t].title.length*20+30 > objects[t].h) {
 				objects[t].h = objects[t].title.length*20+30;
 			}
+			if (ctx.measureText(label).width > objects[t].w + 20) {
+				objects[t].w = ctx.measureText(label).width + 20;
+			}
 		}
 		
 		function touching() {
@@ -409,8 +412,8 @@
 		
 		function loadFilesList() {
 			var tokenIndex;
-			function scan(token) {
-				while (tokens[tokenIndex] !== token) {
+			function scan(tokenList) {
+				while (!tokenList.includes(tokens[tokenIndex])) {
 					if (tokenIndex >= tokens.length) {
 						break;
 					}
@@ -439,8 +442,12 @@
 				
 				tokenIndex = 0;
 				console.log(tokens);
-				scan("class");
+				scan(["class", "enum", "interface"]);
 				var className = tokens[tokenIndex + 1];
+				
+				if (tokens[tokenIndex] !== "class") {
+					className = "<<" + tokens[tokenIndex] + ">> " + className;
+				}
 				
 				classNames.push(className);
 				
@@ -458,29 +465,96 @@
 				var code = filesList[i];
 				var tokens = tokenize(code);
 				
-				tokenIndex = 0;
-				scan("class");
-				var className = tokens[tokenIndex + 1];
 				
+				var firstPass = true;
+				for (var pass = 0; pass < 2; pass++) { // please indent this out when I get access to a code editor!
+				tokenIndex = 0;
+				scan(["class", "enum", "interface"]);
+				var className = tokens[tokenIndex + 1];
 				while (stopPoint()) {
 					var specifier = tokens[tokenIndex];
 					tokenIndex++;
 					var type = tokens[tokenIndex];
 					tokenIndex++;
+					var stack1 = 0;
+					var stack2 = 0;
+					var stack3 = 0;
+					var count = 0;
+					var isConstructor = false;
+					var parameters = "";
+					if (tokens[tokenIndex] === "<" || tokens[tokenIndex] === "[") {
+						while ((["(", "<", "["].includes(tokens[tokenIndex]) || stack1 !== 0 || stack2 !== 0 || stack3 !== 0) && count < 100) { count++; // watch out for infinte loop
+							if (tokens[tokenIndex] === "(") {
+								stack1++;
+							} else if (tokens[tokenIndex] === "<") {
+								stack2++;
+							} else if (tokens[tokenIndex] === "[") {
+								stack3++;
+							} else if (tokens[tokenIndex] === ")") {
+								stack1--;
+							} else if (tokens[tokenIndex] === ">") {
+								stack2--;
+							} else if (tokens[tokenIndex] === "]") {
+								stack3--;
+							}
+							type += tokens[tokenIndex];
+							tokenIndex++;
+						}
+					} else if (tokens[tokenIndex] === "(") {
+						isConstructor = true;
+						var tempParams = [];
+						while (tokens[tokenIndex+1] !== ")") {
+							tokenIndex++;
+							if (tokens[tokenIndex] === ",") {
+								var tempString = "";
+								while (tempParams.length > 1) {
+									tempString += tempParams.shift();
+								}
+								tempString = tempString + " : " + tempParams.pop()
+								parameters += tempString + ", ";
+							} else {
+								tempParams.push(tokens[tokenIndex]);
+							}
+						}
+						if (tempParams.length > 0) {							var tempString = "";
+							while (tempParams.length > 1) {
+								tempString += tempParams.shift();
+							}
+							tempString = tempParams.pop() + " : " + tempString;
+							parameters += tempString;
+						}
+						tokenIndex++;
+					}
 					var identifier = tokens[tokenIndex];
 					tokenIndex++;
-					addLabel(i, ['+','#','-'][specifiers.indexOf(specifier)] + " " + identifier + " : " + type);
+					if (firstPass && [";", "="].includes(tokens[tokenIndex])) {
+						if (isConstructor) {
+							addLabel(i, ['+','#','-'][specifiers.indexOf(specifier)] + " " + type + "(" + parameters + ")");
+						} else {
+							addLabel(i, ['+','#','-'][specifiers.indexOf(specifier)] + " " + identifier + " : " + type);
+						}
+					} else if (!firstPass && ![";", "="].includes(tokens[tokenIndex])) {
+						if (isConstructor) {
+							addLabel(i, ['+','#','-'][specifiers.indexOf(specifier)] + " " + type + "(" + parameters + ")");
+						} else {
+							addLabel(i, ['+','#','-'][specifiers.indexOf(specifier)] + " " + identifier + " : " + type);
+						}
+					}
 				}
-				
+				if (firstPass && objects[i].title.length > 1) {
+					addLabel(i, " ");
+				}
+				firstPass = false;
+				}
 			}
 		}
 		
-		function loadClass(code) {
+		function loadClass(code) { // outdated don't use this
 			var tokens = tokenize(code);
 			var prevToken = null;
 			for (var t = 0; t < tokens.length; t++) {
 				var token = tokens[t];
-				if (token === "class") {
+				if (["class", "enum", "interface"].includes(token)) {
 					objects.push(new Object(300, 50));
 				}
 				if (objects.length > 0) {
@@ -577,7 +651,7 @@
 		
 	</script>
 	<textarea id="code"></textarea>
-	<input id="file" type="file" multiple />
+	<input id="file" type="file" multiple oninput="uploadFiles()" />
 </body>
 
 
