@@ -64,7 +64,7 @@ public class Game {
 			while (true) {
 				Options staduimOptions = new Options( matches )
 				game.output("Matches left you can play");
-				int choice2 = game.options( staduimOptions ).join( "Go back..." );
+				int choice2 = game.options( staduimOptions.join( "Go back..."  ));
 				if (choice2 == staduimOptions.last()) {
 					// leave the staduim page...
 					break;
