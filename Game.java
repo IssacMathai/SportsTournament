@@ -48,7 +48,7 @@ public class Game {
 		
 		Validator nameValidator = new NameValidator(3, 15);
 		
-		game.output("You typed " + game.ui("Enter a team name below...", nameValidator));
+		Team player = new Team( game.ui("Choose a team name", nameValidator) );
 		
 		Validator weeksValidator = new WeeksValidator(5, 15);
 		
