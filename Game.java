@@ -82,6 +82,7 @@ public class Game {
 		// print rules
 		game.output( game.rules() );
 		
+		// updated again...		
 	}
 }
 
