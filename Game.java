@@ -50,6 +50,8 @@ public class Game {
 		
 		Team player = new Team( game.ui("Choose a team name", nameValidator) );
 		
+		game.output( player );
+		
 		Validator weeksValidator = new WeeksValidator(5, 15);
 		
 		game.output("You typed " + game.ui("How many weeks should the season last for?", weeksValidator, ReturnType.INT));

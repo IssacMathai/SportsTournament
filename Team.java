@@ -15,6 +15,24 @@ public class Team {
 	}
 	public Team(String name) {
 		this.name = name;
+		this.money = new Money(0);
+		this.teamSize = 0;
+		this.athletes = new ArrayList<Athlete>();
+		this.reserves = new ArrayList<Athlete>();
+	}
+	public Team(int teamSize) {
+		this.name = "";
+		this.money = new Money(0);
+		this.teamSize = teamSize;
+		this.athletes = new ArrayList<Athlete>();
+		this.reserves = new ArrayList<Athlete>();
+	}
+	public Team(String name, int teamSize) {
+		this.name = name;
+		this.money = new Money(0);
+		this.teamSize = teamSize;
+		this.athletes = new ArrayList<Athlete>();
+		this.reserves = new ArrayList<Athlete>();
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -22,8 +40,11 @@ public class Team {
 	public String getName() {
 		return this.name;
 	}
-	public Money price() {
-		return new Money(50);
+	public void setMoney(Money money) {
+		this.money = money;
+	}
+	public Money getMoney() {
+		return this.money;
 	}
 	public int teamCount() {
 		return this.athleteCount() + this.reserveCount();
@@ -70,19 +91,16 @@ public class Team {
 	// Other Stuff
 	@Override
 	public String toString() {
-		int number = 1;
-		String names = "";
-		for (Athlete member : teamMembers) {
-			names += number + ": " + member;
-			names += "\n";
-			number += 1;
+		String string = "";
+		string += "Team " + this.name + "\n";
+		string += "$" + this.money + "\n";
+		for (Athlete athlete : this.athletes) {
+			string += athlete + "\n";
 		}
-		int count = names.length();
-		if (count > 1) {
-			return names.substring(0, count - 1);
-		} else {
-			return "The team has no members.";
+		if (this.teamCount() == 0) {
+			string += "The team has no members.";
 		}
+		return string;
 	}
 }
 

@@ -1,15 +1,18 @@
 public class Money {
 	private int money;
-	public void set(money) {
+	public Money(int money) {
 		this.money = money;
 	}
-	public void set() {
+	public Money() {
 		this.money = 0;
+	}
+	public void set(int money) {
+		this.money = money;
 	}
 	public int get() {
 		return this.money;
 	}
 	public String toString() {
-		return this.money;
+		return "" + this.money;
 	}
 }
