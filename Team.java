@@ -43,6 +43,9 @@ public class Team {
 	public void setMoney(Money money) {
 		this.money = money;
 	}
+	public void setMoney(int money) {
+		this.money = new Money(money);
+	}
 	public Money getMoney() {
 		return this.money;
 	}
@@ -53,9 +56,13 @@ public class Team {
 	public int athleteCount() {
 		return this.athletes.size();
 	}
-	public void addAthlete(Athlete athlete) { // might throw an exception ("Team full!")
+	// return true on success
+	public boolean addAthlete(Athlete athlete) { // might throw an exception ("Team full!")
 		if (!this.athletes.contains(athlete) && this.athletes.size() < this.teamSize) {
 			this.athletes.add(athlete);
+			return true;
+		} else {
+			return false;
 		}
 	}
     public ArrayList<Athlete> getAthletes() {

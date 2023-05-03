@@ -12,6 +12,9 @@ public class Money {
 	public int get() {
 		return this.money;
 	}
+	public void change(int money) {
+		 this.money += money;
+	}
 	public String toString() {
 		return "" + this.money;
 	}

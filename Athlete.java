@@ -17,10 +17,16 @@ public class Athlete implements Sellable {
 	private Stats stats;
 	private int stamina;
 
-	public Athlete(String name, int age, int offence, int defence) {
+	public Athlete(String name, int age) {
 		this.name = name;
 		this.age = age;
 		this.stats = new Stats(new int[] {0, 0, 0});
+		this.stamina = 100;
+	}
+	public Athlete(String name, int age, Stats stats) {
+		this.name = name;
+		this.age = age;
+		this.stats = stats;
 		this.stamina = 100;
 	}
 
@@ -30,7 +36,7 @@ public class Athlete implements Sellable {
 	 * @return name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
@@ -39,7 +45,7 @@ public class Athlete implements Sellable {
 	 * @return age
 	 */
 	public int getAge() {
-		return age;
+		return this.age;
 	}
 
 	/**
@@ -47,26 +53,17 @@ public class Athlete implements Sellable {
 	 *
 	 * @return isInjured
 	 */
-	public boolean getIsInjured() {
-		return isInjured;
+	public boolean isInjured() {
+		return this.stamina <= 0;
 	}
 
 	/**
-	 * Returns defence stat of the Athlete
+	 * Returns stats of the Athlete
 	 *
-	 * @return defence
+	 * @return stats
 	 */
-	public int getDefence() {
-		return defence;
-	}
-
-	/**
-	 * Returns offence stat of the Athlete
-	 *
-	 * @return offence
-	 */
-	public int getOffence() {
-		return offence;
+	public Stats getStats() {
+		return this.stats;
 	}
 
 	/**
@@ -75,7 +72,7 @@ public class Athlete implements Sellable {
 	 * @return stamina
 	 */
 	public int getStamina() {
-		return stamina;
+		return this.stamina;
 	}
 
 	/**
@@ -96,34 +93,6 @@ public class Athlete implements Sellable {
 	 */
 	public void setStamina(int stamina) {
 		this.stamina = Math.max(stamina, 0);
-		if (this.stamina == 0) {
-			setIsInjured(true);
-		}
-	}
-
-	/**
-	 * Sets the current offence of the Athlete
-	 * @param offence the new offence stat the athlete should have
-	 */
-	public void setOffence(int offence) {
-		this.offence = offence;
-	}
-
-	/**
-	 * Sets the current defence of the Athlete
-	 * @param defence the new defence stat the athlete should have
-	 */
-	public void setDefence(int defence) {
-		this.defence = defence;
-	}
-
-	/**
-	 * Sets the injury status of the Athlete
-	 *
-	 * @param is_injured whether the athlete is now injured or not
-	 */
-	public void setIsInjured(boolean is_injured) {
-		this.isInjured = is_injured;
 	}
 	
 	/**
@@ -131,9 +100,7 @@ public class Athlete implements Sellable {
 	 * @param item  the item that the athlete is using
 	 */
 	public void useItem(Item item) {
-		this.setOffence(this.getOffence() + item.getOffence());
-		this.setDefence(this.getDefence() + item.getDefence());
-		this.setStamina(this.getStamina() + item.getStamina());
+		// impletent later!
 	}
 
 
@@ -148,5 +115,9 @@ public class Athlete implements Sellable {
 	public Money price() {
 		// returns the value of the athlete
 		return new Money(100);
+	}
+	
+	public String getOption() {
+		return "$" + this.price() + " - " + this;
 	}
 }

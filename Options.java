@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.ArrayList;
+
 public class Options {
 	private String[] options;
 	private int betterIndexing = 1; // does it start at 0 or 1?
@@ -10,18 +13,33 @@ public class Options {
 	public Options(String[] options) {
 		this.options = options;
 	}
+	public Options(ArrayList<Sellable> options) {
+		this.options = new String[options.size()];
+		for (int i = 0; i < options.size(); i++) {
+			this.options[i] = options.get(i).getOption();
+		}
+	}
 	public int first() {
 		return this.betterIndexing;
 	}
 	public int last() {
-		return options.length - 1 + this.betterIndexing;
+		return this.options.length - 1 + this.betterIndexing;
 	}
 	public String[] options() {
-		return options;
+		return this.options;
 	}
 	public String option(int index) {
 		// user shouldn't have direct access to this! (User-input should be run through a validator first)
 		return options[index - this.betterIndexing];
+	}
+	public Options join(String option) {
+		String[] newOptions = Arrays.copyOf(this.options, this.options.length + 1);
+		newOptions[newOptions.length - 1] = option;
+		return new Options(newOptions);
+	}
+	public void add(String option) {
+		this.options = Arrays.copyOf(this.options, this.options.length + 1);
+		this.options[this.last()] = option;
 	}
 	
 	@Override
