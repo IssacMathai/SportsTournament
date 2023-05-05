@@ -5,6 +5,9 @@ public class Shop {
 	public Shop() {
 		this.sellables = new ArrayList<Sellable>();
 	}
+	public void clear() {
+		this.sellables = new ArrayList<Sellable>();
+	}
 	public int sellableCount() {
 		return this.sellables.size();
 	}
@@ -25,11 +28,18 @@ public class Shop {
 	public void removeSellable(int index) {
 		this.sellables.remove(index);
 	}
-	public boolean canBuy(int index, Money money) { // doesn't edit money
-		return money.get() >= this.sellables.get(index).price().get();
+	public boolean canBuy(int index, Team player) throws Exception { // doesn't edit players money
+		Sellable sellable = this.getSellable( index );
+		if (player.getMoney().get() < sellable.price().get()) {
+			throw new Exception("you need $" + this.price( index ) + " for " + sellable + ", you have $" + player.getMoney() + ".");
+		}
+		if (sellable instanceof Athlete && player.teamCount() >= player.getTeamSize()) {
+			throw new Exception("your team has a maximum of " + player.getTeamSize() + " members!");
+		}
+		return true;
 	}
-	public Sellable buy(int index, Money money) { // EDITS money
-		money.change( -this.sellables.get(index).price().get());
+	public Sellable buy(int index, Team player) { // EDITS players money
+		player.getMoney().change( -this.sellables.get(index).price().get());
 		return this.sellables.remove(index);
 	}
 	public Money price(int index) {

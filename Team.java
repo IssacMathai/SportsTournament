@@ -49,8 +49,19 @@ public class Team {
 	public Money getMoney() {
 		return this.money;
 	}
+	public int getTeamSize() {
+		return this.teamSize;
+	}
 	public int teamCount() {
 		return this.athleteCount() + this.reserveCount();
+	}
+	public boolean addSellable(Sellable sellable) {
+		if (sellable instanceof Athlete) { // add athlete
+			return this.addAthlete( (Athlete) sellable );
+		} else { // add item
+			//this.inventory.addItem( (Item) sellable );
+			return false;
+		}
 	}
 	// Athlete Stuff
 	public int athleteCount() {
