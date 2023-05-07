@@ -6,8 +6,11 @@ public class Stats {
 	}
 	public String toString() {
 		String string = "";
-		for (int i = 0; i < this.stats.length; i++) {
+		for (int i = 0; i < this.stats.length - 1; i++) {
 			string += this.names[i] + " " + this.stats[i] + ", ";
+		}
+		if (this.stats.length > 0) {
+			string += this.names[this.stats.length - 1] + " " + this.stats[this.stats.length - 1];
 		}
 		return string;
 	}

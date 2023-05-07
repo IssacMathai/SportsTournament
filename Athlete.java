@@ -112,6 +112,10 @@ public class Athlete implements Sellable {
 	public String toString() {
 		return "Athlete " + this.name + " " + this.stats;
 	}
+	
+	public String matchString() {
+		return "" + this.name + " (" + this.stats + ")";
+	}
 
 	public Money price() {
 		// returns the value of the athlete

@@ -2,6 +2,8 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Game {
+	public final int teamSize = 10;
+	public final int fieldSize = 5;
 	public String rules() {
 		return "[Insert Game Rules Here]";
 	}
@@ -83,6 +85,35 @@ public class Game {
 		athleteShop.addSellable(new Athlete("John4", 34, new Stats(new int[] {7, 2, 5})));
 		athleteShop.addSellable(new Athlete("John5", 35, new Stats(new int[] {7, 7, 1})));
 	}
+	public void resetMatches(Matches matches, Team player) {
+		Team opponent;
+		
+		opponent = new Team("Diamond Dogs", this.teamSize, this.fieldSize);
+		opponent.addAthlete( new Athlete("Andy", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Andy1", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Andy2", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Andy3", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Andy4", 30, new Stats(new int[] {3, 2, 5})) );
+		matches.add( new Match(player, opponent, this.fieldSize) );
+		
+		opponent = new Team("Rusty Cows", this.teamSize, this.fieldSize);
+		opponent.addAthlete( new Athlete("Ben", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Ben1", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Ben2", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Ben10", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("George Harrison", 30, new Stats(new int[] {3, 2, 5})) );
+		
+		matches.add( new Match(player, opponent, this.fieldSize) );
+		
+		opponent = new Team("Dream team", this.teamSize, this.fieldSize);
+		opponent.addAthlete( new Athlete("Mike", 30, new Stats(new int[] {2, 3, 5})) );
+		opponent.addAthlete( new Athlete("Dwight", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Jack", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Joe", 30, new Stats(new int[] {3, 2, 5})) );
+		opponent.addAthlete( new Athlete("Snape", 30, new Stats(new int[] {30, 50, 50})) );
+		
+		matches.add( new Match(player, opponent, this.fieldSize) );
+	}
 	public void simulateShop(Shop shop, Team player) {
 		while (true) {
 			Options shopOptions = new Options( shop.getSellables() ).join( "Leave shop" ); // see later what types of parameter .join() takes
@@ -112,7 +143,7 @@ public class Game {
 		// setup the team (get the user invested in the game)
 		// VVV create a NameValidators] class which contains the String validator for team name
 		Validator nameValidator = new NameValidator(3, 15);
-		Team player = new Team( game.ui("Choose a team name", nameValidator) , 10, 5);
+		Team player = new Team( game.ui("Choose a team name", nameValidator) , game.teamSize, game.fieldSize);
 		// ^^ does the same thing as:
 		// Team player = new Team();
 		// player.setName( game.ui("Choose a team name", nameValidator) );
@@ -140,6 +171,9 @@ public class Game {
 		Shop itemShop = new Shop();
 		Shop athleteShop = new Shop();
 		game.resetShop(itemShop, athleteShop);
+		
+		Matches matches = new Matches();
+		game.resetMatches(matches, player);
 		
 		game.simulateShop( shop, player );
 		
@@ -215,21 +249,16 @@ public class Game {
 				} else if (game.first(1)) { // (2) go to the statium
 				
 					while (true) {
-						Options staduimOptions = new Options( matches );
+						Options staduimOptions = new Options( matches.getMatchesList() ).join( "Go back..." );
 						game.output("Matches left you can play");
-						choice = game.options( staduimOptions.join( "Go back..."  ));
+						choice = game.options( staduimOptions);
 						if (choice == staduimOptions.last()) {
 							// leave the staduim page...
 							break;
 						}
-						if (matches.status(choice) == PLAYED) {
-							// looks like you've already played this team... choose again!
-							continue;
-						}
-						if (choice) {
-							match = matches.getMatch(choice);
-							match.play(); // updates all stats on both teams including money
-							game.output( match.results() );
+						if (! game.last()) {
+							Match match = matches.playMatch( choice ); // uses up the match
+							game.output( match.getResults() );
 						}
 					}
 					continue;

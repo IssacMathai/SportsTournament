@@ -170,6 +170,17 @@ public class Team {
 		}
 		return string;
 	}
+	public String matchString(int index) {
+		String string = "";
+		
+		if (index < this.teamCount()) {
+			string += this.athletes.get(index).matchString();
+		} else {
+			string += "[no athlete]";
+		}
+		
+		return string;
+	}
 }
 
 
