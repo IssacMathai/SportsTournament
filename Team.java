@@ -4,35 +4,54 @@ public class Team {
 	private String name;
 	private Money money;
 	private int teamSize;
+	private int fieldCount;
 	private ArrayList<Athlete> athletes;
 	private ArrayList<Athlete> reserves;
+	private Inventory inventory;
 	public Team() {
 		this.name = "";
 		this.money = new Money(0);
 		this.teamSize = 0;
+		this.fieldCount = 0;
 		this.athletes = new ArrayList<Athlete>();
 		this.reserves = new ArrayList<Athlete>();
+		this.inventory = new Inventory();
 	}
 	public Team(String name) {
 		this.name = name;
 		this.money = new Money(0);
 		this.teamSize = 0;
+		this.fieldCount = 0;
 		this.athletes = new ArrayList<Athlete>();
 		this.reserves = new ArrayList<Athlete>();
+		this.inventory = new Inventory();
 	}
 	public Team(int teamSize) {
 		this.name = "";
 		this.money = new Money(0);
 		this.teamSize = teamSize;
+		this.fieldCount = teamSize;
 		this.athletes = new ArrayList<Athlete>();
 		this.reserves = new ArrayList<Athlete>();
+		this.inventory = new Inventory();
 	}
 	public Team(String name, int teamSize) {
 		this.name = name;
 		this.money = new Money(0);
 		this.teamSize = teamSize;
+		this.fieldCount = teamSize;
 		this.athletes = new ArrayList<Athlete>();
 		this.reserves = new ArrayList<Athlete>();
+		this.inventory = new Inventory();
+	}
+	public Team(String name, int teamSize, int fieldCount) {
+		this.name = name;
+		this.money = new Money(0);
+		this.teamSize = teamSize;
+		this.fieldCount = fieldCount;
+		this.athletes = new ArrayList<Athlete>();
+		this.reserves = new ArrayList<Athlete>();
+		this.inventory = new Inventory();
 	}
 	public void setName(String name) {
 		this.name = name;
@@ -52,6 +71,9 @@ public class Team {
 	public int getTeamSize() {
 		return this.teamSize;
 	}
+	public int getFieldCount() {
+		return this.fieldCount;
+	}
 	public int teamCount() {
 		return this.athleteCount() + this.reserveCount();
 	}
@@ -59,9 +81,22 @@ public class Team {
 		if (sellable instanceof Athlete) { // add athlete
 			return this.addAthlete( (Athlete) sellable );
 		} else { // add item
-			//this.inventory.addItem( (Item) sellable );
+			this.inventory.add( (Item) sellable );
 			return false;
 		}
+	}
+	public Inventory getInventory() {
+		return this.inventory;
+	}
+	public void useItem(int item, int athlete) { // should use an item from the players inventory, then remove it
+		this.athletes.get(athlete).useItem( this.inventory.get(item) );
+		this.inventory.get().remove(item);
+	}
+	public void swapAthletes(int first, int second) { // should swap 2 athletes
+		Athlete athlete1 = this.athletes.get(first);
+		Athlete athlete2 = this.athletes.get(second);
+		this.athletes.set(first, athlete2);
+		this.athletes.set(second, athlete1);
 	}
 	// Athlete Stuff
 	public int athleteCount() {
@@ -78,6 +113,13 @@ public class Team {
 	}
     public ArrayList<Athlete> getAthletes() {
 		return this.athletes;
+	}
+    public ArrayList<Sellable> getAthletesAsSellables() {
+		ArrayList<Sellable> asdf = new ArrayList<Sellable>();
+		for (Athlete athlete : this.athletes) {
+			asdf.add( (Sellable) athlete );
+		}
+		return asdf;
 	}
 	public Athlete getAthlete(int index) {
 		return this.athletes.get(index);
@@ -112,8 +154,16 @@ public class Team {
 		String string = "";
 		string += "Team " + this.name + "\n";
 		string += "$" + this.money + "\n";
-		for (Athlete athlete : this.athletes) {
+		for (int i = 0; i < this.athletes.size(); i++) {
+			Athlete athlete = this.athletes.get(i);
+			if (i == this.fieldCount) {
+				string += "-- reserves --:\n";
+			}
 			string += athlete + "\n";
+		}
+		// below should never happen
+		for (Athlete reserve : this.reserves) {
+			string += reserve + "\n";
 		}
 		if (this.teamCount() == 0) {
 			string += "The team has no members.";

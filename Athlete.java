@@ -101,6 +101,7 @@ public class Athlete implements Sellable {
 	 */
 	public void useItem(Item item) {
 		// impletent later!
+		this.stats.apply( item.getEffects() );
 	}
 
 
@@ -109,12 +110,17 @@ public class Athlete implements Sellable {
 	 */
 	@Override
 	public String toString() {
-		return "Athlete " + this.name;
+		return "Athlete " + this.name + " " + this.stats;
 	}
 
 	public Money price() {
 		// returns the value of the athlete
-		return new Money(100);
+		int value = 0;
+		int[] stats = this.stats.get();
+		for (int i = 0; i < stats.length; i++) {
+			value += 10 * stats[i];
+		}
+		return new Money(value);
 	}
 	
 	public String getOption() {

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Game {
 	public String rules() {
@@ -71,9 +72,9 @@ public class Game {
 		itemShop.clear();
 		athleteShop.clear();
 		
-		itemShop.addSellable(new Item("Water Bottle", "you can drink it", new Stats(new int[] {7, 2, 5}), 100, 80));
-		itemShop.addSellable(new Item("Vinegar Bottle", "you can drink it", new Stats(new int[] {10, 2, 5}), 120, 110));
-		itemShop.addSellable(new Item("Shoes", "makes you faster", new Stats(new int[] {10, 10, 10}), 80, 40));
+		itemShop.addSellable(new Item("Water Bottle", "you can drink it", new Stats(new int[] {2, 2, 2}), 100, 80));
+		itemShop.addSellable(new Item("Vinegar Bottle", "you can drink it", new Stats(new int[] {10, 10, 10}), 120, 110));
+		itemShop.addSellable(new Item("Shoes", "makes you faster", new Stats(new int[] {-2, -2, 5}), 80, 40));
 		
 		athleteShop.addSellable(new Athlete("John", 30, new Stats(new int[] {7, 2, 5})));
 		athleteShop.addSellable(new Athlete("John1", 31, new Stats(new int[] {7, 2, 6})));
@@ -97,7 +98,7 @@ public class Game {
 					Sellable bought = shop.buy( choice, player );
 					// add bought to team
 					player.addSellable( bought );
-					this.output("Purchase Successful!" + bought);
+					this.output("Purchase Successful! " + bought);
 				}
 			} catch (Exception e) {
 				String reason = e.getMessage();
@@ -111,12 +112,12 @@ public class Game {
 		// setup the team (get the user invested in the game)
 		// VVV create a NameValidators] class which contains the String validator for team name
 		Validator nameValidator = new NameValidator(3, 15);
-		Team player = new Team( game.ui("Choose a team name", nameValidator) , 4);
+		Team player = new Team( game.ui("Choose a team name", nameValidator) , 10, 5);
 		// ^^ does the same thing as:
 		// Team player = new Team();
 		// player.setName( game.ui("Choose a team name", nameValidator) );
 		
-		game.output( player );
+		//game.output( player );
 		
 		Validator weeksValidator = new IntValidator(5, 15);
 		// choose and set the number of weeks in the season.
@@ -133,7 +134,7 @@ public class Game {
 		shop.addSellable(new Athlete("John4", 34, new Stats(new int[] {7, 2, 5})));
 		shop.addSellable(new Athlete("John5", 35, new Stats(new int[] {7, 7, 1})));
 		
-		player.setMoney(500);
+		player.setMoney(5000);
 		int choice;
 		
 		Shop itemShop = new Shop();
@@ -163,18 +164,56 @@ public class Game {
 				
 				
 				if (game.first()) { // (1) go to the club
-				/*
-					club.setOptions( ... );
+					Options clubChoiceOptions = new Options(new String[] {"View Team", "View Inventory", "Leave Club"} );
+					game.output("Select an option (Enter " + clubChoiceOptions.last() + " to leave)");
+					choice = game.options(clubChoiceOptions);
 					
-					choice = game.options( club.getOptions() );
-					game.output( club.useOption( choice ) );
+					if (game.first()) { // view team
+						game.output( player );
+						// swap athletes
+						Options clubOptions = new Options(new String[] {"Swap Athletes", "Leave Club"} );
+						game.output("Select an option (Enter " + clubOptions.last() + " to leave)");
+						choice = game.options(clubOptions);
+						
+						if ( game.first() ) { // swap athletes
+							clubOptions = new Options( player.getAthletesAsSellables() ).join( "Cancel" );
+							game.output("Select an athlete to swap (Enter " + clubOptions.last() + " to leave)");
+							int athleteChoice1 = game.options(clubOptions);
+							
+							if (! game.last() ) { // choose a second athlete
+								clubOptions = new Options( player.getAthletesAsSellables() ).join( "Cancel" );
+								game.output("Select another athlete to swap (Enter " + clubOptions.last() + " to leave)");
+								int athleteChoice2 = game.options(clubOptions);
+								
+								if (! game.last() ) {
+									player.swapAthletes(athleteChoice1, athleteChoice2);
+								}
+							}
+						}
+						
+					} else if (game.first(1)) { // view inventory
+						game.output( player.getInventory() );
+						// use items
+						Options clubOptions = new Options( player.getInventory().getSellables() ).join( "Leave Inventory" );
+						game.output("Select an item to use (Enter " + clubOptions.last() + " to leave)");
+						int itemChoice = game.options(clubOptions);
+						
+						if (! game.last() ) {
+							clubOptions = new Options( player.getAthletesAsSellables() ).join( "Leave" );
+							game.output("Select an athlete to use it on (Enter " + clubOptions.last() + " to leave)");
+							int athleteChoice = game.options(clubOptions);
+							
+							if (! game.last() ) {
+								player.useItem(itemChoice, athleteChoice);
+							}
+						}
+					}
 					
-					club.useItem(item, athlete); */
+					//player.useItem(item, athlete);
 					// item objects has a function which takes athlete as a parameter then applies effects to athlete.
 					continue;
-				}
-				if (game.first(1)) { // (2) go to the statium
-				/*
+				} else if (game.first(1)) { // (2) go to the statium
+				
 					while (true) {
 						Options staduimOptions = new Options( matches );
 						game.output("Matches left you can play");
@@ -192,10 +231,9 @@ public class Game {
 							match.play(); // updates all stats on both teams including money
 							game.output( match.results() );
 						}
-					} */
+					}
 					continue;
-				}
-				if (game.first(2)) { // (3) visit the shop/market
+				} else if (game.first(2)) { // (3) visit the shop/market
 					Options shopChoiceOptions = new Options(new String[] {"Item Shop", "Athlete Shop", "Leave Shop"} );
 					game.output("Select an option (Enter " + shopChoiceOptions.last() + " to leave)");
 					choice = game.options(shopChoiceOptions);
@@ -215,8 +253,7 @@ public class Game {
 					game.simulateShop( shop, player );
 					
 					continue;
-				}
-				if (game.last()) { // (4) move to the next week
+				} else if (game.last()) { // (4) move to the next week
 					// take a bye
 					// update classes
 					// random events

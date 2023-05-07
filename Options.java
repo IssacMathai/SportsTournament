@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Options {
 	private String[] options;
-	private int betterIndexing = 1; // does it start at 0 or 1?
+	private int betterIndexing = 0; // does it start at 0 or 1?
 	public void setBetterIndexing(int betterIndexing) {
 		this.betterIndexing = betterIndexing;
 	}
