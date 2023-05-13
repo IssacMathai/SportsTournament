@@ -52,7 +52,7 @@ public class SetupScreen {
 		frame.setLayout(null);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		SetupScreen reference = this;
 		int offX;
 		int offY;
 		
@@ -100,109 +100,9 @@ public class SetupScreen {
 		
 		JButton button;
 		
-		button = new JButton("Rocket 1");
-		button.setBounds(offX + 10, offY + 0, 100, 70);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button 1");
-			}
-		});
-		frame.add(button);
-		
-		button = new JButton("Rocket 2");
-		this.frame.setVisible(true);
-		button.setBounds(offX + 120, offY + 0, 100, 70);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button 2");
-			}
-		});
-		frame.add(button);
-		
-		button = new JButton("Rocket 3");
-		button.setBounds(offX + 230, offY + 0, 100, 70);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button 3");
-			}
-		});
-		frame.add(button);
-		
-		button = new JButton("Rocket 4");
-		button.setBounds(offX + 10, offY + 80, 100, 70);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button 4");
-			}
-		});
-		frame.add(button);
-		
-		button = new JButton("Rocket 5");
-		button.setBounds(offX + 120, offY + 80, 100, 70);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button 5");
-			}
-		});
-		frame.add(button);
-		
-		button = new JButton("Rocket 6");
-		button.setBounds(offX + 230, offY + 80, 100, 70);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button 6");
-			}
-		});
-		frame.add(button);
-		
-		// SELECTED BELOW
-		
-		offX = 0;
-		offY = 310;
-		
-		label = new JLabel("Selected:");
-		label.setBounds(offX + 10, offY + 0, 1000, 30);
-		frame.add(label);
-		
-		button = new JButton("");
-		button.setBounds(offX + 10, offY + 35, 100, 60);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button");
-			}
-		});
-		frame.add(button);
-		
-		button = new JButton("");
-		button.setBounds(offX + 120, offY + 35, 100, 60);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button");
-			}
-		});
-		frame.add(button);
-		
-		button = new JButton("");
-		button.setBounds(offX + 230, offY + 35, 100, 60);
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the button");
-			}
-		});
-		frame.add(button);
-		
 		// LITTLE PANEL THING BELOW
 		
-		offX = 370;
+		offX = 10;
 		offY = 170;
 		
 		JPanel panel = new JPanel();
@@ -210,36 +110,28 @@ public class SetupScreen {
         panel.setBorder(BorderFactory.createLineBorder(Color.gray));
 		panel.setLayout(null);
 		
-		label = new JLabel("Rocket Stats");
+		label = new JLabel("rules");
 		label.setBounds(0 + 50, 0 + 10, 1000, 30);
 		panel.add(label);
 		
-		label = new JLabel("Name: ");
-		label.setBounds(0 + 10, 0 + 40, 1000, 30);
-		panel.add(label);
-		
-		label = new JLabel("Fuel: ");
-		label.setBounds(0 + 10, 0 + 70, 1000, 30);
-		panel.add(label);
-		
-		label = new JLabel("Cleaniness: ");
-		label.setBounds(0 + 10, 0 + 100, 1000, 30);
-		
-		panel.add(label);
         frame.add(panel);
 		
 		// ACCEPT BUTTON BELOW
 		
 		offX = 390;
-		offY = 362;
+		offY = 230;
 
-		button = new JButton("Accept");
+		button = new JButton("Start Game");
 		button.setBounds(offX + 0, offY + 0, 150, 25);
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Here goes the action (method) you want to execute when clicked
-				System.out.println("You clicked the accept button");
+				//System.out.println("You clicked the accept button");
+				
 				finishedWindow();
+				
+				reference.game.startGame();
+				
 			}
 		});
 		frame.add(button);

@@ -55,9 +55,16 @@ public class OptionsScreen {
 	private int optionHeight = 40;
 	private int gap = 5;
 	private int width = 500;
+	private int lineHeight = 40;
 	private void initialize() {
 		frame = new JFrame("Select an Option");
-		frame.setSize(this.width + 20, this.optionHeight * this.options.last() + 100 + 80);
+		int buttonOffY = this.lineHeight * this.game.prevOutputs.size() + 40;
+		
+		if (buttonOffY < 150) {
+			buttonOffY = 150;
+		}
+		
+		frame.setSize(this.width + 20, this.optionHeight * this.options.last() + buttonOffY + 75);
 		frame.setLayout(null);
 		frame.setVisible(true);
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -72,14 +79,16 @@ public class OptionsScreen {
 		
 		JLabel label;
 		
-		label = new JLabel(this.game.lastOutput);
-		label.setBounds(offX + 10, offY + 10, 1000, 30);
-		frame.add(label);
+		for (int i = this.game.prevOutputs.size()-1; i >= 0; i--) {
+			label = new JLabel(this.game.prevOutputs.get(i));
+			label.setBounds(offX + 10, offY + 10 + i * this.lineHeight, 1000, 30);
+			frame.add(label);
+		}
 		
 		// BUTTONS BELOW
 		
 		offX = 0;
-		offY = 100;
+		offY = buttonOffY;
 		
 		JButton button;
 		
