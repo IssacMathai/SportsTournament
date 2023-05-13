@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.awt.EventQueue;
+import java.awt.event.*;
+import java.util.concurrent.CountDownLatch;
 
 public class Game {
 	public final int teamSize = 10;
@@ -10,7 +13,9 @@ public class Game {
 	public void feedback(String string) {
 		this.output("[!] " + string);
 	}
+	public String lastOutput = "";
 	public void output(Object string) {
+		this.lastOutput = string.toString();
 		System.out.println(string);
 	}
 	// Return String
@@ -53,7 +58,13 @@ public class Game {
 	private Options lastOptions;
 	public int options(Options options) {
 		Validator optionsValidator = new IntValidator(options.first(), options.last());
-		int choice = this.ui("" + options, optionsValidator, ReturnType.INT);
+		
+		
+		// Command line stuff below
+		//int choice = this.ui("" + options, optionsValidator, ReturnType.INT);
+		
+		int choice = this.launchOptionsScreen(options);
+		
 		this.output("> " + options.option(choice));
 		
 		this.lastChoice = choice;
@@ -120,7 +131,8 @@ public class Game {
 		while (true) {
 			Options shopOptions = new Options( shop.getSellables() ).join( "Leave shop" ); // see later what types of parameter .join() takes
 			shopOptions.setBetterIndexing(0);
-			this.output("You have $" + player.getMoney() + " to spend");
+			
+			this.output("You have $" + player.getMoney() + " to spend", 69);
 			this.output("Which Athlete do you want to buy (Enter " + shopOptions.last() + " to leave)");
 			int choice = this.options( shopOptions );
 			if (choice == shopOptions.last()) { // exit the shop
@@ -223,12 +235,64 @@ public class Game {
 			this.simulateShop( shop, player );
 		}
 	}
+	
+	public void closeSetupScreen(SetupScreen window) {
+		window.closeWindow();
+		//this.launchMainScreen();
+	}
+	
+	public void closeOptionsScreen(OptionsScreen window, int choice) {
+		this.lastChoice = choice;
+		window.closeWindow();
+		//this.launchMainScreen();
+	}
+	
+	public void launchSetupScreen() {
+		Game reference = this;
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SetupScreen window = new SetupScreen(reference);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public int launchOptionsScreen(Options options) {
+		Game reference = this;
+		CountDownLatch latch = new CountDownLatch(1);
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+        			OptionsScreen window = new OptionsScreen(reference, options, latch);
+       				//optionsScreen.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		try {
+			latch.await(); // Wait until the latch is counted down
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		return this.lastChoice;
+	}
+	
 	public static void main(String[] args) {
 		Game game = new Game();
 		
 		// setup the team (get the user invested in the game)
 		// VVV create a NameValidators] class which contains the String validator for team name
 		Validator nameValidator = new NameValidator(3, 15);
+		
+		game.launchSetupScreen();
+		
 		Team player = new Team( game.ui("Choose a team name", nameValidator) , game.teamSize, game.fieldSize);
 		// ^^ does the same thing as:
 		// Team player = new Team();
