@@ -11,6 +11,7 @@ public class Game {
 	public String rules() {
 		return "[Insert Game Rules Here]";
 	}
+	
 	public void feedback(String string) {
 		this.output("[!] " + string);
 	}
@@ -22,8 +23,9 @@ public class Game {
 		// add to display
 		String[] display = this.lastOutput.split("\n");
 		for (int i = 0; i < display.length; i++) {
-			this.prevOutputs.add("" + display[i]);
+			this.prevOutputs.add("<html>" + display[i] + "</html>");
 		}
+		//this.prevOutputs.add(this.lastOutput);
 	}
 	public void output(Object string, int yeeet) {
 		System.out.println(string);
@@ -34,6 +36,7 @@ public class Game {
 		for (int i = 0; i < display.length; i++) {
 			this.prevOutputs.add("" + display[i]);
 		}
+		//this.prevOutputs.add(this.lastOutput);
 	}
 	// Return String
 	public String ui(String message, Validator v) {
@@ -73,15 +76,21 @@ public class Game {
 	}
 	private int lastChoice;
 	private Options lastOptions;
+	public String lastInput;
 	public int options(Options options) {
 		Validator optionsValidator = new IntValidator(options.first(), options.last());
 		
 		// Command line stuff below
 		//int choice = this.ui("" + options, optionsValidator, ReturnType.INT);
 		
-		int choice = this.launchOptionsScreen(options);
+		int choice;
+		if (options.getType() == 1) {
+			choice = this.launchOptionsScreen(options, options.getText());
+		} else {
+			choice = this.launchOptionsScreen(options);
+		}
 		
-		this.output("> " + options.option(choice), 69);
+		//this.output("> " + options.option(choice), 69);
 		
 		this.lastChoice = choice;
 		this.lastOptions = options;
@@ -97,20 +106,27 @@ public class Game {
 	public boolean last() {
 		return this.lastChoice == this.lastOptions.last();
 	}
+	private static final String[] teamNames1 =   {"Diamond", "Rusty", "Maccas", "Sweaty", "Amber", "Old", "Burger", "Smelly", "Crystal", "Math", "Meth", "Cocaine", "Nerdy", "Handy", "Sharp", "Blunt", "Shiney", "Ancient", "Greasy", "Moist", "Precious", "Decayed", "Fries", "Sticky", "Gleemin", "Dry", "Big Mac", "Soggy", "Bloody", "Grubby"};
+	private static final String[] teamNames2 =   {"Dogs", "Cows", "Addicts", "Bois", "Cats", "Horses", "Butts", "Dudes", "Meet", "Moo", "Beef", "Guys", "Canines", "Nerds", "Junkies", "Fellas", "Targets", "Axes", "Gamerz", "Bros", "Pets", "Bull", "Lovers", "Addicts", "Gents", "Cutters", "Herds", "Freaks", "Homies", "Daddys"};
+	private static final String[] athleteNames = {"John", "Andy", "Ben", "George Harrison", "Mike", "Dwight", "Jack", "Joe", "Snape", "Taki", "Robert", "Steve", "Dave", "Paul", "Ringo", "Charlie", "James", "Tony", "Sam", "Frank", "Harry", "Tom", "William", "Peter", "Alex", "Oliver", "Daniel", "Eric", "Richard", "Brian"};
+	private static final String[] itemNames =    {"Target", "Axe", "Gloves", "Board", "Bullseye", "Helmet", "Guard", "Mat", "Rack", "Log", "Stand", "Patch", "Sticker", "Case", "Sharpener", "Guide", "Marker", "Line", "Hammer", "Tape", "Chalk", "Strap", "Tee", "Shirt", "Bag", "Net", "Bar", "Wheel", "Timer", "Arm"};
+	private static final String[] itemDescs =    {"Aims and measures accuracy.", "Thrown to hit the target.", "Provides hand protection.", "Surface for axe throwing.", "Center of the target.", "Ensures head safety.", "Protects against accidents.", "Provides grip and stability.", "Stores axes conveniently.", "The target for axe throwing.", "Holds the target board.", "Badge for achievement.", "Marks the bullseye.", "Carries axes securely.", "Maintains axe edge.", "Offers throwing tips.", "Indicates hit location.", "Marks throwing distance.", "Sets up the target.", "Measures throwing line.", "Marks score and lines.", "Secures equipment.", "Axe resting platform.", "Displays team affiliation.", "Carries equipment easily.", "Catches and stops axes.", "Protects against ricochets.", "Provides extra grip.", "Keeps score and stats.", "Enhances throwing technique.", "Records throwing data."};
 	public void resetShop(Shop itemShop, Shop athleteShop) {
 		itemShop.clear();
 		athleteShop.clear();
 		
-		itemShop.addSellable(new Item("Water Bottle", "you can drink it", new Stats(new int[] {2, 2, 2}), 100, 80));
-		itemShop.addSellable(new Item("Vinegar Bottle", "you can drink it", new Stats(new int[] {10, 10, 10}), 120, 110));
-		itemShop.addSellable(new Item("Shoes", "makes you faster", new Stats(new int[] {-2, -2, 5}), 80, 40));
+		Generator gen = new Generator(athleteNames, itemNames, itemDescs);
 		
-		athleteShop.addSellable(new Athlete("John", 30, new Stats(new int[] {7, 2, 5})));
-		athleteShop.addSellable(new Athlete("John1", 31, new Stats(new int[] {7, 2, 6})));
-		athleteShop.addSellable(new Athlete("John2", 32, new Stats(new int[] {7, 2, 5})));
-		athleteShop.addSellable(new Athlete("John3", 33, new Stats(new int[] {7, 2, 5})));
-		athleteShop.addSellable(new Athlete("John4", 34, new Stats(new int[] {7, 2, 5})));
-		athleteShop.addSellable(new Athlete("John5", 35, new Stats(new int[] {7, 7, 1})));
+		itemShop.addSellable(gen.item());
+		itemShop.addSellable(gen.item());
+		itemShop.addSellable(gen.item());
+		
+		athleteShop.addSellable(gen.athlete());
+		athleteShop.addSellable(gen.athlete());
+		athleteShop.addSellable(gen.athlete());
+		athleteShop.addSellable(gen.athlete());
+		athleteShop.addSellable(gen.athlete());
+		athleteShop.addSellable(gen.athlete());
 	}
 	public void resetMatches(Matches matches, Team player) {
 		Team opponent;
@@ -147,8 +163,9 @@ public class Game {
 		while (true) {
 			Options shopOptions = new Options( shop.getSellables() ).join( "Leave shop" ); // see later what types of parameter .join() takes
 			shopOptions.setBetterIndexing(0);
+			shopOptions.setText("Buy"); // BUTTON TEXT
 			
-			this.output("You have $" + player.getMoney() + " to spend", 69);
+			this.output("<html>You have <i stlye='color:#ec1;'>$" + player.getMoney() + "</i> to spend</html>", 69);
 			this.output("Which purchase do you want to make (Enter " + shopOptions.last() + " to leave)");
 			int choice = this.options( shopOptions );
 			if (choice == shopOptions.last()) { // exit the shop
@@ -158,6 +175,29 @@ public class Game {
 				if (shop.canBuy( choice, player )) {
 					Sellable bought = shop.buy( choice, player );
 					// add bought to team
+					if (bought instanceof Athlete) { // options to rename athlete
+						Validator nameValidator = (String string) -> {
+							// .. write the athlete nickname validator here ...
+							if (string.length() < 3) {
+								throw new Exception("Nickname must be longer than 3");
+								//return false;
+							} else if (string.length() > 15) {
+								throw new Exception("Nickname must be shorter than 15");
+								//return false;
+							} else { // Loop through letters in name, and check if there is an invalid letter
+								for (int i = 0; i < string.length(); i++) {
+									if (NameValidator.legalChars.indexOf( string.charAt(i) ) == -1) {
+										throw new Exception("No silly characters '" + string.charAt(i) + "'");
+										//return false;
+									}
+								}
+							}
+							return true;
+						};
+						Athlete athlete = (Athlete) bought;
+						athlete.setName( this.launchInputScreen("Enter a Nickname", athlete.getName(), nameValidator) );
+						bought = athlete;
+					}
 					player.addSellable( bought );
 					this.output("Purchase Successful! " + bought);
 				}
@@ -167,56 +207,109 @@ public class Game {
 			}
 		}
 	}
-	public void simulateClub(Team player) {
-		Options clubChoiceOptions = new Options(new String[] {"View Team", "View Inventory", "Leave Club"} );
-		this.output("Select an option (Enter " + clubChoiceOptions.last() + " to leave)");
-		int choice = this.options(clubChoiceOptions);
-		
-		if (this.first()) { // view team
-			this.output( player );
-			// swap athletes
-			Options clubOptions = new Options(new String[] {"Swap Athletes", "Leave Club"} );
-			this.output("Select an option (Enter " + clubOptions.last() + " to leave)");
-			choice = this.options(clubOptions);
+	public void simulateSelling(Team player) { // Sells Items
+		while (true) {
+			Options shopOptions = new Options( player.getInventory().getSellables() ).join( "Leave shop" ); // see later what types of parameter .join() takes
+			shopOptions.setBetterIndexing(0);
+			shopOptions.setText("Sell"); // BUTTON TEXT
 			
-			if ( this.first() ) { // swap athletes
-				clubOptions = new Options( player.getAthletesAsSellables() ).join( "Cancel" );
-				this.output("Select an athlete to swap (Enter " + clubOptions.last() + " to leave)");
-				int athleteChoice1 = this.options(clubOptions);
-				
-				if (! this.last() ) { // choose a second athlete
-					clubOptions = new Options( player.getAthletesAsSellables() ).join( "Cancel" );
-					this.output("Select another athlete to swap (Enter " + clubOptions.last() + " to leave)");
-					int athleteChoice2 = this.options(clubOptions);
-					
-					if (! this.last() ) {
-						player.swapAthletes(athleteChoice1, athleteChoice2);
-					}
-				}
+			this.output("You have $" + player.getMoney() + " to spend", 69);
+			//this.output("What do you want to sell (Enter " + shopOptions.last() + " to leave)");
+			int choice = this.options( shopOptions );
+			if (choice == shopOptions.last()) { // exit the shop
+				break;
 			}
 			
-		} else if (this.first(1)) { // view inventory
-			this.output( player.getInventory() );
-			// use items
-			Options clubOptions = new Options( player.getInventory().getSellables() ).join( "Leave Inventory" );
-			this.output("Select an item to use (Enter " + clubOptions.last() + " to leave)");
-			int itemChoice = this.options(clubOptions);
+			Item item = player.getInventory().use(choice);
+			player.getMoney().change( item.price().get() );
 			
-			if (! this.last() ) {
-				clubOptions = new Options( player.getAthletesAsSellables() ).join( "Leave" );
-				this.output("Select an athlete to use it on (Enter " + clubOptions.last() + " to leave)");
-				int athleteChoice = this.options(clubOptions);
+		}
+	}
+	public void simulateDrafting(Team player) { // Sells Athletes
+		while (true) {
+			Options shopOptions = new Options( player.getAthletesAsSellables() ).join( "Leave shop" ); // see later what types of parameter .join() takes
+			shopOptions.setText("Sell"); // BUTTON TEXT
+			shopOptions.setBetterIndexing(0);
+			
+			this.output("You have $" + player.getMoney() + " to spend", 69);
+			//this.output("What do you want to sell (Enter " + shopOptions.last() + " to leave)");
+			int choice = this.options( shopOptions );
+			if (choice == shopOptions.last()) { // exit the shop
+				break;
+			}
+			
+			Athlete athlete = player.removeAthlete(choice);
+			player.getMoney().change( athlete.price().get() );
+			
+		}
+	}
+	public void simulateClub(Team player) {
+		while (true) {
+			this.output("", 69);
+			Options clubChoiceOptions = new Options(new String[] {"View Team", "View Inventory", "Leave Club"} );
+			//this.output("Select an option (Enter " + clubChoiceOptions.last() + " to leave)");
+			int choice = this.options(clubChoiceOptions);
+			
+			if (this.first()) { // view team
+				this.output( player );
+				// swap athletes
+				Options clubOptions = new Options(new String[] {"Swap Athletes", "Go Back"} );
+				//this.output("Select an option (Enter " + clubOptions.last() + " to leave)");
+				choice = this.options(clubOptions);
+				
+				if ( this.first() ) { // swap athletes
+					clubOptions = new Options( player.getAthletesAsSellables() ).join( "Cancel" );
+					clubOptions.setText("Choose"); // BUTTON TEXT
+					this.output("Select an athlete to swap (Enter " + clubOptions.last() + " to leave)", 69);
+					int athleteChoice1 = this.options(clubOptions);
+					
+					if (! this.last() ) { // choose a second athlete
+						clubOptions = new Options( player.getAthletesAsSellables() ).join( "Cancel" );
+						clubOptions.setText("Choose"); // BUTTON TEXT
+						clubOptions.setHigh(athleteChoice1);
+						this.output("Select another athlete to swap (Enter " + clubOptions.last() + " to leave)", 69);
+						int athleteChoice2 = this.options(clubOptions);
+						
+						if (! this.last() ) {
+							player.swapAthletes(athleteChoice1, athleteChoice2);
+							this.launchFeedbackScreen(player.getAthlete(athleteChoice1).getName() + " and " + player.getAthlete(athleteChoice2).getName() + " have been swapped.");
+						}
+					}
+				}
+				
+			} else if (this.first(1)) { // view inventory
+				this.output( player.getInventory() );
+				// use items
+				Options clubOptions = new Options( player.getInventory().getSellables() ).join( "Go Back" );
+				clubOptions.setText("Use"); // BUTTON TEXT
+				//this.output("Select an item to use (Enter " + clubOptions.last() + " to leave)");
+				int itemChoice = this.options(clubOptions);
 				
 				if (! this.last() ) {
-					player.useItem(itemChoice, athleteChoice);
+					clubOptions = new Options( player.getAthletesAsSellables() ).join( "Leave" );
+					clubOptions.setText("Select"); // BUTTON TEXT
+					this.output("Select an athlete to use it on (Enter " + clubOptions.last() + " to leave)");
+					int athleteChoice = this.options(clubOptions);
+					
+					if (! this.last() ) {
+						Item used = player.useItem(itemChoice, athleteChoice);
+						this.launchFeedbackScreen("Used " + used.getName() + " on " + player.getAthlete(athleteChoice).getName());
+					}
 				}
+			} else if (this.last()) { // leave
+				break;
 			}
 		}
 	}
 	public void simulateStadium(Matches matches) {
 		while (true) {
-			Options staduimOptions = new Options( matches.getMatchesList() ).join( "Go back..." );
+			String[] matchList = matches.getMatchesList();
+			Options staduimOptions = new Options( matches.getMatchNames() ).join( "Go back..." );
+			staduimOptions.setText("Play"); // BUTTON TEXT
 			this.output("Matches left you can play", 69);
+			for (int i = 0; i < matchList.length; i++) {
+				this.output(matchList[i]);
+			}
 			int choice = this.options( staduimOptions);
 			if (choice == staduimOptions.last()) {
 				// leave the staduim page...
@@ -224,12 +317,13 @@ public class Game {
 			}
 			if (! this.last()) {
 				Match match = matches.playMatch( choice ); // uses up the match
-				this.output( match.getResults() );
+				this.launchFeedbackScreen( "<html>" + match.getResult() + "</html>" );
+				//this.output( match.getResults() );
 			}
 		}
 	}
 	public void goToShop(Shop itemShop, Shop athleteShop, Team player) {
-		Options shopChoiceOptions = new Options(new String[] {"Item Shop", "Athlete Shop", "Leave Shop"} );
+		Options shopChoiceOptions = new Options(new String[] {"Buy Items", "Buy Athletes", "Sell Items", "Sell Athletes", "Leave Shop"} );
 		this.output("Select an option (Enter " + shopChoiceOptions.last() + " to leave)");
 		int choice = this.options(shopChoiceOptions);
 		
@@ -243,12 +337,14 @@ public class Game {
 		
 		if (this.first()) { // Item shop
 			shop = itemShop;
+			this.simulateShop( shop, player );
 		} else if (this.first(1)) { // Athlete shop
 			shop = athleteShop;
-		}
-		
-		if (! this.last()) {
 			this.simulateShop( shop, player );
+		} else if (this.first(2)) { // Item shop
+			this.simulateSelling( player );
+		} else if (this.first(3)) { // Athlete shop
+			this.simulateDrafting( player );
 		}
 	}
 	
@@ -259,6 +355,17 @@ public class Game {
 	
 	public void closeOptionsScreen(OptionsScreen window, int choice) {
 		this.lastChoice = choice;
+		window.closeWindow();
+		//this.launchMainScreen();
+	}
+	
+	public void closeFeedbackScreen(FeedbackScreen window) {
+		window.closeWindow();
+		//this.launchMainScreen();
+	}
+	
+	public void closeInputScreen(InputScreen window, String string) {
+		this.lastInput = string;
 		window.closeWindow();
 		//this.launchMainScreen();
 	}
@@ -284,6 +391,31 @@ public class Game {
 		}
 	}
 	
+	public int launchOptionsScreen(Options options, String text) { // version for small buttons with the same text
+		Game reference = this;
+		CountDownLatch latch = new CountDownLatch(1);
+		
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+        			OptionsScreen window = new OptionsScreen(reference, options, latch, text);
+       				//optionsScreen.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		try {
+			latch.await(); // Wait until the latch is counted down
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+		return this.lastChoice;
+	}
+	
 	public int launchOptionsScreen(Options options) {
 		Game reference = this;
 		CountDownLatch latch = new CountDownLatch(1);
@@ -300,32 +432,53 @@ public class Game {
 			}
 		});
 		
-		/*
 		try {
-			SwingUtilities.invokeAndWait(new Runnable() {
-				public void run() {
-					// Code to be executed on the EDT
-					try {
-        			OptionsScreen window = new OptionsScreen(reference, options, latch);
-		   				//optionsScreen.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		} catch (Exception e) {
+			latch.await(); // Wait until the latch is counted down
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		*/
-		/*
-		try {
-			OptionsScreen window = new OptionsScreen(reference, options, latch);
-			//optionsScreen.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
 		
+		return this.lastChoice;
+	}
+	
+	public void launchFeedbackScreen(String text) {
+		Game reference = this;
+		CountDownLatch latch = new CountDownLatch(1);
+		
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+        			FeedbackScreen window = new FeedbackScreen(reference, latch, text);
+       				//optionsScreen.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		try {
+			latch.await(); // Wait until the latch is counted down
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String launchInputScreen(String text, String def, Validator v) {
+		Game reference = this;
+		CountDownLatch latch = new CountDownLatch(1);
+		
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+        			InputScreen window = new InputScreen(reference, latch, text, def, v);
+       				//optionsScreen.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		
 		try {
 			latch.await(); // Wait until the latch is counted down
@@ -333,9 +486,7 @@ public class Game {
 			e.printStackTrace();
 		}
 		
-		
-		
-		return this.lastChoice;
+		return this.lastInput;
 	}
 	
 	public void simulateGame(Team player, int weeks, int difficulty, Shop itemShop, Shop athleteShop, Matches matches) {
@@ -344,10 +495,10 @@ public class Game {
 		// for week in weeks
 		for (int week = 1; week <= weeks; week++) {
 			// (0) print game stats (including player.stats (which returns money)) (money, current week, and weeks remaining)
-			this.output("Week " + week, 69);
 			
 			boolean inWeek = true; // is set to false when a bye is taken
 			while (inWeek) {
+				this.output("Week " + week, 69);
 				Options actions = new Options(new String[] {"Manage your team at the clubs", "Play Matches", "Go to the shop", "Take a Bye" + " (move to the next week)"} ); //move to the next week (as long as it aint the last week)
 				int action = this.options(actions);
 				
@@ -400,12 +551,14 @@ public class Game {
 		this.difficulty = this.options(difficultySettings);
 		
 		Shop shop = new Shop(); // Continue to use shop throughout the program
-		shop.addSellable(new Athlete("John", 30, new Stats(new int[] {7, 2, 5})));
-		shop.addSellable(new Athlete("John1", 31, new Stats(new int[] {7, 2, 6})));
-		shop.addSellable(new Athlete("John2", 32, new Stats(new int[] {7, 2, 5})));
-		shop.addSellable(new Athlete("John3", 33, new Stats(new int[] {7, 2, 5})));
-		shop.addSellable(new Athlete("John4", 34, new Stats(new int[] {7, 2, 5})));
-		shop.addSellable(new Athlete("John5", 35, new Stats(new int[] {7, 7, 1})));
+		Generator gen = new Generator(athleteNames, itemNames, itemDescs);
+		
+		shop.addSellable(gen.athlete());
+		shop.addSellable(gen.athlete());
+		shop.addSellable(gen.athlete());
+		shop.addSellable(gen.athlete());
+		shop.addSellable(gen.athlete());
+		shop.addSellable(gen.athlete());
 		
 		this.player.setMoney(5000);
 		int choice;
@@ -430,7 +583,6 @@ public class Game {
 		
 		// setup the team (get the user invested in the game)
 		// VVV create a NameValidators] class which contains the String validator for team name
-		Validator nameValidator = new NameValidator(3, 15);
 		
 		game.launchSetupScreen();
 		

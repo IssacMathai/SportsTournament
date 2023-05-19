@@ -20,7 +20,14 @@ public class Matches {
 	public String[] getMatchesList() {
 		String[] matches = new String[this.matches.size()];
 		for (int i = 0; i < this.matches.size(); i++) {
-			matches[i] = "" + this.matches.get(i) + "\n============================\n";
+			matches[i] = "" + this.matches.get(i) + "============================\n";
+		}
+		return matches;
+	}
+	public String[] getMatchNames() {
+		String[] matches = new String[this.matches.size()];
+		for (int i = 0; i < this.matches.size(); i++) {
+			matches[i] = "" + this.matches.get(i).header();
 		}
 		return matches;
 	}

@@ -9,6 +9,7 @@ public class SetupScreen {
 	private JFrame frame;
 	private Game game;
 	private CountDownLatch latch;
+	private JLabel feedbackText;
 	/**
 	 * Launch the application
 	 */
@@ -47,12 +48,30 @@ public class SetupScreen {
 		this.game.closeSetupScreen(this);
 	}
 	
+	private void feedback(String string) {
+		this.feedbackText.setText("<html><font color='red'>[!] " + string + "</font></html>");
+	}
+	
+	private String generateRainbow(String string) {
+		String[] colors = {"#f77","#ff7","#7f7","#7ff","#77f","#f7f"};
+		String output = "<html>";
+		for (int i = 0; i < string.length(); i++) {
+			if (string.charAt(i) == '\n') {
+				output += "<br>";
+			} else {
+				output += "<a style='background-color:#333;color:" + colors[i % colors.length] + ";'>" + string.charAt(i) + "</a>";
+			}
+		}
+		output += "</html>";
+		return output;
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 		frame = new JFrame("Axe Masters Setup Screen");
-		frame.setSize(700, 350);
+		frame.setSize(700, 590);
 		frame.setLayout(null);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,23 +87,31 @@ public class SetupScreen {
 		
 		JLabel label;
 		
+		// FEEDBACK BELOW
+		
+		this.feedbackText = new JLabel();
+		this.feedbackText.setBounds(offX + 20, offY + 525, 1000, 30);
+		frame.add(this.feedbackText);
+		
+		
 		//label.setText("Change label...");
-		label = new JLabel("Welcome to Axe Masters!");
-		label.setBounds(offX + 10, offY + 10, 1000, 30);
+		label = new JLabel("<html><h1>Welcome to <i>Axe Masters</i>!</h1></html>");
+		label.setBounds(offX + 10, offY + 10, 1000, 60);
 		frame.add(label);
 		
-		label = new JLabel("What is your team name?");
-		label.setBounds(offX + 10, offY + 50, 1000, 30);
+		label = new JLabel("Name Your Team:");
+		label.setBounds(offX + 10, offY + 70, 1000, 30);
 		frame.add(label);
+		
 		
 		// TEXT INPUT BELOW
 		
 		JTextField text = new JTextField("");
-		text.setBounds(offX + 400, offY + 50, 200, 30);
+		text.setBounds(offX + 400, offY + 70, 200, 30);
 		frame.add(text);
 		
-		label = new JLabel("How many weeks do you want? (between 5 and 15)");
-		label.setBounds(offX + 10, offY + 90, 1000, 30);
+		label = new JLabel("How many weeks will the season last..?");
+		label.setBounds(offX + 10, offY + 120, 1000, 30);
 		frame.add(label);
 		
 		// SLIDER BELOW
@@ -95,7 +122,7 @@ public class SetupScreen {
 		slider.setPaintTicks(true);
 		slider.setPaintLabels(true);
 		
-		slider.setBounds(offX + 400, offY + 90, 200, 50);
+		slider.setBounds(offX + 400, offY + 120, 200, 50);
 		frame.add(slider);
 		
 		// BUTTONS BELOW
@@ -111,11 +138,11 @@ public class SetupScreen {
 		offY = 170;
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(offX, offY, 200, 150);    
+		panel.setBounds(offX, offY, 680, 350);    
         panel.setBorder(BorderFactory.createLineBorder(Color.gray));
 		panel.setLayout(null);
 		
-		label = new JLabel("rules");
+		label = new JLabel(this.generateRainbow(game.rules()));
 		label.setBounds(0 + 50, 0 + 10, 1000, 30);
 		panel.add(label);
 		
@@ -123,8 +150,8 @@ public class SetupScreen {
 		
 		// ACCEPT BUTTON BELOW
 		
-		offX = 390;
-		offY = 230;
+		offX = 540;
+		offY = 530;
 
 		button = new JButton("Start Game");
 		button.setBounds(offX + 0, offY + 0, 150, 25);
@@ -133,22 +160,33 @@ public class SetupScreen {
 				//Here goes the action (method) you want to execute when clicked
 				//System.out.println("You clicked the accept button");
 				
-				game.player = new Team( text.getText() , game.teamSize, game.fieldSize);
-				// ^^ does the same thing as:
-				// Team player = new Team();
-				// player.setName( game.ui("Choose a team name", nameValidator) );
+				Validator nameValidator = new NameValidator(3, 15);
 				
-				//game.output( player );
-				
-				//Validator weeksValidator = new IntValidator(5, 15);
-				// choose and set the number of weeks in the season.
-				// ... uses a weeksValidator function
-				//game.weeks = game.ui("How many weeks will the season be?", weeksValidator, ReturnType.INT);
-				game.weeks = slider.getValue();
-				
-				finishedWindow();
-		
-				//reference.game.startGame();
+				boolean valid = false;
+				try {
+					valid = nameValidator.validate( text.getText() );
+				} catch (Exception except) {
+					// provides feedback and tries again
+					reference.feedback(except.getMessage()); // implement!
+				}
+				if (valid) {
+					game.player = new Team( text.getText() , game.teamSize, game.fieldSize);
+					// ^^ does the same thing as:
+					// Team player = new Team();
+					// player.setName( game.ui("Choose a team name", nameValidator) );
+					
+					//game.output( player );
+					
+					//Validator weeksValidator = new IntValidator(5, 15);
+					// choose and set the number of weeks in the season.
+					// ... uses a weeksValidator function
+					//game.weeks = game.ui("How many weeks will the season be?", weeksValidator, ReturnType.INT);
+					game.weeks = slider.getValue();
+					
+					finishedWindow();
+					
+					//reference.game.startGame();
+				}
 				
 			}
 		});

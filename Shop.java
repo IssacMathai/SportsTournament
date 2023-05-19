@@ -40,7 +40,9 @@ public class Shop {
 	}
 	public Sellable buy(int index, Team player) { // EDITS players money
 		player.getMoney().change( -this.sellables.get(index).price().get());
-		return this.sellables.remove(index);
+		Sellable sell = this.sellables.remove(index);
+		sell.bought();
+		return sell;
 	}
 	public Money price(int index) {
 		return this.sellables.get(index).price();

@@ -96,8 +96,29 @@ public class Match {
 		}
 		return string;
 	}
+	public String getResult() {
+		String string = "";
+		String p1 = "";
+		String p2 = "";
+		if (this.result == 1) {
+			p1 = "<a style='color:#02a;'>[WINNER]</a> ";
+			p2 = "";
+		} else if (this.result == 2) {
+			p1 = "";
+			p2 = " <a style='color:#02a;'>[WINNER]</a>";
+		} else {
+			p1 = "<a style='color:#888;'>[DRAW]</a> ";
+			p2 = "";
+		}
+		string += p1 + this.a.getName() + " (vs) " + this.b.getName() + p2;
+		return string;
+	}
+	public String header() {
+		String string = "Match " + this.a.getName() + " (vs) " + this.b.getName();
+		return string;
+	}
 	public String toString() {
-		String string = "Match " + this.a.getName() + " (vs) " + this.b.getName() + "\n";
+		String string = this.header() + "\n";
 		for (int i = 0; i < this.size; i++) {
 			string += " * " + this.a.matchString(i) + " (vs) " + this.b.matchString(i) + "\n";
 		}

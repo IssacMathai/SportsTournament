@@ -7,7 +7,9 @@ public class Item implements Sellable {
 	public String getName() {
 		return this.name;
 	}
-	
+	public void bought() {
+		this.priceValue = this.priceRetail;
+	}
 	public String getDesc() {
 		return this.description;
 	}

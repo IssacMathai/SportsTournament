@@ -4,6 +4,25 @@ import java.util.ArrayList;
 public class Options {
 	private String[] options;
 	private int betterIndexing = 0; // does it start at 0 or 1?
+	private int type = 0; // for button display
+	private String text; // for button display
+	private int high = -1; // for button display
+	public void setText(String text) {
+		this.text = text;
+		this.type = 1;
+	}
+	public String getText() {
+		return this.text;
+	}
+	public int getType() {
+		return this.type;
+	}
+	public void setHigh(int high) {
+		this.high = high;
+	}
+	public int getHigh() {
+		return this.high;
+	}
 	public void setBetterIndexing(int betterIndexing) {
 		this.betterIndexing = betterIndexing;
 	}

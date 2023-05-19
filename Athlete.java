@@ -74,7 +74,11 @@ public class Athlete implements Sellable {
 	public int getStamina() {
 		return this.stamina;
 	}
-
+	
+	public void bought() {
+		// does nothing
+	}
+	
 	/**
 	 * Sets a nickname for the Athlete
 	 *
@@ -110,7 +114,7 @@ public class Athlete implements Sellable {
 	 */
 	@Override
 	public String toString() {
-		return "Athlete " + this.name + " " + this.stats;
+		return "<a style='margin:15px;'>" + this.name + " " + this.stats + "</a>";
 	}
 	
 	public String matchString() {

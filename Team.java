@@ -88,9 +88,9 @@ public class Team {
 	public Inventory getInventory() {
 		return this.inventory;
 	}
-	public void useItem(int item, int athlete) { // should use an item from the players inventory, then remove it
+	public Item useItem(int item, int athlete) { // should use an item from the players inventory, then remove it
 		this.athletes.get(athlete).useItem( this.inventory.get(item) );
-		this.inventory.get().remove(item);
+		return this.inventory.get().remove(item);
 	}
 	public void swapAthletes(int first, int second) { // should swap 2 athletes
 		Athlete athlete1 = this.athletes.get(first);
@@ -127,8 +127,8 @@ public class Team {
 	public void removeAthlete(Athlete athlete) {
 		this.athletes.remove(athlete);
 	}
-	public void removeAthlete(int index) {
-		this.athletes.remove(index);
+	public Athlete removeAthlete(int index) {
+		return this.athletes.remove(index);
 	}
 	// Reserve Stuff
 	public int reserveCount() {
@@ -152,14 +152,14 @@ public class Team {
 	@Override
 	public String toString() {
 		String string = "";
-		string += "Team " + this.name + "\n";
-		string += "$" + this.money + "\n";
+		string += "<h1>" + this.name + "</h1>\n";
+		//string += "$" + this.money + "<br>";
 		for (int i = 0; i < this.athletes.size(); i++) {
 			Athlete athlete = this.athletes.get(i);
 			if (i == this.fieldCount) {
-				string += "-- reserves --:\n";
+				string += "<i>-- reserves --</i>:\n";
 			}
-			string += athlete + "\n";
+			string += " " + athlete + "<\n";
 		}
 		// below should never happen
 		for (Athlete reserve : this.reserves) {

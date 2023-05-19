@@ -1,7 +1,7 @@
 public class NameValidator implements Validator {
 	private int lowerBound;
 	private int upperBound;
-	private static final String legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcedfghijklmnopqrstuvwxyz '";
+	public static final String legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcedfghijklmnopqrstuvwxyz '";
 	public NameValidator(int lowerBound, int upperBound) {
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
