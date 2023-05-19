@@ -265,15 +265,23 @@ public class Game {
 	
 	public void launchSetupScreen() {
 		Game reference = this;
-		EventQueue.invokeLater(new Runnable() {
+		CountDownLatch latch = new CountDownLatch(1);
+		
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SetupScreen window = new SetupScreen(reference);
+					SetupScreen window = new SetupScreen(reference, latch);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		
+		try {
+			latch.await(); // Wait until the latch is counted down
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public int launchOptionsScreen(Options options) {
@@ -383,6 +391,37 @@ public class Game {
 	public Matches matches;
 	
 	public void startGame() {
+		// purchase the starting athletes in the team
+		// ... use a shop class
+		
+		// pick a difficulty
+		Options difficultySettings = new Options(new String[] {"Easy", "Medium", "Hard"} );
+		this.output("Pick a difficulty level", 69);
+		this.difficulty = this.options(difficultySettings);
+		
+		Shop shop = new Shop(); // Continue to use shop throughout the program
+		shop.addSellable(new Athlete("John", 30, new Stats(new int[] {7, 2, 5})));
+		shop.addSellable(new Athlete("John1", 31, new Stats(new int[] {7, 2, 6})));
+		shop.addSellable(new Athlete("John2", 32, new Stats(new int[] {7, 2, 5})));
+		shop.addSellable(new Athlete("John3", 33, new Stats(new int[] {7, 2, 5})));
+		shop.addSellable(new Athlete("John4", 34, new Stats(new int[] {7, 2, 5})));
+		shop.addSellable(new Athlete("John5", 35, new Stats(new int[] {7, 7, 1})));
+		
+		this.player.setMoney(5000);
+		int choice;
+		
+		this.itemShop = new Shop();
+		this.athleteShop = new Shop();
+		this.resetShop(this.itemShop, this.athleteShop);
+		
+		this.matches = new Matches();
+		this.resetMatches(this.matches, this.player);
+		
+		this.simulateShop( shop, this.player );
+		
+		// print rules
+		//this.output( this.rules() );
+		
 		simulateGame(this.player, this.weeks, this.difficulty, this.itemShop, this.athleteShop, this.matches);
 	}
 	
@@ -394,6 +433,10 @@ public class Game {
 		Validator nameValidator = new NameValidator(3, 15);
 		
 		game.launchSetupScreen();
+		
+		game.startGame();
+		
+		/*
 		
 		game.player = new Team( game.ui("Choose a team name", nameValidator) , game.teamSize, game.fieldSize);
 		// ^^ does the same thing as:
@@ -443,7 +486,7 @@ public class Game {
 		// display end screen
 		game.output("Stats");
 		
-		
+		*/
 		
 	}
 }

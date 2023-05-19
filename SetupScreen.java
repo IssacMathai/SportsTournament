@@ -2,11 +2,13 @@ import java.awt.EventQueue;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.concurrent.CountDownLatch;
 
 public class SetupScreen {
 	
 	private JFrame frame;
 	private Game game;
+	private CountDownLatch latch;
 	/**
 	 * Launch the application
 	 */
@@ -29,8 +31,9 @@ public class SetupScreen {
 	public SetupScreen() {
 		initialize();
 	}
-	public SetupScreen(Game game) {
+	public SetupScreen(Game game, CountDownLatch latch) {
 		this.game = game;
+		this.latch = latch;
 		initialize();
 		this.frame.setVisible(true);
 	}
@@ -40,6 +43,7 @@ public class SetupScreen {
 	}
 	
 	public void finishedWindow() {
+		this.latch.countDown();
 		this.game.closeSetupScreen(this);
 	}
 	
@@ -53,6 +57,7 @@ public class SetupScreen {
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SetupScreen reference = this;
+		Game game = reference.game;
 		int offX;
 		int offY;
 		
@@ -128,9 +133,22 @@ public class SetupScreen {
 				//Here goes the action (method) you want to execute when clicked
 				//System.out.println("You clicked the accept button");
 				
-				finishedWindow();
+				game.player = new Team( text.getText() , game.teamSize, game.fieldSize);
+				// ^^ does the same thing as:
+				// Team player = new Team();
+				// player.setName( game.ui("Choose a team name", nameValidator) );
 				
-				reference.game.startGame();
+				//game.output( player );
+				
+				//Validator weeksValidator = new IntValidator(5, 15);
+				// choose and set the number of weeks in the season.
+				// ... uses a weeksValidator function
+				//game.weeks = game.ui("How many weeks will the season be?", weeksValidator, ReturnType.INT);
+				game.weeks = slider.getValue();
+				
+				finishedWindow();
+		
+				//reference.game.startGame();
 				
 			}
 		});
