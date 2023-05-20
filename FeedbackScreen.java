@@ -65,7 +65,7 @@ public class FeedbackScreen {
 		frame.setSize(this.width, this.height);
 		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JLabel label;
-		label = new JLabel( this.text );
+		label = new JLabel( "<html>" + this.text + "</html>" );
 		label.setBounds( 5, 0, this.width, this.height-55);
 		
 		frame.add(label);

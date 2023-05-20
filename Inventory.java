@@ -38,7 +38,7 @@ public class Inventory {
 			string += this.items.get(i) + "\n";
 		}
 		if (this.items.size() == 0) {
-			string += "[Inventory currenty has no items.]";
+			string += "<a style='color:#999;'>Inventory currenty has no items.</a>";
 		}
 		return string;
 	}

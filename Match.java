@@ -4,6 +4,9 @@ public class Match {
 	private int size;
 	private int[] results;
 	private int result;
+	public int result() {
+		return this.result;
+	}
 	public Match() {
 	
 	}
@@ -12,6 +15,14 @@ public class Match {
 		this.b = b;
 		this.size = size;
 		this.results = new int[size];
+	}
+	public boolean canPlay() {
+		if (this.a.teamCount() >= this.size) {
+			if (this.b.teamCount() >= this.size) {
+				return true;
+			}
+		}
+		return false;
 	}
 	public void play() {
 		// loop through all athletes
@@ -44,26 +55,51 @@ public class Match {
 			}
 			
 			// which athlete won? 0 for draw
+			// CHANGE ATHLETE STAMINA HERE AS WELL!
 			if (points1 == points2) {
 				this.results[i] = 0; // its a draw!
+				athlete1.setStamina(athlete1.getStamina() - 20);
+				athlete2.setStamina(athlete1.getStamina() - 20);
 			} else if (points1 > points2) {
 				this.results[i] = 1; // athlete 1 wins
 				totalWins1++;
+				athlete1.setStamina(athlete1.getStamina() - 10);
+				athlete2.setStamina(athlete1.getStamina() - 50);
 			} else if (points1 < points2) {
 				this.results[i] = 2; // athlete 2 wins
 				totalWins2++;
+				athlete1.setStamina(athlete1.getStamina() - 50);
+				athlete2.setStamina(athlete1.getStamina() - 10);
 			}
 			
-			// CHANGE ATHLETE STAMINA HERE AS WELL!
+			// check if athlete is injured, if so then lose
+			if (athlete1.isInjured() && athlete2.isInjured()) {
+				this.results[i] = 0; // its a draw!
+			} else if (athlete1.isInjured()) {
+				this.results[i] = 2; // athlete 2 wins
+			} else if (athlete2.isInjured()) {
+				this.results[i] = 1; // athlete 1 wins
+			}
 		}
 		
 		// Which Team won the match?
-		if (totalWins1 == totalWins2) {
+		if (totalWins1 == totalWins2) { // DRAW
 			this.result = 0;
-		} else if (totalWins1 > totalWins2) {
+		} else if (totalWins1 > totalWins2) { // P1 WINS
 			this.result = 1;
-		} else if (totalWins1 < totalWins2) {
+		} else if (totalWins1 < totalWins2) { // P2 WINS
 			this.result = 2;
+		}
+		
+		// check if all athletes have lost their stamina and override result
+		boolean aLost = this.a.allInjured();
+		boolean bLost = this.b.allInjured();
+		if (aLost && bLost) {
+			this.result = 0;
+		} else if (aLost) {
+			this.result = 2;
+		} else if (bLost) {
+			this.result = 1;
 		}
 	}
 	public String getResults() {

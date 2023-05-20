@@ -4,12 +4,28 @@ import java.awt.EventQueue;
 import java.awt.event.*;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.SwingUtilities;
+import java.util.Random;
 
 public class Game {
 	public final int teamSize = 10;
 	public final int fieldSize = 5;
 	public String rules() {
-		return "[Insert Game Rules Here]";
+		String nl = "<br>";
+		return "<html><a style='color:#555;'><h3 style='text-align:center;'>Rules</h3>"+nl+
+
+"The goal of Axe Masters is to lead your team to victory this Axe Throwing season. After building your team, you may visit the Club, or visit the Market to purchase Athletes or Items."+nl+
+
+"The Club allows management of team members, reserves and inventory."+nl+
+
+"The Stadium allows your team to play up to 3 matches a week, provided your team is full and contains at least 1 non-injured player. Each of the three matches available may only be played once."+nl+
+
+"During a Match, athletes in opposing teams face off in pairs based on their positions and compare stats. If an Athlete has a higher accuracy and a higher evasion stat, they win the face off and contribute a point to their team. If an Athlete is lower than the opponent on one stat but higher on another, then the face off is a draw and no points are awarded. If the athlete loses a face off, they will lose more stamina than if they had won. Once an Athlete’s stamina reaches 0, they are injured. If an Athlete in a face off is already injured, they instantly lose the face off."+nl+
+
+"The team with the higher score wins, rewarding money and points."+nl+
+
+"The Market allows you to draft new Athletes or purchase Items that, when used, provide stat boosts to team members."+nl+
+
+"When you are ready, you may ‘take a bye’ to move to the next week and select an Athlete to train. All matches in the Stadium, along with the Athletes and Items in the Market will be updated. In addition, the stamina of all Athletes are fully replenished and random events concerning the team may occur.</a></html>";
 	}
 	
 	public void feedback(String string) {
@@ -115,7 +131,7 @@ public class Game {
 		itemShop.clear();
 		athleteShop.clear();
 		
-		Generator gen = new Generator(athleteNames, itemNames, itemDescs);
+		Generator gen = new Generator(this.athleteNames, this.itemNames, this.itemDescs);
 		
 		itemShop.addSellable(gen.item());
 		itemShop.addSellable(gen.item());
@@ -128,35 +144,20 @@ public class Game {
 		athleteShop.addSellable(gen.athlete());
 		athleteShop.addSellable(gen.athlete());
 	}
-	public void resetMatches(Matches matches, Team player) {
+	public void resetMatches(Matches matches, Team player, int week) {
 		Team opponent;
 		
 		matches.clear();
 		
-		opponent = new Team("Diamond Dogs", this.teamSize, this.fieldSize);
-		opponent.addAthlete( new Athlete("Andy", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Andy1", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Andy2", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Andy3", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Andy4", 30, new Stats(new int[] {3, 2, 5})) );
+		Generator gen = new Generator(this.athleteNames, this.teamNames1, this.teamNames2, this.teamSize, this.fieldSize);
+		
+		opponent = gen.team( this.fieldSize, this.difficulty, week );
 		matches.add( new Match(player, opponent, this.fieldSize) );
 		
-		opponent = new Team("Rusty Cows", this.teamSize, this.fieldSize);
-		opponent.addAthlete( new Athlete("Ben", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Ben1", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Ben2", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Ben10", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("George Harrison", 30, new Stats(new int[] {3, 2, 5})) );
-		
+		opponent = gen.team( this.fieldSize, this.difficulty, week );
 		matches.add( new Match(player, opponent, this.fieldSize) );
 		
-		opponent = new Team("Dream team", this.teamSize, this.fieldSize);
-		opponent.addAthlete( new Athlete("Mike", 30, new Stats(new int[] {2, 3, 5})) );
-		opponent.addAthlete( new Athlete("Dwight", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Jack", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Joe", 30, new Stats(new int[] {3, 2, 5})) );
-		opponent.addAthlete( new Athlete("Snape", 30, new Stats(new int[] {30, 50, 50})) );
-		
+		opponent = gen.team( this.fieldSize, this.difficulty, week );
 		matches.add( new Match(player, opponent, this.fieldSize) );
 	}
 	public void simulateShop(Shop shop, Team player) {
@@ -200,10 +201,12 @@ public class Game {
 					}
 					player.addSellable( bought );
 					this.output("Purchase Successful! " + bought);
+					this.launchFeedbackScreen("Purchase Successful! <br>" + bought);
 				}
 			} catch (Exception e) {
 				String reason = e.getMessage();
-				this.output("Purchase Unsuccessful... " + reason);
+				this.output("Purchase Unsuccessful... <br>" + reason);
+				this.launchFeedbackScreen("Purchase Unsuccessful... " + reason);
 			}
 		}
 	}
@@ -316,9 +319,21 @@ public class Game {
 				break;
 			}
 			if (! this.last()) {
-				Match match = matches.playMatch( choice ); // uses up the match
-				this.launchFeedbackScreen( "<html>" + match.getResult() + "</html>" );
-				//this.output( match.getResults() );
+				if ( matches.canPlay( choice ) ) {
+					Match match = matches.playMatch( choice ); // uses up the match
+					if (match.result() == 1) { // reward player
+						int amount = (2 - this.difficulty) * 100;
+						String[] diffText = new String[] {"easy", "medium", "hard"};
+						this.player.getMoney().change(amount);
+						this.points += this.difficulty + 1;
+						this.launchFeedbackScreen( "" + match.getResult() + "<br><a style='color:#999;'><i>Reward $" + amount + " for " + diffText[this.difficulty] + " mode.<br>+" + (this.difficulty+1) + " points</i></a>" );
+					} else {
+						this.launchFeedbackScreen( "" + match.getResult() + "" );
+					}
+					//this.output( match.getResults() );
+				} else {
+					this.launchFeedbackScreen( "You need " + this.fieldSize + " athletes to play this match" );
+				}
 			}
 		}
 	}
@@ -495,11 +510,21 @@ public class Game {
 		// for week in weeks
 		for (int week = 1; week <= weeks; week++) {
 			// (0) print game stats (including player.stats (which returns money)) (money, current week, and weeks remaining)
-			
+			boolean finalWeek = false;
+			if (week == weeks) {
+				finalWeek = true;
+			}
 			boolean inWeek = true; // is set to false when a bye is taken
 			while (inWeek) {
-				this.output("Week " + week, 69);
+				if (finalWeek) {
+					this.output("Final Week", 69);
+				} else {
+					this.output("Week " + week + " / " + weeks, 69);
+				}
 				Options actions = new Options(new String[] {"Manage your team at the clubs", "Play Matches", "Go to the shop", "Take a Bye" + " (move to the next week)"} ); //move to the next week (as long as it aint the last week)
+				if (finalWeek) {
+					actions.options()[actions.last()] = "Finish Season";
+				} 
 				int action = this.options(actions);
 				
 				
@@ -519,17 +544,66 @@ public class Game {
 					
 					continue;
 				} else if (this.last()) { // (4) move to the next week
+					if (finalWeek) {
+						break;
+					}
 					// take a bye
-					// update classes
-					// random events
+					// reset stamina
+					this.player.resetStamina();
 					// train athlete
+					Options trainOptions = new Options( player.getAthletesAsSellables() ).join( "Skip" );
+					trainOptions.setText("Train"); // BUTTON TEXT
+					this.output("Choose an athlete to train over your bye", 69);
+					this.output("<a style='color:#999;'><i>all athletes Stamina has been reset.</i></a>");
+					int athleteChoice = this.options(trainOptions);
+					Item train = new Item("Train", "increases all stats", new Stats(new int[] {1, 1, 1}), 0, 0);
+					if (! this.last() ) {
+						player.getAthlete(athleteChoice).useItem(train);
+						this.launchFeedbackScreen("+1 stats on " + player.getAthlete(athleteChoice).getName());
+					}
+					// random events
+					
+					Random rand = new Random();
+					int number = rand.nextInt(100) + 1; // 1 - 100
+					int level = (this.difficulty + 1)*30; // either 30, 60, or 90
+					if (number < level) {
+						if (this.player.teamCount() == 0) { // higher chance a new athlete joins if team is empty
+							Generator gen = new Generator(this.athleteNames, this.itemNames, this.itemDescs);
+							Athlete a = gen.athlete();
+							if (this.player.addAthlete(a)) {
+								this.launchFeedbackScreen("A Random Event happened...<br>" + a + "<br>joined the team!");
+							}
+						} else { // athlete might quit, join, or have a stat boost
+							if (rand.nextInt(2) == 0) { // quits
+								int athleteIndex = rand.nextInt(this.player.teamCount());
+								Athlete a = this.player.removeAthlete(athleteIndex);
+								String[] reasons = {"they got hit by an axe", "they weren't getting paid", "they didn't like you", "you worked them way too hard", "they got a better offer somewhere else", "their grandma died", "their 'friend' got pregnant", "they realised you didn't know how to manage a team"};
+								String reason = reasons[rand.nextInt(reasons.length)];
+								if (this.player.getMoney().get() > 0 && rand.nextInt(3) == 0) { // chance they steal your money
+									reason += ", and they took all your money with them <a style='color:#999;'><i>-$" + this.player.getMoney().get() + "</i></a>)";
+									this.player.getMoney().set(0);
+								}
+								this.launchFeedbackScreen("A Random Event happened... <br>" + a + "<br>quit the team because " + reason + ".");
+								
+							} else { // chance an athlete joins if there is space
+								Generator gen = new Generator(this.athleteNames, this.itemNames, this.itemDescs);
+								Athlete a = gen.athlete();
+								if (this.player.addAthlete(a)) {
+									this.launchFeedbackScreen("A Random Event happened...<br>" + a + "<br>joined the team!");
+								}
+							}
+						}
+					}
+					
+					// update classes
 					this.resetShop(itemShop, athleteShop);
-					this.resetMatches(matches, player);
+					this.resetMatches(matches, player, week);
 					inWeek = false;
 					continue;
 				}
 			}
 		}
+		this.launchFeedbackScreen("Game Over!<br>Points Earned: " + this.points);
 	}
 	
 	
@@ -540,6 +614,7 @@ public class Game {
 	public int weeks = 5;
 	public int difficulty;
 	public Matches matches;
+	public int points = 0;
 	
 	public void startGame() {
 		// purchase the starting athletes in the team
@@ -548,6 +623,7 @@ public class Game {
 		// pick a difficulty
 		Options difficultySettings = new Options(new String[] {"Easy", "Medium", "Hard"} );
 		this.output("Pick a difficulty level", 69);
+		this.output("<html><a style='color:#999;'><i>affects start money, matches, shop items, and random events</i></a></html>");
 		this.difficulty = this.options(difficultySettings);
 		
 		Shop shop = new Shop(); // Continue to use shop throughout the program
@@ -560,7 +636,7 @@ public class Game {
 		shop.addSellable(gen.athlete());
 		shop.addSellable(gen.athlete());
 		
-		this.player.setMoney(5000);
+		this.player.setMoney(1000 - this.difficulty * 250);
 		int choice;
 		
 		this.itemShop = new Shop();
@@ -568,7 +644,7 @@ public class Game {
 		this.resetShop(this.itemShop, this.athleteShop);
 		
 		this.matches = new Matches();
-		this.resetMatches(this.matches, this.player);
+		this.resetMatches(this.matches, this.player, 1);
 		
 		this.simulateShop( shop, this.player );
 		

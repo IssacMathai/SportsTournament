@@ -95,7 +95,7 @@ public class SetupScreen {
 		
 		
 		//label.setText("Change label...");
-		label = new JLabel("<html><h1>Welcome to <i>Axe Masters</i>!</h1></html>");
+		label = new JLabel("<html><h1>Welcome to <i>" + this.generateRainbow("Axe Masters") + "</i>!</h1></html>");
 		label.setBounds(offX + 10, offY + 10, 1000, 60);
 		frame.add(label);
 		
@@ -142,8 +142,8 @@ public class SetupScreen {
         panel.setBorder(BorderFactory.createLineBorder(Color.gray));
 		panel.setLayout(null);
 		
-		label = new JLabel(this.generateRainbow(game.rules()));
-		label.setBounds(0 + 50, 0 + 10, 1000, 30);
+		label = new JLabel(game.rules());
+		label.setBounds(0 + 00, 0 + 00, 680, 350);
 		panel.add(label);
 		
         frame.add(panel);

@@ -117,6 +117,10 @@ public class Athlete implements Sellable {
 		return "<a style='margin:15px;'>" + this.name + " " + this.stats + "</a>";
 	}
 	
+	public String toShopString() {
+		return "<a style='margin:15px;'>" + this.name + " " + this.stats + " <a style='color:#999;'><i>Stamina " + this.getStamina() + "</i></a>";
+	}
+	
 	public String matchString() {
 		return "" + this.name + " (" + this.stats + ")";
 	}

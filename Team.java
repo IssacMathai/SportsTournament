@@ -53,6 +53,22 @@ public class Team {
 		this.reserves = new ArrayList<Athlete>();
 		this.inventory = new Inventory();
 	}
+	public boolean allInjured() { // if all the first 5 athletes are injured
+		for (int i = 0; i < this.athletes.size(); i++) {
+			if (i == 5) {
+				break; // we don't care about reserved athletes
+			}
+			if (! this.athletes.get(i).isInjured()) {
+				return false;
+			}
+		}
+		return true; // they were all injured
+	}
+	public void resetStamina() {
+		for (Athlete athlete : this.athletes) {
+			athlete.setStamina(100);
+		}
+	}
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -157,16 +173,16 @@ public class Team {
 		for (int i = 0; i < this.athletes.size(); i++) {
 			Athlete athlete = this.athletes.get(i);
 			if (i == this.fieldCount) {
-				string += "<i>-- reserves --</i>:\n";
+				string += "<a style='color:#999;'><i>-- reserves --</i>:</a>\n";
 			}
-			string += " " + athlete + "<\n";
+			string += " " + athlete.toShopString() + "<\n";
 		}
 		// below should never happen
 		for (Athlete reserve : this.reserves) {
 			string += reserve + "\n";
 		}
 		if (this.teamCount() == 0) {
-			string += "The team has no members.";
+			string += "<a style='color:#999;'>The team has no members.</a>";
 		}
 		return string;
 	}
@@ -176,7 +192,7 @@ public class Team {
 		if (index < this.teamCount()) {
 			string += this.athletes.get(index).matchString();
 		} else {
-			string += "[no athlete]";
+			string += "<a style='color:#999;'>[no athlete]</a>";
 		}
 		
 		return string;

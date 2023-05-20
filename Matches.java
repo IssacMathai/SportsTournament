@@ -37,4 +37,8 @@ public class Matches {
 		match.play(); // updates all stats on both teams including money
 		return ( match );
 	}
+	public boolean canPlay(int index) {
+		Match match = this.getMatch(index);
+		return match.canPlay();
+	}
 }
