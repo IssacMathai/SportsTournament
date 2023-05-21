@@ -1,20 +1,20 @@
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Stats.
+ * This class stores and can change athlete stats.
  */
 public class Stats {
 	
-	/** The stats. */
+	/** The stats array. */
 	private int[] stats;
 	
-	/** The names. */
+	/** The names of stats. */
 	private String[] names = {"Accuracy", "Evasion", "Speed", "Strength", "Tough-skin"};
 	
-	/** The cols. */
+	/** The colors of each stat. */
 	private String[] cols = {"#a40", "#0a4", "#40a", "#a40", "#0a4", "#40a"};
 	
 	/**
-	 * Instantiates a new stats.
+	 * Instantiates a new stats object with the given stats
 	 *
 	 * @param stats the stats
 	 */
@@ -23,7 +23,7 @@ public class Stats {
 	}
 	
 	/**
-	 * To string.
+	 * Returns a string representation of the stats
 	 *
 	 * @return the string
 	 */
@@ -39,16 +39,16 @@ public class Stats {
 	}
 	
 	/**
-	 * Gets the.
+	 * Gets the array of stats
 	 *
-	 * @return the int[]
+	 * @return int[] array of stats
 	 */
 	public int[] get() {
 		return this.stats;
 	}
 	
 	/**
-	 * Apply.
+	 * Applies the effects of another Stats object to the current stats object
 	 *
 	 * @param effectsStats the effects stats
 	 */
