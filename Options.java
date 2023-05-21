@@ -1,9 +1,8 @@
 import java.util.Arrays;
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Options.
+ * Represents a list of options.
  */
 public class Options {
 	
@@ -23,7 +22,7 @@ public class Options {
 	private int high = -1; // for button display
 	
 	/**
-	 * Sets the text.
+	 * Sets the text
 	 *
 	 * @param text the new text
 	 */
@@ -33,7 +32,7 @@ public class Options {
 	}
 	
 	/**
-	 * Gets the text.
+	 * Gets the text for display
 	 *
 	 * @return the text
 	 */
@@ -51,7 +50,7 @@ public class Options {
 	}
 	
 	/**
-	 * Sets the high.
+	 * Sets the high value.
 	 *
 	 * @param high the new high
 	 */
@@ -60,7 +59,7 @@ public class Options {
 	}
 	
 	/**
-	 * Gets the high.
+	 * Gets the high value.
 	 *
 	 * @return the high
 	 */
@@ -106,7 +105,7 @@ public class Options {
 	}
 	
 	/**
-	 * First.
+	 * Returns the index of the first option
 	 *
 	 * @return the int
 	 */
@@ -124,7 +123,7 @@ public class Options {
 	}
 	
 	/**
-	 * Options.
+	 * Returns the index of the last option
 	 *
 	 * @return the string[]
 	 */
@@ -133,7 +132,7 @@ public class Options {
 	}
 	
 	/**
-	 * Option.
+	 * Returns the option at the specified index
 	 *
 	 * @param index the index
 	 * @return the string
@@ -144,7 +143,7 @@ public class Options {
 	}
 	
 	/**
-	 * Join.
+	 * Creates a new Options object by joining the specified option
 	 *
 	 * @param option the option
 	 * @return the options
@@ -156,7 +155,7 @@ public class Options {
 	}
 	
 	/**
-	 * Adds the.
+	 * Adds the specified option to the existing options
 	 *
 	 * @param option the option
 	 */
@@ -166,7 +165,7 @@ public class Options {
 	}
 	
 	/**
-	 * To string.
+	 * Returns a string representation of the Options object
 	 *
 	 * @return the string
 	 */
