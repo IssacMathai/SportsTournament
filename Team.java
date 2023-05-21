@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Team.
+ * The Team class. It contains the athletes.
  */
 public class Team {
 	
@@ -104,9 +103,9 @@ public class Team {
 	}
 	
 	/**
-	 * All injured.
+	 * Returns whether athletes are injured.
 	 *
-	 * @return true, if successful
+	 * @return true, if all athletes are injured
 	 */
 	public boolean allInjured() { // if all the first 5 athletes are injured
 		for (int i = 0; i < this.athletes.size(); i++) {
@@ -121,7 +120,7 @@ public class Team {
 	}
 	
 	/**
-	 * Reset stamina.
+	 * Restores stamina to 100.
 	 */
 	public void resetStamina() {
 		for (Athlete athlete : this.athletes) {
@@ -130,7 +129,7 @@ public class Team {
 	}
 	
 	/**
-	 * Sets the name.
+	 * Sets the name of the team.
 	 *
 	 * @param name the new name
 	 */
@@ -139,7 +138,7 @@ public class Team {
 	}
 	
 	/**
-	 * Gets the name.
+	 * Gets the name of the team.
 	 *
 	 * @return the name
 	 */
@@ -148,7 +147,7 @@ public class Team {
 	}
 	
 	/**
-	 * Sets the money.
+	 * Sets the money the team has.
 	 *
 	 * @param money the new money
 	 */
@@ -157,7 +156,7 @@ public class Team {
 	}
 	
 	/**
-	 * Sets the money.
+	 * Sets the money the team has.
 	 *
 	 * @param money the new money
 	 */
@@ -166,7 +165,7 @@ public class Team {
 	}
 	
 	/**
-	 * Gets the money.
+	 * Gets the money the team has.
 	 *
 	 * @return the money
 	 */
@@ -205,7 +204,7 @@ public class Team {
 	 * Adds the sellable.
 	 *
 	 * @param sellable the sellable
-	 * @return true, if successful
+	 * @return true, if inventory is not full
 	 */
 	public boolean addSellable(Sellable sellable) {
 		if (sellable instanceof Athlete) { // add athlete
@@ -251,7 +250,7 @@ public class Team {
 	}
 	
 	/**
-	 * Athlete count.
+	 * Number of athletes.
 	 *
 	 * @return the int
 	 */
@@ -261,10 +260,10 @@ public class Team {
 	}
 	
 	/**
-	 * Adds the athlete.
+	 * Adds the athlete to the team.
 	 *
 	 * @param athlete the athlete
-	 * @return true, if successful
+	 * @return true, if the team is not full
 	 */
 	// return true on success
 	public boolean addAthlete(Athlete athlete) { // might throw an exception ("Team full!")
@@ -299,7 +298,7 @@ public class Team {
 	}
 	
 	/**
-	 * Gets the athlete.
+	 * Gets the athlete at the specified index
 	 *
 	 * @param index the index
 	 * @return the athlete
@@ -309,7 +308,7 @@ public class Team {
 	}
 	
 	/**
-	 * Removes the athlete.
+	 * Removes the specified athlete.
 	 *
 	 * @param athlete the athlete
 	 */
@@ -318,7 +317,7 @@ public class Team {
 	}
 	
 	/**
-	 * Removes the athlete.
+	 * Removes the athlete at the specified index.
 	 *
 	 * @param index the index
 	 * @return the athlete
@@ -328,7 +327,7 @@ public class Team {
 	}
 	
 	/**
-	 * Reserve count.
+	 * The number of reserves.
 	 *
 	 * @return the int
 	 */
@@ -338,7 +337,7 @@ public class Team {
 	}
 	
 	/**
-	 * Adds the reserve.
+	 * Adds a reserve if the team is not full.
 	 *
 	 * @param athlete the athlete
 	 */
@@ -349,7 +348,7 @@ public class Team {
 	}
 	
 	/**
-	 * Gets the reserve.
+	 * Gets the reserve at the specified index
 	 *
 	 * @param index the index
 	 * @return the reserve
@@ -359,7 +358,7 @@ public class Team {
 	}
 	
 	/**
-	 * Removes the reserve.
+	 * Removes the specified reserve
 	 *
 	 * @param athlete the athlete
 	 */
@@ -368,7 +367,7 @@ public class Team {
 	}
 	
 	/**
-	 * Removes the reserve.
+	 * Removes the reserve at the specified index.
 	 *
 	 * @param index the index
 	 */
@@ -377,7 +376,7 @@ public class Team {
 	}
 	
 	/**
-	 * To string.
+	 * Returns a string representation of the team
 	 *
 	 * @return the string
 	 */
@@ -405,7 +404,7 @@ public class Team {
 	}
 	
 	/**
-	 * Match string.
+	 * Returns a string representation of the athlete at the specified index
 	 *
 	 * @param index the index
 	 * @return the string
