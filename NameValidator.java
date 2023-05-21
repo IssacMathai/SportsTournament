@@ -1,13 +1,13 @@
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class NameValidator.
+ * This class validates names.
  */
 public class NameValidator implements Validator {
 	
-	/** The lower bound. */
+	/** The lower bound of length of name. */
 	private int lowerBound;
 	
-	/** The upper bound. */
+	/** The upper bound of length of name. */
 	private int upperBound;
 	
 	/** The Constant legalChars. */
@@ -25,7 +25,7 @@ public class NameValidator implements Validator {
 	}
 	
 	/**
-	 * Validate.
+	 * Validates the given string
 	 *
 	 * @param string the string
 	 * @return true, if successful
