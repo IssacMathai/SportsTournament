@@ -4,14 +4,28 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FeedbackScreen.
+ */
 public class FeedbackScreen {
 	
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The game. */
 	private Game game;
+	
+	/** The latch. */
 	private CountDownLatch latch;
+	
+	/** The text. */
 	private String text;
+	
 	/**
-	 * Launch the application
+	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -32,6 +46,14 @@ public class FeedbackScreen {
 	public FeedbackScreen() {
 		initialize();
 	}
+	
+	/**
+	 * Instantiates a new feedback screen.
+	 *
+	 * @param game the game
+	 * @param latch the latch
+	 * @param text the text
+	 */
 	public FeedbackScreen(Game game, CountDownLatch latch, String text) {
 		this.game = game;
 		this.latch = latch;
@@ -40,10 +62,16 @@ public class FeedbackScreen {
 		this.frame.setVisible(true);
 	}
 	
+	/**
+	 * Close window.
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Finished window.
+	 */
 	public void finishedWindow() {
 		this.latch.countDown();
 		this.game.closeFeedbackScreen(this);
@@ -53,8 +81,13 @@ public class FeedbackScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private int width = 350;
+	
+	/** The height. */
 	private int height = 200;
 	
+	/**
+	 * Initialize.
+	 */
 	private void initialize() {
 		FeedbackScreen reference = this;
 		frame = new JFrame("Feedback");
@@ -86,34 +119,6 @@ public class FeedbackScreen {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
