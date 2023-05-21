@@ -5,8 +5,6 @@ import java.awt.event.*;
 import java.util.concurrent.CountDownLatch;
 import javax.swing.SwingUtilities;
 import java.util.Random;
-
-// TODO: Auto-generated Javadoc
 /**
  * The main game environment class.
  *
@@ -34,7 +32,7 @@ public class Game {
 
 "The Stadium allows your team to play up to 3 matches a week, provided your team is full and contains at least 1 non-injured player. Each of the three matches available may only be played once."+nl+
 
-"During a Match, athletes in opposing teams face off in pairs based on their positions and compare stats. If an Athlete has a higher accuracy and a higher evasion stat, they win the face off and contribute a point to their team. If an Athlete is lower than the opponent on one stat but higher on another, then the face off is a draw and no points are awarded. If the athlete loses a face off, they will lose more stamina than if they had won. Once an Athlete’s stamina reaches 0, they are injured. If an Athlete in a face off is already injured, they instantly lose the face off."+nl+
+"During a Match, athletes in opposing teams face off in pairs based on their positions and compare stats. The three stats, accuracy, evasion and speed are compared in order to determine the winner. If the athlete loses a face off, they will lose more stamina than if they had won. Once an Athlete’s stamina reaches 0, they are injured. If an Athlete in a face off is already injured, they instantly lose the face off."+nl+
 
 "The team with the higher score wins, rewarding money and points."+nl+
 
