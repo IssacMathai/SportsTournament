@@ -1,9 +1,9 @@
-// TODO: Auto-generated Javadoc
+
 /**
- * The Enum ReturnType.
+ * The Enum ReturnType represents the possible return types (only INT)
  */
 enum ReturnType {
 	
-	/** The int. */
+	/** Represents an integer return type */
 	INT
 }
