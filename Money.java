@@ -1,14 +1,13 @@
-// TODO: Auto-generated Javadoc
 /**
- * The Class Money.
+ * The Class Money, handles the money of the player
  */
 public class Money {
 	
-	/** The money. */
+	/** The amount of money. */
 	private int money;
 	
 	/**
-	 * Instantiates a new money.
+	 * Instantiates a new money object with the specified amount
 	 *
 	 * @param money the money
 	 */
@@ -17,14 +16,14 @@ public class Money {
 	}
 	
 	/**
-	 * Instantiates a new money.
+	 * Instantiates a new money object with no money
 	 */
 	public Money() {
 		this.money = 0;
 	}
 	
 	/**
-	 * Sets the.
+	 * Sets the amount of money the player has
 	 *
 	 * @param money the money
 	 */
@@ -33,7 +32,7 @@ public class Money {
 	}
 	
 	/**
-	 * Gets the.
+	 * Gets the amount of money the player has
 	 *
 	 * @return the int
 	 */
@@ -42,7 +41,7 @@ public class Money {
 	}
 	
 	/**
-	 * Change.
+	 * Changes the amount of money the player has
 	 *
 	 * @param money the money
 	 */
@@ -51,7 +50,7 @@ public class Money {
 	}
 	
 	/**
-	 * To string.
+	 * A string representation of the amount of money
 	 *
 	 * @return the string
 	 */
