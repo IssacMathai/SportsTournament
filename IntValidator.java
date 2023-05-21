@@ -1,6 +1,5 @@
-// TODO: Auto-generated Javadoc
 /**
- * The Class IntValidator.
+ * An implementation of the Validator interface that validates integer input
  */
 public class IntValidator implements Validator {
 	
@@ -11,7 +10,7 @@ public class IntValidator implements Validator {
 	private int upperBound;
 	
 	/**
-	 * Instantiates a new int validator.
+	 * Instantiates a new int validator within the bounds
 	 *
 	 * @param lowerBound the lower bound
 	 * @param upperBound the upper bound
@@ -22,11 +21,11 @@ public class IntValidator implements Validator {
 	}
 	
 	/**
-	 * Validate.
+	 * Validates the input string by parsing it as an integer and checking if it falls within the specified bounds
 	 *
-	 * @param string the string
-	 * @return true, if successful
-	 * @throws Exception the exception
+	 * @param string the input string to validate
+	 * @return true, if valid
+	 * @throws Exception if the input is not a valid integer or if it is outside the specified bounds
 	 */
 	public boolean validate(String string) throws Exception {
 		try {
