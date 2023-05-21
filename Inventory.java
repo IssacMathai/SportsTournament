@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Inventory.
+ * The inventory of the team that may contain items.
  */
 public class Inventory {
 	
@@ -17,18 +16,18 @@ public class Inventory {
 	}
 	
 	/**
-	 * Gets the.
+	 * Returns the list of items in the inventory
 	 *
-	 * @return the array list
+	 * @return list of items
 	 */
 	public ArrayList<Item> get() {
 		return this.items;
 	}
 	
 	/**
-	 * Gets the sellables.
+	 * Returns the list of sellable items in the inventory
 	 *
-	 * @return the sellables
+	 * @return list of sellable items
 	 */
 	public ArrayList<Sellable> getSellables() {
 		ArrayList<Sellable> asdf = new ArrayList<Sellable>();
@@ -39,17 +38,17 @@ public class Inventory {
 	}
 	
 	/**
-	 * Gets the.
+	 * Returns the item at the specified index in the inventory
 	 *
-	 * @param index the index
-	 * @return the item
+	 * @param index the index of the item
+	 * @return the item at the index
 	 */
 	public Item get(int index) {
 		return this.items.get(index);
 	}
 	
 	/**
-	 * Adds the.
+	 * Adds item to inventory
 	 *
 	 * @param item the item
 	 */
@@ -58,7 +57,7 @@ public class Inventory {
 	}
 	
 	/**
-	 * Exists.
+	 * Check if index exists
 	 *
 	 * @param index the index
 	 * @return true, if successful
@@ -68,19 +67,19 @@ public class Inventory {
 	}
 	
 	/**
-	 * Removes the.
+	 * Removes the item at the specified index from the inventory
 	 *
-	 * @param index the index
+	 * @param index the index of item to remove
 	 */
 	public void remove(int index) {
 		this.items.remove(index);
 	}
 	
 	/**
-	 * Use.
+	 * Uses item at index and removes it from inventory
 	 *
 	 * @param index the index
-	 * @return the item
+	 * @return the item used
 	 */
 	public Item use(int index) {
 		Item item = this.get(index);
@@ -89,7 +88,7 @@ public class Inventory {
 	}
 	
 	/**
-	 * To string.
+	 * Returns a string representation of the inventory.
 	 *
 	 * @return the string
 	 */
