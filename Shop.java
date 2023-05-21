@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Shop.
+ * The class for the Shop where you can purchase and sell items and athletes.
  */
 public class Shop {
 	
@@ -17,14 +16,14 @@ public class Shop {
 	}
 	
 	/**
-	 * Clear.
+	 * Clears the shop.
 	 */
 	public void clear() {
 		this.sellables = new ArrayList<Sellable>();
 	}
 	
 	/**
-	 * Sellable count.
+	 * Amount of sellables.
 	 *
 	 * @return the int
 	 */
@@ -45,7 +44,7 @@ public class Shop {
 	}
     
     /**
-     * Gets the sellables.
+     * Gets the sellables from the shop
      *
      * @return the sellables
      */
@@ -54,7 +53,7 @@ public class Shop {
 	}
 	
 	/**
-	 * Gets the sellable.
+	 * Gets the sellable at the specified index
 	 *
 	 * @param index the index
 	 * @return the sellable
@@ -64,7 +63,7 @@ public class Shop {
 	}
 	
 	/**
-	 * Removes the sellable.
+	 * Removes the specified sellable from the shop
 	 *
 	 * @param sellable the sellable
 	 */
@@ -73,7 +72,7 @@ public class Shop {
 	}
 	
 	/**
-	 * Removes the sellable.
+	 * Removes the sellable at the index from the shop
 	 *
 	 * @param index the index
 	 */
@@ -82,12 +81,12 @@ public class Shop {
 	}
 	
 	/**
-	 * Can buy.
+	 * Checks if a player can buy the sellable item at the specified index
 	 *
-	 * @param index the index
+	 * @param index the index of the sellable item
 	 * @param player the player
-	 * @return true, if successful
-	 * @throws Exception the exception
+	 * @return true, if the player can buy the item
+	 * @throws Exception if the player doesn't have enough money or the team is full
 	 */
 	public boolean canBuy(int index, Team player) throws Exception { // doesn't edit players money
 		Sellable sellable = this.getSellable( index );
@@ -101,11 +100,11 @@ public class Shop {
 	}
 	
 	/**
-	 * Buy.
+	 * Purchases the sellable item at the specified index.
 	 *
-	 * @param index the index
+	 * @param index the index of the sellable item
 	 * @param player the player
-	 * @return the sellable
+	 * @return the sellanle that has been bought
 	 */
 	public Sellable buy(int index, Team player) { // EDITS players money
 		player.getMoney().change( -this.sellables.get(index).price().get());
@@ -115,7 +114,7 @@ public class Shop {
 	}
 	
 	/**
-	 * Price.
+	 * Returns the price of the sellable item at the specified index
 	 *
 	 * @param index the index
 	 * @return the money
@@ -125,7 +124,7 @@ public class Shop {
 	}
 	
 	/**
-	 * To string.
+	 * Returns a string representation of the shop
 	 *
 	 * @return the string
 	 */
