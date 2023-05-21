@@ -1,16 +1,16 @@
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Match.
+ * The Match class runs a match between two teams.
  */
 public class Match {
 	
-	/** The a. */
+	/** The first team */
 	private Team a;
 	
-	/** The b. */
+	/** The second team. */
 	private Team b;
 	
-	/** The size. */
+	/** The number of athletes per team in the match */
 	private int size;
 	
 	/** The results. */
@@ -20,7 +20,7 @@ public class Match {
 	private int result;
 	
 	/**
-	 * Result.
+	 * Returns integer result.
 	 *
 	 * @return the int
 	 */
@@ -50,7 +50,7 @@ public class Match {
 	}
 	
 	/**
-	 * Can play.
+	 * Checks if the match can be played by both teams.
 	 *
 	 * @return true, if successful
 	 */
@@ -64,7 +64,8 @@ public class Match {
 	}
 	
 	/**
-	 * Play.
+	 * Plays the match by comparing athletes' stats and determining the winner
+	 * Updates the match results and overall result.
 	 */
 	public void play() {
 		// loop through all athletes
@@ -146,7 +147,7 @@ public class Match {
 	}
 	
 	/**
-	 * Gets the results.
+	 * Gets a string representation of the match results
 	 *
 	 * @return the results
 	 */
@@ -182,7 +183,7 @@ public class Match {
 	}
 	
 	/**
-	 * Gets the result.
+	 * Gets the string representation of the match result
 	 *
 	 * @return the result
 	 */
@@ -205,7 +206,7 @@ public class Match {
 	}
 	
 	/**
-	 * Header.
+	 * Creates a string representation of the match header
 	 *
 	 * @return the string
 	 */
@@ -215,7 +216,7 @@ public class Match {
 	}
 	
 	/**
-	 * To string.
+	 * Generates a string representation of the match details
 	 *
 	 * @return the string
 	 */
