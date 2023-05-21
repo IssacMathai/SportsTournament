@@ -90,7 +90,7 @@ public class Athlete implements Sellable {
 	}
 	
 	/**
-	 * Bought.
+	 * Required for sellable interface.
 	 */
 	public void bought() {
 		// does nothing
@@ -147,7 +147,7 @@ public class Athlete implements Sellable {
 	}
 	
 	/**
-	 * Match string.
+	 * Returns a string representation of the Athlete for a match.
 	 *
 	 * @return the string
 	 */
@@ -156,9 +156,9 @@ public class Athlete implements Sellable {
 	}
 
 	/**
-	 * Price.
+	 * Calculats the price of the Athlete
 	 *
-	 * @return the money
+	 * @return price of athlete as a Money object
 	 */
 	public Money price() {
 		// returns the value of the athlete
@@ -171,9 +171,9 @@ public class Athlete implements Sellable {
 	}
 	
 	/**
-	 * Gets the option.
+	 *  Returns the option string for the Athlete
 	 *
-	 * @return the option
+	 * @return option string for the Athlete
 	 */
 	public String getOption() {
 		return "$" + this.price() + " - " + this;
