@@ -6,9 +6,25 @@ import java.util.concurrent.CountDownLatch;
 import javax.swing.SwingUtilities;
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Game.
+ *
+ * @author ima90
+ */
 public class Game {
+	
+	/** The team size. */
 	public final int teamSize = 10;
+	
+	/** The field size. */
 	public final int fieldSize = 5;
+	
+	/**
+	 * Rules.
+	 *
+	 * @return the string
+	 */
 	public String rules() {
 		String nl = "<br>";
 		return "<html><a style='color:#555;'><h3 style='text-align:center;'>Rules</h3>"+nl+
@@ -28,11 +44,26 @@ public class Game {
 "When you are ready, you may ‘take a bye’ to move to the next week and select an Athlete to train. All matches in the Stadium, along with the Athletes and Items in the Market will be updated. In addition, the stamina of all Athletes are fully replenished and random events concerning the team may occur.</a></html>";
 	}
 	
+	/**
+	 * Feedback.
+	 *
+	 * @param string the string
+	 */
 	public void feedback(String string) {
 		this.output("[!] " + string);
 	}
+	
+	/** The last output. */
 	public String lastOutput = "";
+	
+	/** The prev outputs. */
 	public ArrayList<String> prevOutputs = new ArrayList<String>();
+	
+	/**
+	 * Output.
+	 *
+	 * @param string the string
+	 */
 	public void output(Object string) {
 		System.out.println(string);
 		this.lastOutput = string.toString();
@@ -43,6 +74,13 @@ public class Game {
 		}
 		//this.prevOutputs.add(this.lastOutput);
 	}
+	
+	/**
+	 * Output.
+	 *
+	 * @param string the string
+	 * @param yeeet the yeeet
+	 */
 	public void output(Object string, int yeeet) {
 		System.out.println(string);
 		this.prevOutputs = new ArrayList<String>(); // clear the display
@@ -54,6 +92,14 @@ public class Game {
 		}
 		//this.prevOutputs.add(this.lastOutput);
 	}
+	
+	/**
+	 * Ui.
+	 *
+	 * @param message the message
+	 * @param v the v
+	 * @return the string
+	 */
 	// Return String
 	public String ui(String message, Validator v) {
 		Scanner scan = new Scanner(System.in);
@@ -71,6 +117,15 @@ public class Game {
 		}
 		return input;
 	}
+	
+	/**
+	 * Ui.
+	 *
+	 * @param message the message
+	 * @param v the v
+	 * @param type the type
+	 * @return the int
+	 */
 	// Return Int
 	public int ui(String message, Validator v, ReturnType type) {
 		Scanner scan = new Scanner(System.in);
@@ -90,9 +145,22 @@ public class Game {
 		int number = Integer.parseInt(input);
 		return number;
 	}
+	
+	/** The last choice. */
 	private int lastChoice;
+	
+	/** The last options. */
 	private Options lastOptions;
+	
+	/** The last input. */
 	public String lastInput;
+	
+	/**
+	 * Options.
+	 *
+	 * @param options the options
+	 * @return the int
+	 */
 	public int options(Options options) {
 		Validator optionsValidator = new IntValidator(options.first(), options.last());
 		
@@ -113,20 +181,56 @@ public class Game {
 		
 		return choice;
 	}
+	
+	/**
+	 * First.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean first() {
 		return this.lastChoice == this.lastOptions.first();
 	}
+	
+	/**
+	 * First.
+	 *
+	 * @param index the index
+	 * @return true, if successful
+	 */
 	public boolean first(int index) {
 		return this.lastChoice == this.lastOptions.first() + index;
 	}
+	
+	/**
+	 * Last.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean last() {
 		return this.lastChoice == this.lastOptions.last();
 	}
+	
+	/** The Constant teamNames1. */
 	private static final String[] teamNames1 =   {"Diamond", "Rusty", "Maccas", "Sweaty", "Amber", "Old", "Burger", "Smelly", "Crystal", "Math", "Meth", "Cocaine", "Nerdy", "Handy", "Sharp", "Blunt", "Shiney", "Ancient", "Greasy", "Moist", "Precious", "Decayed", "Fries", "Sticky", "Gleemin", "Dry", "Big Mac", "Soggy", "Bloody", "Grubby"};
+	
+	/** The Constant teamNames2. */
 	private static final String[] teamNames2 =   {"Dogs", "Cows", "Addicts", "Bois", "Cats", "Horses", "Butts", "Dudes", "Meet", "Moo", "Beef", "Guys", "Canines", "Nerds", "Junkies", "Fellas", "Targets", "Axes", "Gamerz", "Bros", "Pets", "Bull", "Lovers", "Addicts", "Gents", "Cutters", "Herds", "Freaks", "Homies", "Daddys"};
+	
+	/** The Constant athleteNames. */
 	private static final String[] athleteNames = {"John", "Andy", "Ben", "George Harrison", "Mike", "Dwight", "Jack", "Joe", "Snape", "Taki", "Robert", "Steve", "Dave", "Paul", "Ringo", "Charlie", "James", "Tony", "Sam", "Frank", "Harry", "Tom", "William", "Peter", "Alex", "Oliver", "Daniel", "Eric", "Richard", "Brian"};
+	
+	/** The Constant itemNames. */
 	private static final String[] itemNames =    {"Target", "Axe", "Gloves", "Board", "Bullseye", "Helmet", "Guard", "Mat", "Rack", "Log", "Stand", "Patch", "Sticker", "Case", "Sharpener", "Guide", "Marker", "Line", "Hammer", "Tape", "Chalk", "Strap", "Tee", "Shirt", "Bag", "Net", "Bar", "Wheel", "Timer", "Arm"};
+	
+	/** The Constant itemDescs. */
 	private static final String[] itemDescs =    {"Aims and measures accuracy.", "Thrown to hit the target.", "Provides hand protection.", "Surface for axe throwing.", "Center of the target.", "Ensures head safety.", "Protects against accidents.", "Provides grip and stability.", "Stores axes conveniently.", "The target for axe throwing.", "Holds the target board.", "Badge for achievement.", "Marks the bullseye.", "Carries axes securely.", "Maintains axe edge.", "Offers throwing tips.", "Indicates hit location.", "Marks throwing distance.", "Sets up the target.", "Measures throwing line.", "Marks score and lines.", "Secures equipment.", "Axe resting platform.", "Displays team affiliation.", "Carries equipment easily.", "Catches and stops axes.", "Protects against ricochets.", "Provides extra grip.", "Keeps score and stats.", "Enhances throwing technique.", "Records throwing data."};
+	
+	/**
+	 * Reset shop.
+	 *
+	 * @param itemShop the item shop
+	 * @param athleteShop the athlete shop
+	 */
 	public void resetShop(Shop itemShop, Shop athleteShop) {
 		itemShop.clear();
 		athleteShop.clear();
@@ -144,6 +248,14 @@ public class Game {
 		athleteShop.addSellable(gen.athlete());
 		athleteShop.addSellable(gen.athlete());
 	}
+	
+	/**
+	 * Reset matches.
+	 *
+	 * @param matches the matches
+	 * @param player the player
+	 * @param week the week
+	 */
 	public void resetMatches(Matches matches, Team player, int week) {
 		Team opponent;
 		
@@ -160,6 +272,13 @@ public class Game {
 		opponent = gen.team( this.fieldSize, this.difficulty, week );
 		matches.add( new Match(player, opponent, this.fieldSize) );
 	}
+	
+	/**
+	 * Simulate shop.
+	 *
+	 * @param shop the shop
+	 * @param player the player
+	 */
 	public void simulateShop(Shop shop, Team player) {
 		while (true) {
 			Options shopOptions = new Options( shop.getSellables() ).join( "Leave shop" ); // see later what types of parameter .join() takes
@@ -210,6 +329,12 @@ public class Game {
 			}
 		}
 	}
+	
+	/**
+	 * Simulate selling.
+	 *
+	 * @param player the player
+	 */
 	public void simulateSelling(Team player) { // Sells Items
 		while (true) {
 			Options shopOptions = new Options( player.getInventory().getSellables() ).join( "Leave shop" ); // see later what types of parameter .join() takes
@@ -228,6 +353,12 @@ public class Game {
 			
 		}
 	}
+	
+	/**
+	 * Simulate drafting.
+	 *
+	 * @param player the player
+	 */
 	public void simulateDrafting(Team player) { // Sells Athletes
 		while (true) {
 			Options shopOptions = new Options( player.getAthletesAsSellables() ).join( "Leave shop" ); // see later what types of parameter .join() takes
@@ -246,6 +377,12 @@ public class Game {
 			
 		}
 	}
+	
+	/**
+	 * Simulate club.
+	 *
+	 * @param player the player
+	 */
 	public void simulateClub(Team player) {
 		while (true) {
 			this.output("", 69);
@@ -304,6 +441,12 @@ public class Game {
 			}
 		}
 	}
+	
+	/**
+	 * Simulate stadium.
+	 *
+	 * @param matches the matches
+	 */
 	public void simulateStadium(Matches matches) {
 		while (true) {
 			String[] matchList = matches.getMatchesList();
@@ -337,6 +480,14 @@ public class Game {
 			}
 		}
 	}
+	
+	/**
+	 * Go to shop.
+	 *
+	 * @param itemShop the item shop
+	 * @param athleteShop the athlete shop
+	 * @param player the player
+	 */
 	public void goToShop(Shop itemShop, Shop athleteShop, Team player) {
 		Options shopChoiceOptions = new Options(new String[] {"Buy Items", "Buy Athletes", "Sell Items", "Sell Athletes", "Leave Shop"} );
 		this.output("Select an option (Enter " + shopChoiceOptions.last() + " to leave)");
@@ -363,28 +514,53 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Close setup screen.
+	 *
+	 * @param window the window
+	 */
 	public void closeSetupScreen(SetupScreen window) {
 		window.closeWindow();
 		//this.launchMainScreen();
 	}
 	
+	/**
+	 * Close options screen.
+	 *
+	 * @param window the window
+	 * @param choice the choice
+	 */
 	public void closeOptionsScreen(OptionsScreen window, int choice) {
 		this.lastChoice = choice;
 		window.closeWindow();
 		//this.launchMainScreen();
 	}
 	
+	/**
+	 * Close feedback screen.
+	 *
+	 * @param window the window
+	 */
 	public void closeFeedbackScreen(FeedbackScreen window) {
 		window.closeWindow();
 		//this.launchMainScreen();
 	}
 	
+	/**
+	 * Close input screen.
+	 *
+	 * @param window the window
+	 * @param string the string
+	 */
 	public void closeInputScreen(InputScreen window, String string) {
 		this.lastInput = string;
 		window.closeWindow();
 		//this.launchMainScreen();
 	}
 	
+	/**
+	 * Launch setup screen.
+	 */
 	public void launchSetupScreen() {
 		Game reference = this;
 		CountDownLatch latch = new CountDownLatch(1);
@@ -406,6 +582,13 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Launch options screen.
+	 *
+	 * @param options the options
+	 * @param text the text
+	 * @return the int
+	 */
 	public int launchOptionsScreen(Options options, String text) { // version for small buttons with the same text
 		Game reference = this;
 		CountDownLatch latch = new CountDownLatch(1);
@@ -431,6 +614,12 @@ public class Game {
 		return this.lastChoice;
 	}
 	
+	/**
+	 * Launch options screen.
+	 *
+	 * @param options the options
+	 * @return the int
+	 */
 	public int launchOptionsScreen(Options options) {
 		Game reference = this;
 		CountDownLatch latch = new CountDownLatch(1);
@@ -456,6 +645,11 @@ public class Game {
 		return this.lastChoice;
 	}
 	
+	/**
+	 * Launch feedback screen.
+	 *
+	 * @param text the text
+	 */
 	public void launchFeedbackScreen(String text) {
 		Game reference = this;
 		CountDownLatch latch = new CountDownLatch(1);
@@ -479,6 +673,14 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Launch input screen.
+	 *
+	 * @param text the text
+	 * @param def the def
+	 * @param v the v
+	 * @return the string
+	 */
 	public String launchInputScreen(String text, String def, Validator v) {
 		Game reference = this;
 		CountDownLatch latch = new CountDownLatch(1);
@@ -504,6 +706,16 @@ public class Game {
 		return this.lastInput;
 	}
 	
+	/**
+	 * Simulate game.
+	 *
+	 * @param player the player
+	 * @param weeks the weeks
+	 * @param difficulty the difficulty
+	 * @param itemShop the item shop
+	 * @param athleteShop the athlete shop
+	 * @param matches the matches
+	 */
 	public void simulateGame(Team player, int weeks, int difficulty, Shop itemShop, Shop athleteShop, Matches matches) {
 		this.output("inside simulate game " + weeks);
 		//this.options(new Options(new String[] {"hiya", "yooo"}));
@@ -607,15 +819,31 @@ public class Game {
 	}
 	
 	
+	/** The player. */
 	// game variables
 	public Team player;
+	
+	/** The item shop. */
 	public Shop itemShop;
+	
+	/** The athlete shop. */
 	public Shop athleteShop;
+	
+	/** The weeks. */
 	public int weeks = 5;
+	
+	/** The difficulty. */
 	public int difficulty;
+	
+	/** The matches. */
 	public Matches matches;
+	
+	/** The points. */
 	public int points = 0;
 	
+	/**
+	 * Start game.
+	 */
 	public void startGame() {
 		// purchase the starting athletes in the team
 		// ... use a shop class
@@ -654,6 +882,11 @@ public class Game {
 		simulateGame(this.player, this.weeks, this.difficulty, this.itemShop, this.athleteShop, this.matches);
 	}
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Game game = new Game();
 		
