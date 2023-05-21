@@ -1,11 +1,36 @@
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NameValidator.
+ */
 public class NameValidator implements Validator {
+	
+	/** The lower bound. */
 	private int lowerBound;
+	
+	/** The upper bound. */
 	private int upperBound;
+	
+	/** The Constant legalChars. */
 	public static final String legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcedfghijklmnopqrstuvwxyz '";
+	
+	/**
+	 * Instantiates a new name validator.
+	 *
+	 * @param lowerBound the lower bound
+	 * @param upperBound the upper bound
+	 */
 	public NameValidator(int lowerBound, int upperBound) {
 		this.lowerBound = lowerBound;
 		this.upperBound = upperBound;
 	}
+	
+	/**
+	 * Validate.
+	 *
+	 * @param string the string
+	 * @return true, if successful
+	 * @throws Exception the exception
+	 */
 	public boolean validate(String string) throws Exception {
 		// .. write the team name validator here ...
 		if (string.length() < this.lowerBound || string.length() > this.upperBound) { // Is name between 3 and 15 characters?
