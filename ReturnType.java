@@ -1,6 +1,6 @@
 
 /**
- * The Enum ReturnType represents the possible return types (only INT)
+ * The Enum ReturnType represents the return type integer
  */
 enum ReturnType {
 	
