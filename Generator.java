@@ -1,19 +1,58 @@
 import java.util.Random;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Generator.
+ */
 public class Generator {
+	
+	/** The rand. */
 	private Random rand;
+	
+	/** The athlete names. */
 	private String[] athleteNames;
+	
+	/** The item names. */
 	private String[] itemNames;
+	
+	/** The item descs. */
 	private String[] itemDescs;
+	
+	/**
+	 * Instantiates a new generator.
+	 *
+	 * @param athleteNames the athlete names
+	 * @param itemNames the item names
+	 * @param itemDescs the item descs
+	 */
 	public Generator(String[] athleteNames, String[] itemNames, String[] itemDescs) {
 		this.athleteNames = athleteNames;
 		this.itemNames = itemNames;
 		this.itemDescs = itemDescs;
 		rand = new Random();
 	}
+	
+	/** The team names 1. */
 	private String[] teamNames1;
+	
+	/** The team names 2. */
 	private String[] teamNames2;
+	
+	/** The team size. */
 	private int teamSize;
+	
+	/** The field size. */
 	private int fieldSize;
+	
+	/**
+	 * Instantiates a new generator.
+	 *
+	 * @param athleteNames the athlete names
+	 * @param teamNames1 the team names 1
+	 * @param teamNames2 the team names 2
+	 * @param teamSize the team size
+	 * @param fieldSize the field size
+	 */
 	public Generator(String[] athleteNames, String[] teamNames1, String[] teamNames2, int teamSize, int fieldSize) {
 		this.teamSize = teamSize;
 		this.fieldSize = fieldSize;
@@ -22,9 +61,23 @@ public class Generator {
 		this.athleteNames = athleteNames;
 		rand = new Random();
 	}
+	
+	/**
+	 * Range.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @return the int
+	 */
 	private int range(int a, int b) {
 		return this.rand.nextInt(b - a + 1) + a;
 	}
+	
+	/**
+	 * Item.
+	 *
+	 * @return the item
+	 */
 	public Item item() {
 		int index = this.rand.nextInt(this.itemNames.length);
 		String name = this.itemNames[index];
@@ -32,6 +85,12 @@ public class Generator {
 		int price = this.range(5, 20)*10;
 		return new Item(name, desc, new Stats(new int[] {this.range(0, 5), this.range(0, 5), this.range(0, 5)}), price, price - 10);
 	}
+	
+	/**
+	 * Athlete.
+	 *
+	 * @return the athlete
+	 */
 	public Athlete athlete() {
 		int index = this.rand.nextInt(this.athleteNames.length);
 		String name = this.athleteNames[index];
@@ -41,6 +100,13 @@ public class Generator {
 		int c = total - a - b;
 		return new Athlete(name, this.range(18, this.range(18, 96)), new Stats(new int[] {a, b, c}));
 	}
+	
+	/**
+	 * Athlete.
+	 *
+	 * @param level the level
+	 * @return the athlete
+	 */
 	public Athlete athlete(int level) {
 		int index = this.rand.nextInt(this.athleteNames.length);
 		String name = this.athleteNames[index];
@@ -50,6 +116,15 @@ public class Generator {
 		int c = total - a - b;
 		return new Athlete(name, this.range(18, this.range(18, 96)), new Stats(new int[] {a, b, c}));
 	}
+	
+	/**
+	 * Team.
+	 *
+	 * @param count the count
+	 * @param difficulty the difficulty
+	 * @param week the week
+	 * @return the team
+	 */
 	public Team team(int count, int difficulty, int week) {
 		int index1 = this.rand.nextInt(this.teamNames1.length);
 		int index2 = this.rand.nextInt(this.teamNames2.length);
