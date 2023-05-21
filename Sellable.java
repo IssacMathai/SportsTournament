@@ -1,25 +1,25 @@
-// TODO: Auto-generated Javadoc
+
 /**
- * The Interface Sellable.
+ * The Sellable interface represents the items and athletes as they can be sold
  */
 public interface Sellable {
 	
 	/**
-	 * Price.
+	 * returns the price of the sellable.
 	 *
 	 * @return the money
 	 */
 	public Money price();
 	
 	/**
-	 * Gets the option.
+	 * Gets the option of the sellable.
 	 *
 	 * @return the option
 	 */
 	public String getOption();
 	
 	/**
-	 * Bought.
+	 * Indicates that the sellable has been bought
 	 */
 	public void bought();
 }
