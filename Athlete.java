@@ -1,4 +1,3 @@
-// TODO: Auto-generated Javadoc
 /**
  * This class implements an Athlete. Athletes have their own name and stats.
  */
