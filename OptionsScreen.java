@@ -4,16 +4,34 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class OptionsScreen.
+ */
 public class OptionsScreen {
 	
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The game. */
 	private Game game;
+	
+	/** The options. */
 	private Options options;
+	
+	/** The latch. */
 	private CountDownLatch latch;
+	
+	/** The type. */
 	private int type;
+	
+	/** The text. */
 	private String text;
+	
 	/**
-	 * Launch the application
+	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -34,6 +52,14 @@ public class OptionsScreen {
 	public OptionsScreen() {
 		initialize();
 	}
+	
+	/**
+	 * Instantiates a new options screen.
+	 *
+	 * @param game the game
+	 * @param options the options
+	 * @param latch the latch
+	 */
 	public OptionsScreen(Game game, Options options, CountDownLatch latch) {
 		this.options = options;
 		this.game = game;
@@ -42,6 +68,15 @@ public class OptionsScreen {
 		initialize();
 		this.frame.setVisible(true);
 	}
+	
+	/**
+	 * Instantiates a new options screen.
+	 *
+	 * @param game the game
+	 * @param options the options
+	 * @param latch the latch
+	 * @param butText the but text
+	 */
 	public OptionsScreen(Game game, Options options, CountDownLatch latch, String butText) {
 		this.options = options;
 		this.game = game;
@@ -52,10 +87,18 @@ public class OptionsScreen {
 		this.frame.setVisible(true);
 	}
 	
+	/**
+	 * Close window.
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Finished window.
+	 *
+	 * @param choice the choice
+	 */
 	public void finishedWindow(int choice) {
 		this.latch.countDown();
 		this.game.closeOptionsScreen(this, choice);
@@ -65,9 +108,19 @@ public class OptionsScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private int optionHeight = 40;
+	
+	/** The gap. */
 	private int gap = 5;
+	
+	/** The width. */
 	private int width = 700;
+	
+	/** The line height. */
 	private int lineHeight = 30;
+	
+	/**
+	 * Initialize.
+	 */
 	private void initialize() {
 		frame = new JFrame("Select an Option");
 		int buttonOffY = this.lineHeight * this.game.prevOutputs.size() + 40;
