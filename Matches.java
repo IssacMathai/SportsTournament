@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Matches.
+ * This class, Matches, represents a collection of matches
  */
 public class Matches {
 	
-	/** The matches. */
+	/** The list of matches. */
 	private ArrayList<Match> matches;
 	
 	/**
@@ -17,14 +16,14 @@ public class Matches {
 	}
 	
 	/**
-	 * Clear.
+	 * Clears all matches.
 	 */
 	public void clear() {
 		this.matches = new ArrayList<Match>();
 	}
 	
 	/**
-	 * Adds the.
+	 * Adds a match.
 	 *
 	 * @param match the match
 	 */
@@ -33,7 +32,7 @@ public class Matches {
 	}
 	
 	/**
-	 * Gets the match.
+	 * Gets the match at the index.
 	 *
 	 * @param index the index
 	 * @return the match
@@ -43,7 +42,7 @@ public class Matches {
 	}
 	
 	/**
-	 * Gets the matches.
+	 * Gets the list of all matches.
 	 *
 	 * @return the matches
 	 */
@@ -52,7 +51,7 @@ public class Matches {
 	}
 	
 	/**
-	 * Gets the matches list.
+	 * Gets an array of string representations of all matches
 	 *
 	 * @return the matches list
 	 */
@@ -65,7 +64,7 @@ public class Matches {
 	}
 	
 	/**
-	 * Gets the match names.
+	 * Gets an array of string representations of match names
 	 *
 	 * @return the match names
 	 */
@@ -78,7 +77,7 @@ public class Matches {
 	}
 	
 	/**
-	 * Play match.
+	 * Plays match at the index, then removes it and updates match stats.
 	 *
 	 * @param index the index
 	 * @return the match
@@ -91,10 +90,10 @@ public class Matches {
 	}
 	
 	/**
-	 * Can play.
+	 * Checks if the match at the index can be played
 	 *
 	 * @param index the index
-	 * @return true, if successful
+	 * @return true if it can be played
 	 */
 	public boolean canPlay(int index) {
 		Match match = this.getMatch(index);
