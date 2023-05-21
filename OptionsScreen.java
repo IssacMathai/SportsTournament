@@ -4,9 +4,8 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class OptionsScreen.
+ * Displays options.
  */
 public class OptionsScreen {
 	
