@@ -62,7 +62,7 @@ public class Generator {
 	}
 	
 	/**
-	 * Range.
+	 * Generates a range
 	 *
 	 * @param a the a
 	 * @param b the b
@@ -73,7 +73,7 @@ public class Generator {
 	}
 	
 	/**
-	 * Item.
+	 * Generates a random Item object
 	 *
 	 * @return the item
 	 */
@@ -86,7 +86,7 @@ public class Generator {
 	}
 	
 	/**
-	 * Athlete.
+	 * Generates a random Athlete object with default attributes
 	 *
 	 * @return the athlete
 	 */
@@ -101,10 +101,10 @@ public class Generator {
 	}
 	
 	/**
-	 * Athlete.
+	 * Generates an athlete with the specified level
 	 *
-	 * @param level the level
-	 * @return the athlete
+	 * @param level the level of the athlete that indicates their overall skill
+	 * @return the new athlete
 	 */
 	public Athlete athlete(int level) {
 		int index = this.rand.nextInt(this.athleteNames.length);
@@ -117,12 +117,12 @@ public class Generator {
 	}
 	
 	/**
-	 * Team.
+	 * Generates a team with the specified number of athletes, difficulty level, and week.
 	 *
-	 * @param count the count
-	 * @param difficulty the difficulty
-	 * @param week the week
-	 * @return the team
+	 * @param count the number of athletes in the team
+	 * @param difficulty the difficulty level
+	 * @param week the current week
+	 * @return A new Team that has been randomly generated
 	 */
 	public Team team(int count, int difficulty, int week) {
 		int index1 = this.rand.nextInt(this.teamNames1.length);
