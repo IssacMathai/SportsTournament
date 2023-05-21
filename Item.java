@@ -1,6 +1,6 @@
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class Item.
+ * The Item class. Items can be bought, sold and used.
  */
 public class Item implements Sellable {
 	
@@ -20,7 +20,7 @@ public class Item implements Sellable {
 	private Money priceRetail;
 	
 	/**
-	 * Gets the name.
+	 * Gets the name of the item.
 	 *
 	 * @return the name
 	 */
@@ -29,14 +29,14 @@ public class Item implements Sellable {
 	}
 	
 	/**
-	 * Bought.
+	 * Marks the item as bought and sets the price to the retail price
 	 */
 	public void bought() {
 		this.priceValue = this.priceRetail;
 	}
 	
 	/**
-	 * Gets the desc.
+	 * Gets description of tiem.
 	 *
 	 * @return the desc
 	 */
@@ -45,7 +45,7 @@ public class Item implements Sellable {
 	}
 	
 	/**
-	 * Price.
+	 * returns price of item
 	 *
 	 * @return the money
 	 */
@@ -72,7 +72,7 @@ public class Item implements Sellable {
 	}
 	
 	/**
-	 * Gets the effects.
+	 * Gets the effects of the item
 	 *
 	 * @return the effects
 	 */
@@ -81,10 +81,10 @@ public class Item implements Sellable {
 	}
 	
 	/**
-	 * Display stat.
+	 * Returns the string for the stat
 	 *
 	 * @param stat the stat
-	 * @return the string
+	 * @return the formatted string for the string
 	 */
 	private String displayStat(int stat) {
 		if (stat >= 0) {
@@ -95,7 +95,7 @@ public class Item implements Sellable {
 	}
 	
 	/**
-	 * To string.
+	 * Returns a string representation of the item
 	 *
 	 * @return the string
 	 */
@@ -106,7 +106,7 @@ public class Item implements Sellable {
 	}
 	
 	/**
-	 * Gets the option.
+	 * Gets the option for the item which has its price and its string representation
 	 *
 	 * @return the option
 	 */
