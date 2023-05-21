@@ -1,21 +1,59 @@
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Match.
+ */
 public class Match {
+	
+	/** The a. */
 	private Team a;
+	
+	/** The b. */
 	private Team b;
+	
+	/** The size. */
 	private int size;
+	
+	/** The results. */
 	private int[] results;
+	
+	/** The result. */
 	private int result;
+	
+	/**
+	 * Result.
+	 *
+	 * @return the int
+	 */
 	public int result() {
 		return this.result;
 	}
+	
+	/**
+	 * Instantiates a new match.
+	 */
 	public Match() {
 	
 	}
+	
+	/**
+	 * Instantiates a new match.
+	 *
+	 * @param a the a
+	 * @param b the b
+	 * @param size the size
+	 */
 	public Match(Team a, Team b, int size) {
 		this.a = a;
 		this.b = b;
 		this.size = size;
 		this.results = new int[size];
 	}
+	
+	/**
+	 * Can play.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean canPlay() {
 		if (this.a.teamCount() >= this.size) {
 			if (this.b.teamCount() >= this.size) {
@@ -24,6 +62,10 @@ public class Match {
 		}
 		return false;
 	}
+	
+	/**
+	 * Play.
+	 */
 	public void play() {
 		// loop through all athletes
 		int totalWins1 = 0;
@@ -102,6 +144,12 @@ public class Match {
 			this.result = 1;
 		}
 	}
+	
+	/**
+	 * Gets the results.
+	 *
+	 * @return the results
+	 */
 	public String getResults() {
 		String string = "RESULTS\n";
 		String p1 = "";
@@ -132,6 +180,12 @@ public class Match {
 		}
 		return string;
 	}
+	
+	/**
+	 * Gets the result.
+	 *
+	 * @return the result
+	 */
 	public String getResult() {
 		String string = "";
 		String p1 = "";
@@ -149,10 +203,22 @@ public class Match {
 		string += p1 + this.a.getName() + " (vs) " + this.b.getName() + p2;
 		return string;
 	}
+	
+	/**
+	 * Header.
+	 *
+	 * @return the string
+	 */
 	public String header() {
 		String string = "Match " + this.a.getName() + " (vs) " + this.b.getName();
 		return string;
 	}
+	
+	/**
+	 * To string.
+	 *
+	 * @return the string
+	 */
 	public String toString() {
 		String string = this.header() + "\n";
 		for (int i = 0; i < this.size; i++) {
