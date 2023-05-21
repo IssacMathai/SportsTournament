@@ -1,15 +1,12 @@
-// TODO: Auto-generated Javadoc
 /**
- * The Interface Validator.
+ * The validator validates a given string and determines if it is valid or not.
  */
 public interface Validator {
 	
 	/**
-	 * Validate.
-	 *
-	 * @param string the string
-	 * @return true, if successful
-	 * @throws Exception the exception
+	 * @param string The string to be validated.
+	 * @return true If successful 
+	 * @throws Exception If an error occurs during the validation process.
 	 */
 	public boolean validate(String string) throws Exception;
 }
