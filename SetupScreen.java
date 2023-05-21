@@ -6,7 +6,7 @@ import java.util.concurrent.CountDownLatch;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class SetupScreen.
+ * The set up screen GUI.
  */
 public class SetupScreen {
 	
@@ -76,16 +76,16 @@ public class SetupScreen {
 	}
 	
 	/**
-	 * Feedback.
+	 * Sets the feedback text to display an error message in red colour
 	 *
-	 * @param string the string
+	 * @param string the error message to display
 	 */
 	private void feedback(String string) {
 		this.feedbackText.setText("<html><font color='red'>[!] " + string + "</font></html>");
 	}
 	
 	/**
-	 * Generate rainbow.
+	 * Generates rainbow text.
 	 *
 	 * @param string the string
 	 * @return the string
