@@ -11,7 +11,7 @@ public class NameValidator implements Validator {
 	private int upperBound;
 	
 	/** The Constant legalChars. */
-	public static final String legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcedfghijklmnopqrstuvwxyz '";
+	public static final String legalChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcedfghijklmnopqrstuvwxyz ";
 	
 	/**
 	 * Instantiates a new name validator.

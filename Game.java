@@ -34,7 +34,7 @@ public class Game {
 
 "During a Match, athletes in opposing teams face off in pairs based on their positions and compare stats. The three stats, accuracy, evasion and speed are compared in order to determine the winner. If the athlete loses a face off, they will lose more stamina than if they had won. Once an Athlete’s stamina reaches 0, they are injured. If an Athlete in a face off is already injured, they instantly lose the face off."+nl+
 
-"The team with the higher score wins, rewarding money and points."+nl+
+"The team with the higher score wins, rewarding money and points which scale with difficulty"+nl+
 
 "The Market allows you to draft new Athletes or purchase Items that, when used, provide stat boosts to team members."+nl+
 
@@ -283,7 +283,7 @@ public class Game {
 			shopOptions.setText("Buy"); // BUTTON TEXT
 			
 			this.output("<html>You have <i stlye='color:#ec1;'>$" + player.getMoney() + "</i> to spend</html>", 69);
-			this.output("Which purchase do you want to make (Enter " + shopOptions.last() + " to leave)");
+			this.output("Which purchase do you want to make");
 			int choice = this.options( shopOptions );
 			if (choice == shopOptions.last()) { // exit the shop
 				break;
@@ -397,14 +397,14 @@ public class Game {
 				if ( this.first() ) { // swap athletes
 					clubOptions = new Options( player.getAthletesAsSellables() ).join( "Cancel" );
 					clubOptions.setText("Choose"); // BUTTON TEXT
-					this.output("Select an athlete to swap (Enter " + clubOptions.last() + " to leave)", 69);
+					this.output("Select an athlete to swap", 69);
 					int athleteChoice1 = this.options(clubOptions);
 					
 					if (! this.last() ) { // choose a second athlete
 						clubOptions = new Options( player.getAthletesAsSellables() ).join( "Cancel" );
 						clubOptions.setText("Choose"); // BUTTON TEXT
 						clubOptions.setHigh(athleteChoice1);
-						this.output("Select another athlete to swap (Enter " + clubOptions.last() + " to leave)", 69);
+						this.output("Select another athlete to swap", 69);
 						int athleteChoice2 = this.options(clubOptions);
 						
 						if (! this.last() ) {
@@ -425,7 +425,7 @@ public class Game {
 				if (! this.last() ) {
 					clubOptions = new Options( player.getAthletesAsSellables() ).join( "Leave" );
 					clubOptions.setText("Select"); // BUTTON TEXT
-					this.output("Select an athlete to use it on (Enter " + clubOptions.last() + " to leave)");
+					this.output("Select an athlete to use it on");
 					int athleteChoice = this.options(clubOptions);
 					
 					if (! this.last() ) {
@@ -487,7 +487,7 @@ public class Game {
 	 */
 	public void goToShop(Shop itemShop, Shop athleteShop, Team player) {
 		Options shopChoiceOptions = new Options(new String[] {"Buy Items", "Buy Athletes", "Sell Items", "Sell Athletes", "Leave Shop"} );
-		this.output("Select an option (Enter " + shopChoiceOptions.last() + " to leave)");
+		this.output("Select an option");
 		int choice = this.options(shopChoiceOptions);
 		
 		/*
