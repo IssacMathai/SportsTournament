@@ -8,9 +8,8 @@ import java.util.Random;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class Game.
+ * The main game environment class.
  *
- * @author ima90
  */
 public class Game {
 	
@@ -21,7 +20,7 @@ public class Game {
 	public final int fieldSize = 5;
 	
 	/**
-	 * Rules.
+	 * The rules of the game.
 	 *
 	 * @return the string
 	 */
@@ -45,9 +44,9 @@ public class Game {
 	}
 	
 	/**
-	 * Feedback.
+	 * Sends a feedback message
 	 *
-	 * @param string the string
+	 * @param string the feedback message
 	 */
 	public void feedback(String string) {
 		this.output("[!] " + string);
@@ -60,9 +59,9 @@ public class Game {
 	public ArrayList<String> prevOutputs = new ArrayList<String>();
 	
 	/**
-	 * Output.
+	 * Outputs a string and updates the display.
 	 *
-	 * @param string the string
+	 * @param string the string to be outputted
 	 */
 	public void output(Object string) {
 		System.out.println(string);
@@ -76,10 +75,10 @@ public class Game {
 	}
 	
 	/**
-	 * Output.
+	 * Outputs a string and updates the display
 	 *
-	 * @param string the string
-	 * @param yeeet the yeeet
+	 * @param string the output string
+	 * @param yeeet an integer value
 	 */
 	public void output(Object string, int yeeet) {
 		System.out.println(string);
@@ -94,11 +93,11 @@ public class Game {
 	}
 	
 	/**
-	 * Ui.
+	 * Displays a message and receives user input
 	 *
-	 * @param message the message
-	 * @param v the v
-	 * @return the string
+	 * @param message the message to be displayed
+	 * @param v the validator object used for input validation
+	 * @return user input as a string
 	 */
 	// Return String
 	public String ui(String message, Validator v) {
@@ -119,12 +118,12 @@ public class Game {
 	}
 	
 	/**
-	 * Ui.
+	 * Displays a message and receives user input as an integer
 	 *
-	 * @param message the message
-	 * @param v the v
-	 * @param type the type
-	 * @return the int
+	 * @param message display message
+	 * @param v the validator object used for input validation
+	 * @param type  the return type for the input value
+	 * @return the user input as an integer
 	 */
 	// Return Int
 	public int ui(String message, Validator v, ReturnType type) {
@@ -156,10 +155,10 @@ public class Game {
 	public String lastInput;
 	
 	/**
-	 * Options.
+	 * Displays a set of options and returns the selected option as an integer
 	 *
-	 * @param options the options
-	 * @return the int
+	 * @param options the displayed options
+	 * @return choice the selected option as an integer
 	 */
 	public int options(Options options) {
 		Validator optionsValidator = new IntValidator(options.first(), options.last());
@@ -183,28 +182,28 @@ public class Game {
 	}
 	
 	/**
-	 * First.
+	 * Checks if the last selected option is the first option
 	 *
-	 * @return true, if successful
+	 * @return true if true
 	 */
 	public boolean first() {
 		return this.lastChoice == this.lastOptions.first();
 	}
 	
 	/**
-	 * First.
+	 * Checks if the last selected option is the first option plus the specified index
 	 *
-	 * @param index the index
-	 * @return true, if successful
+	 * @param index the index to be added to the first option
+	 * @return true, if true
 	 */
 	public boolean first(int index) {
 		return this.lastChoice == this.lastOptions.first() + index;
 	}
 	
 	/**
-	 * Last.
+	 * Checks if the last selected option is the last option.
 	 *
-	 * @return true, if successful
+	 * @return true, if true
 	 */
 	public boolean last() {
 		return this.lastChoice == this.lastOptions.last();
@@ -226,7 +225,7 @@ public class Game {
 	private static final String[] itemDescs =    {"Aims and measures accuracy.", "Thrown to hit the target.", "Provides hand protection.", "Surface for axe throwing.", "Center of the target.", "Ensures head safety.", "Protects against accidents.", "Provides grip and stability.", "Stores axes conveniently.", "The target for axe throwing.", "Holds the target board.", "Badge for achievement.", "Marks the bullseye.", "Carries axes securely.", "Maintains axe edge.", "Offers throwing tips.", "Indicates hit location.", "Marks throwing distance.", "Sets up the target.", "Measures throwing line.", "Marks score and lines.", "Secures equipment.", "Axe resting platform.", "Displays team affiliation.", "Carries equipment easily.", "Catches and stops axes.", "Protects against ricochets.", "Provides extra grip.", "Keeps score and stats.", "Enhances throwing technique.", "Records throwing data."};
 	
 	/**
-	 * Reset shop.
+	 * Resets the item shop and athlete shop.
 	 *
 	 * @param itemShop the item shop
 	 * @param athleteShop the athlete shop
@@ -250,10 +249,10 @@ public class Game {
 	}
 	
 	/**
-	 * Reset matches.
+	 * Resets the matches for the specified player and week.
 	 *
 	 * @param matches the matches
-	 * @param player the player
+	 * @param player the player's team
 	 * @param week the week
 	 */
 	public void resetMatches(Matches matches, Team player, int week) {
@@ -274,7 +273,7 @@ public class Game {
 	}
 	
 	/**
-	 * Simulate shop.
+	 * Simulates the shopping process for the specified shop and player.
 	 *
 	 * @param shop the shop
 	 * @param player the player
@@ -331,9 +330,9 @@ public class Game {
 	}
 	
 	/**
-	 * Simulate selling.
+	 * Simulates the selling process for the specified player's inventory.
 	 *
-	 * @param player the player
+	 * @param player the player's team
 	 */
 	public void simulateSelling(Team player) { // Sells Items
 		while (true) {
@@ -355,7 +354,7 @@ public class Game {
 	}
 	
 	/**
-	 * Simulate drafting.
+	 * Simulates the drafting process for the specified player's team.
 	 *
 	 * @param player the player
 	 */
@@ -379,9 +378,9 @@ public class Game {
 	}
 	
 	/**
-	 * Simulate club.
+	 * Simulates the club activities for the specified player.
 	 *
-	 * @param player the player
+	 * @param player the player's team
 	 */
 	public void simulateClub(Team player) {
 		while (true) {
@@ -443,7 +442,7 @@ public class Game {
 	}
 	
 	/**
-	 * Simulate stadium.
+	 * Simulates the stadium activities for the specified matches.
 	 *
 	 * @param matches the matches
 	 */
@@ -707,7 +706,7 @@ public class Game {
 	}
 	
 	/**
-	 * Simulate game.
+	 * Runs the game.
 	 *
 	 * @param player the player
 	 * @param weeks the weeks
@@ -883,7 +882,7 @@ public class Game {
 	}
 	
 	/**
-	 * The main method.
+	 * The main method to start the game
 	 *
 	 * @param args the arguments
 	 */
