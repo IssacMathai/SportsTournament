@@ -1,8 +1,7 @@
 import java.util.Random;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Generator.
+ * The Generator class generates athlete names, item names and descriptions randomly.
  */
 public class Generator {
 	
