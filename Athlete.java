@@ -1,28 +1,42 @@
+// TODO: Auto-generated Javadoc
 /**
  * This class implements an Athlete. Athletes have their own name and stats.
  */
 
 public class Athlete implements Sellable {
-	/**
-	 * Name of the Athlete
-	 */
+	
+	/** Name of the Athlete. */
 	private String name;
-	/**
-	 * Age of the Athlete
-	 */
+	
+	/** Age of the Athlete. */
 	private int age;
-	/**
-	 * Offence stat of the Athlete
-	 */
+	
+	/** Offence stat of the Athlete. */
 	private Stats stats;
+	
+	/** The stamina. */
 	private int stamina;
 
+	/**
+	 * Instantiates a new athlete.
+	 *
+	 * @param name 
+	 * @param age 
+	 */
 	public Athlete(String name, int age) {
 		this.name = name;
 		this.age = age;
 		this.stats = new Stats(new int[] {0, 0, 0});
 		this.stamina = 100;
 	}
+	
+	/**
+	 * Instantiates a new athlete.
+	 *
+	 * @param name 
+	 * @param age 
+	 * @param stats 
+	 */
 	public Athlete(String name, int age, Stats stats) {
 		this.name = name;
 		this.age = age;
@@ -31,7 +45,7 @@ public class Athlete implements Sellable {
 	}
 
 	/**
-	 * Returns name of the Athlete
+	 * Returns name of the Athlete.
 	 *
 	 * @return name
 	 */
@@ -40,7 +54,7 @@ public class Athlete implements Sellable {
 	}
 
 	/**
-	 * Returns Age of the Athlete
+	 * Returns Age of the Athlete.
 	 *
 	 * @return age
 	 */
@@ -49,7 +63,7 @@ public class Athlete implements Sellable {
 	}
 
 	/**
-	 * Returns injury status of the Athlete
+	 * Returns injury status of the Athlete.
 	 *
 	 * @return isInjured
 	 */
@@ -58,7 +72,7 @@ public class Athlete implements Sellable {
 	}
 
 	/**
-	 * Returns stats of the Athlete
+	 * Returns stats of the Athlete.
 	 *
 	 * @return stats
 	 */
@@ -67,7 +81,7 @@ public class Athlete implements Sellable {
 	}
 
 	/**
-	 * Returns current stamina stat of the Athlete
+	 * Returns current stamina stat of the Athlete.
 	 *
 	 * @return stamina
 	 */
@@ -75,12 +89,15 @@ public class Athlete implements Sellable {
 		return this.stamina;
 	}
 	
+	/**
+	 * Bought.
+	 */
 	public void bought() {
 		// does nothing
 	}
 	
 	/**
-	 * Sets a nickname for the Athlete
+	 * Sets a nickname for the Athlete.
 	 *
 	 * @param name the new name of the team
 	 */
@@ -100,7 +117,8 @@ public class Athlete implements Sellable {
 	}
 	
 	/**
-	 * Use an item on the Athlete
+	 * Use an item on the Athlete.
+	 *
 	 * @param item  the item that the athlete is using
 	 */
 	public void useItem(Item item) {
@@ -110,21 +128,38 @@ public class Athlete implements Sellable {
 
 
 	/**
-	 * Returns the Athlete's details and statistics in a string
+	 * Returns the Athlete's details and statistics in a string.
+	 *
+	 * @return the string
 	 */
 	@Override
 	public String toString() {
 		return "<a style='margin:15px;'>" + this.name + " " + this.stats + "</a>";
 	}
 	
+	/**
+	 * To shop string.
+	 *
+	 * @return the string
+	 */
 	public String toShopString() {
 		return "<a style='margin:15px;'>" + this.name + " " + this.stats + " <a style='color:#999;'><i>Stamina " + this.getStamina() + "</i></a>";
 	}
 	
+	/**
+	 * Match string.
+	 *
+	 * @return the string
+	 */
 	public String matchString() {
 		return "" + this.name + " (" + this.stats + ")";
 	}
 
+	/**
+	 * Price.
+	 *
+	 * @return the money
+	 */
 	public Money price() {
 		// returns the value of the athlete
 		int value = 0;
@@ -135,6 +170,11 @@ public class Athlete implements Sellable {
 		return new Money(value);
 	}
 	
+	/**
+	 * Gets the option.
+	 *
+	 * @return the option
+	 */
 	public String getOption() {
 		return "$" + this.price() + " - " + this;
 	}
