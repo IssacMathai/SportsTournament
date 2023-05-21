@@ -4,28 +4,27 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class FeedbackScreen.
+ * FeedbackScreen represents a GUI window for displaying feedback.
  */
 public class FeedbackScreen {
 	
-	/** The frame. */
+	/** The frame of the feedback window */
 	private JFrame frame;
 	
-	/** The game. */
+	/** The game instance */
 	private Game game;
 	
-	/** The latch. */
+	/** The CountDownLatch used to hold the game together */
 	private CountDownLatch latch;
 	
-	/** The text. */
+	/** The text displayed in the feedback window */
 	private String text;
 	
 	/**
 	 * Launch the application.
 	 *
-	 * @param args the arguments
+	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -41,7 +40,7 @@ public class FeedbackScreen {
 	}
 	
 	/**
-	 * Create the application.
+	 * Create a new instance of FeedbackScreen.
 	 */
 	public FeedbackScreen() {
 		initialize();
@@ -50,9 +49,9 @@ public class FeedbackScreen {
 	/**
 	 * Instantiates a new feedback screen.
 	 *
-	 * @param game the game
-	 * @param latch the latch
-	 * @param text the text
+	 * @param game the game instance
+	 * @param latch the CountDownLatch
+	 * @param text the text displayed in feedback window
 	 */
 	public FeedbackScreen(Game game, CountDownLatch latch, String text) {
 		this.game = game;
@@ -63,7 +62,7 @@ public class FeedbackScreen {
 	}
 	
 	/**
-	 * Close window.
+	 * Closes the feedback window.
 	 */
 	public void closeWindow() {
 		frame.dispose();
@@ -86,7 +85,7 @@ public class FeedbackScreen {
 	private int height = 200;
 	
 	/**
-	 * Initialize.
+	 * Initializes the FeedbackScreen frame
 	 */
 	private void initialize() {
 		FeedbackScreen reference = this;
