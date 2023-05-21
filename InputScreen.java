@@ -4,17 +4,37 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InputScreen.
+ */
 public class InputScreen {
 	
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The game. */
 	private Game game;
+	
+	/** The latch. */
 	private CountDownLatch latch;
+	
+	/** The text. */
 	private String text;
+	
+	/** The def. */
 	private String def;
+	
+	/** The v. */
 	private Validator v;
+	
+	/** The feedback text. */
 	private JLabel feedbackText;
+	
 	/**
-	 * Launch the application
+	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -35,6 +55,16 @@ public class InputScreen {
 	public InputScreen() {
 		initialize();
 	}
+	
+	/**
+	 * Instantiates a new input screen.
+	 *
+	 * @param game the game
+	 * @param latch the latch
+	 * @param text the text
+	 * @param def the def
+	 * @param v the v
+	 */
 	public InputScreen(Game game, CountDownLatch latch, String text, String def, Validator v) {
 		this.game = game;
 		this.latch = latch;
@@ -45,15 +75,28 @@ public class InputScreen {
 		this.frame.setVisible(true);
 	}
 	
+	/**
+	 * Close window.
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Finished window.
+	 *
+	 * @param string the string
+	 */
 	public void finishedWindow(String string) {
 		this.latch.countDown();
 		this.game.closeInputScreen(this, string);
 	}
 	
+	/**
+	 * Feedback.
+	 *
+	 * @param string the string
+	 */
 	private void feedback(String string) {
 		this.feedbackText.setText("<html><font color='red'>[!] " + string + "</font></html>");
 	}
@@ -61,8 +104,13 @@ public class InputScreen {
 	 * Initialize the contents of the frame.
 	 */
 	private int width = 370;
+	
+	/** The height. */
 	private int height = 115;
 	
+	/**
+	 * Initialize.
+	 */
 	private void initialize() {
 		InputScreen reference = this;
 		frame = new JFrame(this.text);
