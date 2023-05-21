@@ -4,9 +4,9 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
-// TODO: Auto-generated Javadoc
+
 /**
- * The Class InputScreen.
+ * The InputScreen class represents a graphical user interface (GUI) screen for inputting data.
  */
 public class InputScreen {
 	
@@ -32,7 +32,7 @@ public class InputScreen {
 	private JLabel feedbackText;
 	
 	/**
-	 * Launch the application.
+	 * Launch the input screen
 	 *
 	 * @param args the arguments
 	 */
@@ -50,7 +50,7 @@ public class InputScreen {
 	}
 	
 	/**
-	 * Create the application.
+	 * Create an instance of the InputScreen
 	 */
 	public InputScreen() {
 		initialize();
@@ -59,11 +59,11 @@ public class InputScreen {
 	/**
 	 * Instantiates a new input screen.
 	 *
-	 * @param game the game
+	 * @param game the game object
 	 * @param latch the latch
-	 * @param text the text
-	 * @param def the def
-	 * @param v the v
+	 * @param text the input prompt text
+	 * @param def the default input value
+	 * @param v the validator object for input validation
 	 */
 	public InputScreen(Game game, CountDownLatch latch, String text, String def, Validator v) {
 		this.game = game;
@@ -83,7 +83,7 @@ public class InputScreen {
 	}
 	
 	/**
-	 * Finished window.
+	 * Notifies the window that it has finished and passes the entered string
 	 *
 	 * @param string the string
 	 */
@@ -93,7 +93,7 @@ public class InputScreen {
 	}
 	
 	/**
-	 * Feedback.
+	 * Displays feedback message on the screen
 	 *
 	 * @param string the string
 	 */
@@ -101,7 +101,7 @@ public class InputScreen {
 		this.feedbackText.setText("<html><font color='red'>[!] " + string + "</font></html>");
 	}
 	/**
-	 * Initialize the contents of the frame.
+	 * width of the frame.
 	 */
 	private int width = 370;
 	
@@ -109,7 +109,7 @@ public class InputScreen {
 	private int height = 115;
 	
 	/**
-	 * Initialize.
+	 * Initializes the contents of the frame
 	 */
 	private void initialize() {
 		InputScreen reference = this;
