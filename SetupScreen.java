@@ -4,14 +4,28 @@ import java.awt.event.*;
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SetupScreen.
+ */
 public class SetupScreen {
 	
+	/** The frame. */
 	private JFrame frame;
+	
+	/** The game. */
 	private Game game;
+	
+	/** The latch. */
 	private CountDownLatch latch;
+	
+	/** The feedback text. */
 	private JLabel feedbackText;
+	
 	/**
-	 * Launch the application
+	 * Launch the application.
+	 *
+	 * @param args the arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -32,6 +46,13 @@ public class SetupScreen {
 	public SetupScreen() {
 		initialize();
 	}
+	
+	/**
+	 * Instantiates a new setup screen.
+	 *
+	 * @param game the game
+	 * @param latch the latch
+	 */
 	public SetupScreen(Game game, CountDownLatch latch) {
 		this.game = game;
 		this.latch = latch;
@@ -39,19 +60,36 @@ public class SetupScreen {
 		this.frame.setVisible(true);
 	}
 	
+	/**
+	 * Close window.
+	 */
 	public void closeWindow() {
 		frame.dispose();
 	}
 	
+	/**
+	 * Finished window.
+	 */
 	public void finishedWindow() {
 		this.latch.countDown();
 		this.game.closeSetupScreen(this);
 	}
 	
+	/**
+	 * Feedback.
+	 *
+	 * @param string the string
+	 */
 	private void feedback(String string) {
 		this.feedbackText.setText("<html><font color='red'>[!] " + string + "</font></html>");
 	}
 	
+	/**
+	 * Generate rainbow.
+	 *
+	 * @param string the string
+	 * @return the string
+	 */
 	private String generateRainbow(String string) {
 		String[] colors = {"#f77","#ff7","#7f7","#7ff","#77f","#f7f"};
 		String output = "<html>";
